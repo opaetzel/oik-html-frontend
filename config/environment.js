@@ -7,6 +7,9 @@ module.exports = function(environment) {
     baseURL: '/',
     locationType: 'auto',
     EmberENV: {
+      EXTEND_PROTOTYPES: {
+      Date: false,
+    },
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
@@ -17,6 +20,27 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
+  };
+  
+  ENV['ember-simple-auth'] = {
+        authorizer: 'authorizer:token',
+        crossOriginWhitelist: ['https://localhost:1443']
+  };
+
+  //  (JWT) Configuration
+  ENV['ember-simple-auth-token'] = {
+  serverTokenEndpoint: 'https://localhost:1443/api/login',
+  identificationField: 'username',
+  passwordField: 'password',
+  tokenPropertyName: 'token',
+  authorizationPrefix: 'Bearer ',
+  authorizationHeaderName: 'Authorization',
+  headers: {},
+  refreshAccessTokens: true,
+  serverTokenRefreshEndpoint: 'https://localhost:1443/api/token-refresh',
+  tokenExpireName: 'exp',
+  refreshLeeway: 0,
+  timeFactor: 1  // example - set to "1000" to convert incoming seconds to milliseconds.
   };
 
   if (environment === 'development') {
