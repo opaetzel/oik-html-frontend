@@ -22,9 +22,17 @@ module.exports = function(defaults) {
   app.import('bower_components/bootstrap/dist/js/bootstrap.js',{
 	destDir: 'assets'
   });
-  app.import('bower_components/bootstrap/dist/css/bootstrap.css',{
-	destDir: 'assets'
+  app.import(app.bowerDirectory + '/bootstrap/fonts/glyphicons-halflings-regular.eot', {
+          destDir: 'fonts'
   });
-
+  app.import(app.bowerDirectory + '/bootstrap/fonts/glyphicons-halflings-regular.svg', {
+          destDir: 'fonts'
+  });
+  app.import(app.bowerDirectory + '/bootstrap/fonts/glyphicons-halflings-regular.ttf', {
+          destDir: 'fonts'
+  });
+  app.import(app.bowerDirectory + '/bootstrap/fonts/glyphicons-halflings-regular.woff', {
+          destDir: 'fonts'
+  });
   return app.toTree();
 };
