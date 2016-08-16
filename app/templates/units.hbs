@@ -1,5 +1,19 @@
+<nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
+<div class="topnav">
+	<div class="navbar-header">
+    <a class="navbar-brand topnav" href="http://www.uni-goettingen.de"><img class="navbar-image" src="images/logo.png"></a>
+	</div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#about"><img src="images/info.png" class="navbar-image"></a>
+            </li>
+        </ul>
+    </div>
+</div>
+</nav>
 <div class="container">
-<div class="row-fluid equal">
+<div class="row-fluid equal pad">
     <div class="col-md-6 grey-light">
         In dieser e-learning Applikation übernimmt der User die Rolle
         eines Geschworenen in einem wissenschaftlichen Meinungsstreit: das Objekt, das im Zentrum der Auseinandersetzung
@@ -17,17 +31,17 @@
         offenlegen, aufbereiten und ergänzen müssen und so die Methoden fachwissenschaftlicher Hermeneutik aktiv anwenden.
     </div>
 </div>
-<div class="row-fluid">
+<div class="row-fluid pad">
     <div class="col-md-12 grey-light">
         <img src="images/banner_small.png" class="full-width-image">
     </div>
 </div>
-<div class="row-fluid">
+<div class="row-fluid pad">
     <div class="col-md-12 grey-strong">
         <h3>Folgende Objekte stehen für eine Untersuchung zur Verfügung:</h3>
     </div>
 </div>
-<div class="row-fluid equal">
+<div class="row-fluid equal pad">
     {{#each model.units as |unit|}}  
         <div class="col-md-3 {{if (isEven @index) "grey-light" "grey-strong"}}">
             <img src="api/rotate-images/{{unit.rotate_image_id}}/0">
