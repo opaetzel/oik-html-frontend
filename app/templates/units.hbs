@@ -43,7 +43,7 @@
     </div>
     <div class="row-fluid pad">
         {{#each model as |unit|}}  
-            <div class="col-md-3 {{if (isEven @index) "grey-light" "grey-strong"}}">
+            <div class="col-md-3 {{if (isEven @index) "grey-strong" "grey-light"}}">
                 <img src="api/rotate-images/{{unit.rotateImageId}}/0">
                 <br>
                 <b>{{unit.title}}</b>
