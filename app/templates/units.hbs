@@ -1,8 +1,8 @@
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
 <div class="topnav">
-	<div class="navbar-header">
-    <a class="navbar-brand topnav" href="http://www.uni-goettingen.de"><img class="navbar-image" src="images/logo.png"></a>
-	</div>
+    <div class="navbar-header">
+        <a class="navbar-brand topnav" href="http://www.uni-goettingen.de"><img class="navbar-image" src="images/logo.png"></a>
+    </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
             <li>
@@ -13,40 +13,42 @@
 </div>
 </nav>
 <div class="container">
-<div class="row-fluid equal pad">
-    <div class="col-md-6 grey-light">
-        In dieser e-learning Applikation übernimmt der User die Rolle
-        eines Geschworenen in einem wissenschaftlichen Meinungsstreit: das Objekt, das im Zentrum der Auseinandersetzung
-        steht, ist gewissermaßen angeklagt, einen bestimmten Sachverhalt zu erfüllen, und zur Klärung werden andere Gegen-
-        stände und Bildwerke als Zeugen aufgerufen. Zwei konträre
-        Forschungspositionen vertreten dabei die Rolle der Prozessgegner, die sich nicht selten derselben Zeugen bedienen, so
-        dass man selbst zu einem eigenen Urteil im kontroversen Forschungsstreit gelangen muss.
-    </div>
-    <div class="col-md-6 grey-strong">
-        Diese Formen der Reflexion und Argumentation zu erlernen
-        und ihre Stichhaltigkeit an umstrittenen Forschungsthesen aktiv zu überprüfen, ist Ziel dieser e-learning Applikation, wobei
-        Anfänger die Argumentationsstruktur der Forschungsmeinungen nachvollziehen und bewerten sollen, während die fortge-
-        schrittenen Studenten in der selbstständigen Erstellung einer
-        e-learning Einheit durch die mediale Aufbereitung eines wissenschaftlichen Meinungsstreits die Argumentationsstrukturen
-        offenlegen, aufbereiten und ergänzen müssen und so die Methoden fachwissenschaftlicher Hermeneutik aktiv anwenden.
-    </div>
-</div>
-<div class="row-fluid pad">
-    <div class="col-md-12 grey-light">
-        <img src="images/banner_small.png" class="full-width-image">
-    </div>
-</div>
-<div class="row-fluid pad">
-    <div class="col-md-12 grey-strong">
-        <h3>Folgende Objekte stehen für eine Untersuchung zur Verfügung:</h3>
-    </div>
-</div>
-<div class="row-fluid equal pad">
-    {{#each model.units as |unit|}}  
-        <div class="col-md-3 {{if (isEven @index) "grey-light" "grey-strong"}}">
-            <img src="api/rotate-images/{{unit.rotate_image_id}}/0">
+    <div class="row-fluid equal pad">
+        <div class="col-md-6 grey-light">
+            In dieser e-learning Applikation übernimmt der User die Rolle
+            eines Geschworenen in einem wissenschaftlichen Meinungsstreit: das Objekt, das im Zentrum der Auseinandersetzung
+            steht, ist gewissermaßen angeklagt, einen bestimmten Sachverhalt zu erfüllen, und zur Klärung werden andere 
+            Gegenstände und Bildwerke als Zeugen aufgerufen. Zwei konträre
+            Forschungspositionen vertreten dabei die Rolle der Prozessgegner, die sich nicht selten derselben Zeugen bedienen, so
+            dass man selbst zu einem eigenen Urteil im kontroversen Forschungsstreit gelangen muss.
         </div>
-    {{/each}}
-</div>
+        <div class="col-md-6 grey-strong">
+            Diese Formen der Reflexion und Argumentation zu erlernen
+            und ihre Stichhaltigkeit an umstrittenen Forschungsthesen aktiv zu überprüfen, ist Ziel dieser e-learning Applikation, wobei
+            Anfänger die Argumentationsstruktur der Forschungsmeinungen nachvollziehen und bewerten sollen, während die 
+            fortgeschrittenen Studenten in der selbstständigen Erstellung einer
+            e-learning Einheit durch die mediale Aufbereitung eines wissenschaftlichen Meinungsstreits die Argumentationsstrukturen
+            offenlegen, aufbereiten und ergänzen müssen und so die Methoden fachwissenschaftlicher Hermeneutik aktiv anwenden.
+        </div>
+    </div>
+    <div class="row-fluid pad">
+        <div class="col-md-12 grey-light">
+            <img src="images/banner_small.png" class="full-width-image">
+        </div>
+    </div>
+    <div class="row-fluid pad">
+        <div class="col-md-12 grey-strong">
+            <h3>Folgende Objekte stehen für eine Untersuchung zur Verfügung:</h3>
+        </div>
+    </div>
+    <div class="row-fluid pad">
+        {{#each model as |unit|}}  
+            <div class="col-md-3 {{if (isEven @index) "grey-light" "grey-strong"}}">
+                <img src="api/rotate-images/{{unit.rotateImageId}}/0">
+                <br>
+                <b>{{unit.title}}</b>
+            </div>
+        {{/each}}
+    </div>
 </div>
 {{outlet}}

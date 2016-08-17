@@ -3,7 +3,7 @@ import attr from 'ember-data/attr';
 
 export default DS.Model.extend({
     title: attr(),
-    unitImageId: attr(),
+    rotateImageId: attr('number'),
     pageIds: attr(),
     published: attr(),
     userId: attr()
