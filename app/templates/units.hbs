@@ -44,7 +44,9 @@
     <div class="row-fluid pad">
         {{#each model as |unit|}}  
             <div class="col-md-3 {{if (isEven @index) "grey-strong" "grey-light"}}">
-                <img src="api/rotate-images/{{unit.rotateImageId}}/0">
+                    <a href="page/{{unit.pageIds.[0]}}">
+                      <img src="api/rotate-images/{{unit.rotateImageId}}/0">
+                    </a>
                 <br>
                 <b>{{unit.title}}</b>
             </div>
