@@ -9,8 +9,8 @@ Router.map(function() {
   this.route('login');
   this.route('units');
 
-  this.route('page', function() {
-    this.route(':page_id');
+  this.route('page', {
+    path: '/page/:page_id'
   });
 });
 

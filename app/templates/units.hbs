@@ -1,15 +1,15 @@
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
 <div class="topnav">
-    <div class="navbar-header">
-        <a class="navbar-brand topnav" href="http://www.uni-goettingen.de"><img class="navbar-image" src="images/logo.png"></a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="#about"><img src="images/info.png" class="navbar-image"></a>
-            </li>
-        </ul>
-    </div>
+<div class="navbar-header">
+    <a class="navbar-brand topnav" href="http://www.uni-goettingen.de"><img class="navbar-image" src="images/logo.png"></a>
+</div>
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a href="#about"><img src="images/info.png" class="navbar-image"></a>
+        </li>
+    </ul>
+</div>
 </div>
 </nav>
 <div class="container">
@@ -41,14 +41,14 @@
             <h3>Folgende Objekte stehen für eine Untersuchung zur Verfügung:</h3>
         </div>
     </div>
-    <div class="row-fluid pad">
+    <div class="row-fluid pad last-row">
         {{#each model as |unit|}}  
-            <div class="col-md-3 {{if (isEven @index) "grey-strong" "grey-light"}}">
-                    <a href="page/{{unit.pageIds.[0]}}">
-                      <img src="api/rotate-images/{{unit.rotateImageId}}/0">
-                    </a>
-                <br>
-                <b>{{unit.title}}</b>
+            <div class="col-md-3 text-center unit-preview {{if (isEven @index) "grey-strong" "grey-light"}}">
+                <a href="page/{{unit.pageIds.[0]}}">
+                    <img src="api/get-rotate-image/{{unit.rotateImageId}}/0" class="full-width-image">
+                    <br>
+                    <b>{{unit.title}}</b>
+                </a>
             </div>
         {{/each}}
     </div>
