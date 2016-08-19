@@ -23,13 +23,12 @@ module.exports = function(environment) {
   };
   
   ENV['ember-simple-auth'] = {
-        authorizer: 'authorizer:token',
-        crossOriginWhitelist: ['https://localhost:1443']
+        authorizer: 'authorizer:token'
   };
 
   //  (JWT) Configuration
   ENV['ember-simple-auth-token'] = {
-  serverTokenEndpoint: 'https://localhost:1443/api/login',
+  serverTokenEndpoint: '/api/login',
   identificationField: 'username',
   passwordField: 'password',
   tokenPropertyName: 'token',
@@ -37,10 +36,10 @@ module.exports = function(environment) {
   authorizationHeaderName: 'Authorization',
   headers: {},
   refreshAccessTokens: true,
-  serverTokenRefreshEndpoint: 'https://localhost:1443/api/token-refresh',
+  serverTokenRefreshEndpoint: '/api/token-refresh',
   tokenExpireName: 'exp',
   refreshLeeway: 0,
-  timeFactor: 1  // example - set to "1000" to convert incoming seconds to milliseconds.
+  timeFactor: 1000  // example - set to "1000" to convert incoming seconds to milliseconds.
   };
 
   if (environment === 'development') {
