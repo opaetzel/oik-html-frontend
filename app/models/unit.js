@@ -6,5 +6,7 @@ export default DS.Model.extend({
     rotateImageId: attr('number'),
     pageIds: attr(),
     published: attr(),
+    color_scheme: attr(),
+    currentPage: attr('number'),
     userId: attr()
 });

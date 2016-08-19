@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
                 offset: {
                     top: 70,
                     bottom: function () {
-                        return (this.bottom = $('.footer').outerHeight(true))
+                        return (this.bottom = Ember.$('.footer').outerHeight(true));
                     }
                 }
             });
