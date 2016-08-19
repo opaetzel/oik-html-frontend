@@ -10,7 +10,7 @@ Router.map(function() {
   this.route('units');
 
   this.route('page', {
-    path: '/page/:page_id'
+      path: '/unit/:unit_id/:page_id'
   });
 });
 

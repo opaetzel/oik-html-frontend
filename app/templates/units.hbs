@@ -44,7 +44,7 @@
     <div class="row-fluid pad last-row">
         {{#each model as |unit|}}  
             <div class="col-md-3 text-center unit-preview {{if (isEven @index) "grey-strong" "grey-light"}}">
-                <a href="page/{{unit.pageIds.[0]}}">
+                <a href="units/{{unit.id}}/{{unit.pageIds.[0]}}">
                     <img src="api/get-rotate-image/{{unit.rotateImageId}}/0" class="full-width-image">
                     <br>
                     <b>{{unit.title}}</b>
