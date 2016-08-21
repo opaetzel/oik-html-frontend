@@ -10,9 +10,15 @@ export default Ember.Component.extend({
     didRender: function() {
         this._super(...arguments);
         let token = this.get('session.data.authenticated.token');
+        let imageSrc = this.getProperties('imageSrc').imageSrc;
+        let imageId = this.getProperties('imageId').imageId;
+        if(imageId === undefined) {
+            return;
+        }
+        imageSrc = imageSrc.replace("${id}", imageId);
         let xhr = new XMLHttpRequest();
         xhr.targetId = this.get('elementId');
-        xhr.open("GET", this.getProperties('imageSrc').imageSrc);
+        xhr.open("GET", imageSrc);
         xhr.setRequestHeader("Authorization", "Bearer " + token);
         xhr.setRequestHeader("Accept", "*/*");
         xhr.responseType = "blob";

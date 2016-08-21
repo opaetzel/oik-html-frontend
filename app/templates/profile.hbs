@@ -8,11 +8,12 @@
     <div class="row margin-row pad {{if currentUser.user.units.length "equal" ""}}">
         {{#each currentUser.user.units as |unit|}}
             <div class="col-md-3 text-center unit-preview {{if (isEven @index) "grey-strong" "grey-light"}}">
-                <a href="unit/{{unit.id}}/{{unit.pages.firstObject.id}}">
-                    {{auth-image imageSrc="api/get-rotate-image/(unit.rotateImageId)/0" styleClasses="full-width-image"}}
+                <!--<a href="unit/{{unit.id}}/{{unit.pages.firstObject.id}}">-->
+                    {{unit.rotateImageId}}
+                    {{auth-image imageSrc="api/get-rotate-image/${id}/0" imageId=unit.rotateImageId styleClasses="full-width-image"}}
                     <br>
                     <b>{{unit.title}}</b>
-                </a>
+                    <!--</a>-->
             </div>
         {{/each}}
         <div class="col-md-3 text-center unit-preview {{if (isEven currentUser.user.units.length) "grey-light" "grey-strong"}}">
