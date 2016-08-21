@@ -1,10 +1,7 @@
+{{top-menu}}
 <div class="container">
 <div class="col-md-3">
-    {{#if session.isAuthenticated}}
-        <p>blafasel</p>
-    {{/if}}
-    {{auth-image imageId=2 styleClasses="full-width-image"}}
-    <img src="api/get-image/2">
+    {{auth-image imageSrc="api/get-image/2" styleClasses="full-width-image"}}
     {{currentUser.user.name}}
     {{#each currentUser.user.units as |unit|}}
         <p>{{unit.title}}</p>
