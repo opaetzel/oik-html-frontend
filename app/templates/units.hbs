@@ -1,6 +1,6 @@
 {{top-menu}}
 <div class="container">
-    <div class="row-fluid equal pad">
+    <div class="row equal pad">
         <div class="col-md-6 grey-light">
             In dieser e-learning Applikation übernimmt der User die Rolle
             eines Geschworenen in einem wissenschaftlichen Meinungsstreit: das Objekt, das im Zentrum der Auseinandersetzung
@@ -18,17 +18,17 @@
             offenlegen, aufbereiten und ergänzen müssen und so die Methoden fachwissenschaftlicher Hermeneutik aktiv anwenden.
         </div>
     </div>
-    <div class="row-fluid pad">
+    <div class="row pad">
         <div class="col-md-12 grey-light">
             <img src="images/banner_small.png" class="full-width-image">
         </div>
     </div>
-    <div class="row-fluid pad">
+    <div class="row pad">
         <div class="col-md-12 grey-strong">
             <h3>Folgende Objekte stehen für eine Untersuchung zur Verfügung:</h3>
         </div>
     </div>
-    <div class="row-fluid pad last-row">
+    <div class="row pad margin-row">
         {{#each model as |unit|}}  
             <div class="col-md-3 text-center unit-preview {{if (isEven @index) "grey-strong" "grey-light"}}">
                 <a href="unit/{{unit.id}}/{{unit.pages.firstObject.id}}">
@@ -37,9 +37,6 @@
                     <b>{{unit.title}}</b>
                 </a>
             </div>
-            {{#each unit.pages as |page|}}
-                <p>{{page.id}}</p>
-            {{/each}}
         {{/each}}
     </div>
 </div>
