@@ -8,17 +8,14 @@ export default Ember.Service.extend({
 
     load() {
         return new RSVP.Promise((resolve, reject) => {
-            let token = this.get('session.data.authenticated.token');
+            const token = this.get('session.data.authenticated.token');
             if(!isEmpty(token)) {
                 let claims = JSON.parse(atob(token.split('.')[1]));
                 if(!isEmpty(claims)) {
-                    resolve(
-                            this.set('user', this.get('store').createRecord('user', {
-                                name: claims.name,
-                                id: claims.uid,
-                                groups: claims.groups
-                            }))
-                           );
+                    return this.get('store').findRecord('user', claims.uid).then((user) => {
+                        this.set('user', user);
+                        resolve();
+                    }, reject);
                 } else {
                     resolve();
                 }

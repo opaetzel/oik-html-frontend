@@ -12,6 +12,7 @@ Router.map(function() {
   this.route('page', {
       path: '/unit/:unit_id/:page_id'
   });
+  this.route('profile');
 });
 
 export default Router;
