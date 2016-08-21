@@ -13,6 +13,10 @@ Router.map(function() {
       path: '/unit/:unit_id/:page_id'
   });
   this.route('profile');
+
+  this.route('new-unit', {
+    path: 'unit/new'
+  });
 });
 
 export default Router;
