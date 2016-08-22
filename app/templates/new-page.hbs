@@ -1,0 +1,20 @@
+{{top-menu}}
+<div class="container">
+    {{#each model.page.rows as |row|}}
+        <div class="row">
+            <div class="col-md-6 {{row.left_style_classes}}">
+                {{oik-md text=row.left_markdown editable=true edit=true}}
+            </div>
+            <div class="col-md-6 {{row.right_style_classes}}">
+                {{oik-md text=row.right_markdown editable=true edit=true}}
+            </div>
+        </div>
+    {{/each}}
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <button {{action "addRow"}} class="btn btn-sm btn-primary pull-right">Neue Zeile</button>
+        </div>
+    </div>
+</div>
+{{outlet}}

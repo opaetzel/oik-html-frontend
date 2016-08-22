@@ -4,7 +4,7 @@ import { belongsTo } from 'ember-data/relationships';
 
 export default DS.Model.extend({
     title: attr(),
-    rows: attr(),
+    rows: attr('array'),
     page_type: attr(),
     unit_id: attr(),
     unit: belongsTo('unit')

@@ -17,6 +17,10 @@ Router.map(function() {
   this.route('new-unit', {
     path: 'unit/new'
   });
+
+  this.route('new-page', {
+      path: '/unit/:unit_id/new/:page_type'
+  });
 });
 
 export default Router;
