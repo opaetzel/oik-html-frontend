@@ -6,10 +6,10 @@
         {{#each model.page.rows as |row|}}
 		<div class="row equal margin-row">
             <div class="col-md-6 {{row.left_style_classes}}">
-                {{row.left_html}}
+                {{oik-md text=row.left_markdown}}
 			</div>
             <div class="col-md-6 {{row.right_style_classes}}">
-                {{row.right_html}}
+                {{oik-md text=row.right_markdown}}
 			</div>
         </div>
         {{/each}}
