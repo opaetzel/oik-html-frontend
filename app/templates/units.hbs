@@ -31,11 +31,13 @@
     <div class="row pad margin-row">
         {{#each model as |unit|}}  
             <div class="col-md-3 text-center unit-preview {{if (isEven @index) "grey-strong" "grey-light"}}">
-                <a href="unit/{{unit.id}}/{{unit.pages.firstObject.id}}">
+                {{#link-to "page" unit.id unit.pages.firstObject.id}}
+                <!-- <a href="unit/{{unit.id}}/{{unit.pages.firstObject.id}}">-->
                     <img src="api/get-rotate-image/{{unit.rotateImageId}}/0" class="full-width-image">
                     <br>
                     <b>{{unit.title}}</b>
-                </a>
+                {{/link-to}}
+                    <!--</a>-->
             </div>
         {{/each}}
     </div>
