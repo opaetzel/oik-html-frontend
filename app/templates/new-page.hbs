@@ -3,10 +3,10 @@
     {{#each model.page.rows as |row|}}
         <div class="row">
             <div class="col-md-6 {{row.left_style_classes}}">
-                {{oik-md text=row.left_markdown editable=true edit=true}}
+                {{oik-md text=row.left_markdown editable=true edit=true showModal="showModal"}}
             </div>
             <div class="col-md-6 {{row.right_style_classes}}">
-                {{oik-md text=row.right_markdown editable=true edit=true}}
+                {{oik-md text=row.right_markdown editable=true edit=true showModal="showModal"}}
             </div>
         </div>
     {{/each}}
@@ -17,5 +17,58 @@
             <button {{action "save"}} class="btn btn-sm btn-primary pull-right">Speichern</button>
         </div>
     </div>
+</div>
+
+<!-- select image modal -->
+<div class="modal fade" id="select-image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Bild auswählen</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+          {{#each model.unit.images as |imageid|}}
+              <div class="col-md-4">
+                  {{auth-image imageSrc="/api/get-image/${id}" imageId=imageid}}
+              </div>
+          {{/each}}
+          </div>
+          <hr>
+          <div class="row">
+              <div class="col-md-12">
+                  <button {{action "newImage"}}>Neues Bild hochladen</button>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- new image modal -->
+<div class="modal fade" id="new-image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Neues Bild hochladen</h4>
+      </div>
+      <div class="modal-body">
+          TODO: form for caption and credits
+          <div class="row">
+            {{file-upload url="/api/images/" iid=3}}
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
 {{outlet}}

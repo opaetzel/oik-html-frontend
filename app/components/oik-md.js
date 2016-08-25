@@ -40,6 +40,10 @@ export default EmberRemarkableComponent.extend({
         },
         preview: function() {
             this.toggleProperty('edit');
+        },
+        showModal: function(modalID) {
+            this.sendAction("showModal", modalID);
+            return true;
         }
     }
 });

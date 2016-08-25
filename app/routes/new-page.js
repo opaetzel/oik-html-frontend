@@ -11,5 +11,14 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             }),
             unit: this.store.findRecord('unit', params.unit_id)
         })
+    },
+    actions: {
+        showModal: function() {
+            this.render("image-upload-modal", {
+            into: 'new-page',
+            outlet: 'modal',
+            model: this.get('model.unit')
+          });
+        }
     }
 });
