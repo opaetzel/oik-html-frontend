@@ -42,6 +42,7 @@
     "ember-simple-auth": "1.1.0",
     "ember-simple-auth-token": "1.1.1",
     "ember-uploader": "1.1.0",
+    "emberx-file-input": "1.0.0",
     "loader.js": "^4.0.1"
   }
 }

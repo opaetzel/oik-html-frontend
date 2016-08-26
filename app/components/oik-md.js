@@ -44,6 +44,15 @@ export default EmberRemarkableComponent.extend({
         showModal: function(modalID) {
             this.sendAction("showModal", modalID);
             return true;
+        },
+        selectImage: function() {
+            let deferred = this.attrs.selectImage();
+            console.log(deferred);
+            deferred.promise.then(function(value) {
+                console.log(value);
+            }, function(reason) {
+                console.log(reason);
+            });
         }
     }
 });

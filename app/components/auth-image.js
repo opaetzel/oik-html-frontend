@@ -12,7 +12,7 @@ export default Ember.Component.extend({
         let token = this.get('session.data.authenticated.token');
         let imageSrc = this.getProperties('imageSrc').imageSrc;
         let imageId = this.getProperties('imageId').imageId;
-        if(imageId === undefined) {
+        if(imageId === undefined || isNaN(imageId) || imageId == null) {
             return;
         }
         imageSrc = imageSrc.replace("${id}", imageId);
@@ -22,6 +22,7 @@ export default Ember.Component.extend({
         xhr.setRequestHeader("Authorization", "Bearer " + token);
         xhr.setRequestHeader("Accept", "*/*");
         xhr.responseType = "blob";
+        xhr.onerror = this.error;
         xhr.onload = this.response;
         xhr.send(); 
     }

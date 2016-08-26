@@ -10,7 +10,7 @@ export default DS.Model.extend({
     color_scheme: attr(),
     currentPage: attr('number'),
     userId: attr(),
-    images: attr(),
+    images: hasMany('image'),
     pages: hasMany('page', {async: true}),
     user: belongsTo('user')
 });
