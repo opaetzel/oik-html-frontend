@@ -4,9 +4,28 @@ import EmberRemarkableComponent from 'ember-remarkable/components/md-text';
 const {computed} = Ember;
 
 export default EmberRemarkableComponent.extend({
-    parsedMarkdownCites: computed('parsedMarkdown', function () {
-        let parsedMarkdown = this.get('parsedMarkdown');
-        return parsedMarkdown;
+    image: Ember.computed('imageId', function() {
+        let self = this;
+        if(this.get('imageId') === undefined || this.get('imageId') === 0) {
+            console.log("imageId undefined");
+            console.log(this.get('imageId'));
+            this.set('image', null);
+            return;
+        }
+        console.log(this.get('imageId'));
+        this.get('targetObject.store').findRecord('image', this.get('imageId')).then(function(image) {
+            self.set('image', image);
+        });
+    }),
+    parsedMarkdownCites: computed('parsedMarkdownUnsafe', 'image', function () {
+        let parsedMarkdown = this.get('parsedMarkdownUnsafe');
+        let image = this.get('image');
+        let retMarkdown = parsedMarkdown;
+        if(image) {
+            retMarkdown = retMarkdown.replace('${blob-link}', image.get('blobUrl'));
+        }
+        retMarkdown += '<span data-toggle="tooltip" data-placement="top" title="Tooltip on top">some cite</span>';
+        return new Ember.Handlebars.SafeString(retMarkdown);
     }),
     getSelection: function() {
         let e = Ember.$('#' + this.get('elementId')).find("textarea");
@@ -50,7 +69,10 @@ export default EmberRemarkableComponent.extend({
             let oik_md = this;
             let imageTemplate = '![${caption}](${blob-link} "${caption}")';
             deferred.promise.then(function(value) {
-                oik_md.set('text', imageTemplate.replace(/\$\{caption\}/g, value.get('caption')).replace('${blob-link}', value.get('blobUrl')));
+                oik_md.set('text', imageTemplate.replace(/\$\{caption\}/g, value.get('caption')));
+                console.log("set imageId");
+                oik_md.set('imageId', value.get('id'));
+                oik_md.set('image', value);
             }, function(reason) {
                 console.log(reason);
             });

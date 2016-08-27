@@ -2,11 +2,11 @@
 <div class="container">
     {{#each model.page.rows as |row|}}
         <div class="row">
-            <div class="col-md-6 {{row.left_style_classes}}">
-                {{oik-md text=row.left_markdown editable=true edit=true selectImage=(action "selectImage")}}
+            <div class="col-md-6 {{row.left_style_classes}} oik-col">
+                {{oik-md text=row.left_markdown editable=true edit=true imageId=row.leftImage selectImage=(action "selectImage")}}
             </div>
-            <div class="col-md-6 {{row.right_style_classes}}">
-                {{oik-md text=row.right_markdown editable=true edit=true showModal="showModal"}}
+            <div class="col-md-6 {{row.right_style_classes}} oik-col">
+                {{oik-md text=row.right_markdown editable=true edit=true imageId=row.rightImage selectImage=(action "selectImage")}}
             </div>
         </div>
     {{/each}}
@@ -33,7 +33,7 @@
           {{#each model.unit.images as |image|}}
               <div class="col-md-4 selectable-image {{if image.selected "selected" ""}}">
               <a {{action "doSelectImage" image}}>
-                  {{auth-image imageSrc="/api/get-image/${id}" imageId=image.dlId styleClasses="full-width-image"}}
+                  <img src="{{image.blobUrl}}" class="full-width-image">
               </a>
               </div>
           {{/each}}
