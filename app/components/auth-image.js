@@ -5,6 +5,9 @@ export default Ember.Component.extend({
     response: function(e) {
         let urlCreator = window.URL || window.webkitURL;
         let imageUrl = urlCreator.createObjectURL(this.response);
+        if(this.imageObj) {
+            this.imageObj.set('blobUrl', imageUrl);
+        }
         document.querySelector("#"+this.targetId).children[0].src = imageUrl;
     },
     didRender: function() {
@@ -16,14 +19,19 @@ export default Ember.Component.extend({
             return;
         }
         imageSrc = imageSrc.replace("${id}", imageId);
+        let auth_image = this;
         let xhr = new XMLHttpRequest();
         xhr.targetId = this.get('elementId');
-        xhr.open("GET", imageSrc);
-        xhr.setRequestHeader("Authorization", "Bearer " + token);
-        xhr.setRequestHeader("Accept", "*/*");
-        xhr.responseType = "blob";
-        xhr.onerror = this.error;
-        xhr.onload = this.response;
-        xhr.send(); 
+        this.get('targetObject.store').findRecord('image', imageId).then(function(image) {
+            xhr.imageObj = image;
+            xhr.open("GET", imageSrc);
+            xhr.setRequestHeader("Authorization", "Bearer " + token);
+            xhr.setRequestHeader("Accept", "*/*");
+            xhr.responseType = "blob";
+            xhr.onerror = auth_image.error;
+            xhr.onload = auth_image.response;
+            xhr.send(); 
+        });
+        return;
     }
 });

@@ -48,9 +48,12 @@ export default Ember.Controller.extend({
                     }
                 }
             });
+            const doSelectImage = this.get('actions.doSelectImage');
             uploader.on('didUpload', e => {
                 console.log("didUpload");
                 image.toggleProperty('reload');
+                let images = this.get('model.unit.images');
+                doSelectImage(image, images);
                 image = this.get('store').createRecord('image', {
                     name: "Kein Bild ausgewählt"
                 });
@@ -69,9 +72,25 @@ export default Ember.Controller.extend({
                 }
             });
         },
-        resolvePromise: function() {
-            console.log("trying to resolve promise...");
-            this.get('getImagePromise').resolve('hat geklappt');
+        doSelectImage: function(image, images) {
+            if(!images) {
+                images = this.get('model.unit.images');
+            }
+            images.forEach(function(feImage) {
+                feImage.set('selected', false);
+            });
+            image.set('selected', true);
+            return false;
+        },
+        resolveImagePromise: function() {
+            let promise = this.get('getImagePromise');
+            this.get('model.unit.images').forEach(function(image) {
+                if(image.get('selected')) {
+                    promise.resolve(image);
+                    Ember.$('#select-image-modal').modal('hide');
+                    return;
+                }
+            });
         }
     }
 });

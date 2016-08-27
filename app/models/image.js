@@ -10,5 +10,7 @@ export default DS.Model.extend({
     dlId: Ember.computed('reload', function() {
         return this.get('id');
     }),
-    unit: belongsTo('unit')
+    blobUrl: attr(),
+    unit: belongsTo('unit'),
+    selected: attr('boolean')
 });
