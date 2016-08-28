@@ -24,7 +24,6 @@ export default EmberRemarkableComponent.extend({
         if(image) {
             retMarkdown = retMarkdown.replace('${blob-link}', image.get('blobUrl'));
         }
-        retMarkdown += '<span data-toggle="tooltip" data-placement="top" title="Tooltip on top">some cite</span>';
         return new Ember.Handlebars.SafeString(retMarkdown);
     }),
     getSelection: function() {

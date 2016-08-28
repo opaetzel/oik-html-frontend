@@ -8,7 +8,10 @@ export default DS.Model.extend({
     caption: attr(),
     credits: attr(),
     name: attr(),
-    blobUrl: Ember.computed('id', function() {
+    blobUrl: Ember.computed('id', 'uploaded', function() {
+        if(!this.get('uploaded')) {
+            return;
+        }
         let self = this;
         let token = this.get('session.data.authenticated.token');
         let imageId = this.get('id');
@@ -31,5 +34,8 @@ export default DS.Model.extend({
         }
     }),
     unit: belongsTo('unit'),
-    selected: attr('boolean')
+    selected: attr('boolean'),
+    uploaded: Ember.computed(function() {
+        return !this.get('isNew');
+    })
 });

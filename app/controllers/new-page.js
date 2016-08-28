@@ -51,7 +51,7 @@ export default Ember.Controller.extend({
             const doSelectImage = this.get('actions.doSelectImage');
             uploader.on('didUpload', e => {
                 console.log("didUpload");
-                image.toggleProperty('reload');
+                image.set('uploaded', true);
                 let images = this.get('model.unit.images');
                 doSelectImage(image, images);
                 image = this.get('store').createRecord('image', {

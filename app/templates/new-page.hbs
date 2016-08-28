@@ -31,9 +31,11 @@
           {{#if model.unit.images}}
           <div class="row equal">
           {{#each model.unit.images as |image|}}
-              <div class="col-md-4 selectable-image {{if image.selected "selected" ""}}">
+              <div class="col-md-4 selectable-image text-center unit-preview {{if image.selected "selected" ""}}">
               <a {{action "doSelectImage" image}}>
                   <img src="{{image.blobUrl}}" class="full-width-image">
+                  <br>
+                  {{image.caption}}
               </a>
               </div>
           {{/each}}
