@@ -59,16 +59,12 @@ export default EmberRemarkableComponent.extend({
         preview: function() {
             this.toggleProperty('edit');
         },
-        showModal: function(modalID) {
-            this.sendAction("showModal", modalID);
-            return true;
-        },
         selectImage: function() {
             let deferred = this.attrs.selectImage();
             let oik_md = this;
-            let imageTemplate = '![${caption}](${blob-link} "${caption}")';
+            let imageTemplate = '![${caption}](${blob-link} "${caption}")\n\n${caption}: ${credits}';
             deferred.promise.then(function(value) {
-                oik_md.set('text', imageTemplate.replace(/\$\{caption\}/g, value.get('caption')));
+                oik_md.decorate(imageTemplate.replace(/\$\{caption\}/g, value.get('caption')).replace(/\$\{credits\}/g, value.get('credits')), "");
                 console.log("set imageId");
                 oik_md.set('imageId', value.get('id'));
                 oik_md.set('image', value);
