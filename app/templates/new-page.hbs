@@ -1,7 +1,6 @@
 {{#top-menu}}
 {{/top-menu}}
 <div class="container">
-    {{model.unit.title}}
     {{#each model.page.rows as |row|}}
         <div class="row">
             <div class="col-md-6 {{row.left_style_classes}} oik-col">
@@ -16,7 +15,10 @@
     <div class="row">
         <div class="col-md-12">
             <button {{action "addRow"}} class="btn btn-sm btn-default">Neue Zeile</button>
-            <button {{action "save"}} class="btn btn-sm btn-primary pull-right">Speichern</button>
+            <div class="btn-toolbar pull-right">
+                <button {{action "save"}} class="btn btn-sm btn-primary">Speichern</button>
+                <button {{action "saveAndNext"}} class="btn btn-sm btn-primary">Speichern und weiter</button>
+            </div>
         </div>
     </div>
 </div>

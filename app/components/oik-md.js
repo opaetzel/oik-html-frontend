@@ -7,12 +7,9 @@ export default EmberRemarkableComponent.extend({
     image: Ember.computed('imageId', function() {
         let self = this;
         if(this.get('imageId') === undefined || this.get('imageId') === 0) {
-            console.log("imageId undefined");
-            console.log(this.get('imageId'));
             this.set('image', null);
             return;
         }
-        console.log(this.get('imageId'));
         this.get('targetObject.store').findRecord('image', this.get('imageId')).then(function(image) {
             self.set('image', image);
         });
@@ -29,7 +26,6 @@ export default EmberRemarkableComponent.extend({
     getSelection: function() {
         let e = Ember.$('#' + this.get('elementId')).find("textarea");
         e = e[0];
-        console.log(e);
         return {
             start: e.selectionStart,
             end: e.selectionEnd
@@ -64,8 +60,7 @@ export default EmberRemarkableComponent.extend({
             let imageTemplate = '![${caption}](${blob-link} "${caption}")\n\n${caption}: ${credits}';
             deferred.promise.then(function(value) {
                 oik_md.decorate(imageTemplate.replace(/\$\{caption\}/g, value.get('caption')).replace(/\$\{credits\}/g, value.get('credits')), "");
-                console.log("set imageId");
-                oik_md.set('imageId', value.get('id'));
+                oik_md.set('imageId', parseInt(value.get('id')));
                 oik_md.set('image', value);
             }, function(reason) {
                 console.log(reason);

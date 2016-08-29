@@ -3,35 +3,6 @@ import EmberUploader from 'ember-uploader';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
-    transitionToNextNewPage: function(currentType) {
-        let pageType = "";
-        switch(currentType){
-        case "opening": 
-            pageType = "presentation";
-            break;
-        case "presentation":
-            pageType = "hearing-pro";
-            break;
-        case "hearing":
-            let pages = this.get('model.unit.pages');
-            if(pages.length === 8) {
-                pageType = "synthesis";
-                break;
-            }
-            if(pages.length % 2 === 0) {
-                pageType = "hearing-pro";
-            } else {
-                pageType = "hearing-con";
-            }
-            break;
-        case "synthesis":
-            pageType = "critic";
-            break;
-        default:
-            break;
-        }
-        this.transitionToRoute('new-page', this.get('model.unit.id'), pageType); 
-    },
     actions: {
         addRow: function() {
             this.get('model.page.rows').pushObject({left_markdown: "", right_markdown: ""});
@@ -45,8 +16,38 @@ export default Ember.Controller.extend({
             page.save();
         },
         saveAndNext: function() {
-            this.actions.save();
-            this.transitionToNextNewPage(this.get('model.page.type'));
+            this.send("save");
+            this.send("transitionToNextNewPage");
+        },
+        transitionToNextNewPage: function() {
+            let currentType = this.get('model.page.page_type');
+            let pageType = "";
+            switch(currentType){
+            case "opening": 
+                pageType = "presentation";
+                break;
+            case "presentation":
+                pageType = "hearing-pro";
+                break;
+            case "hearing":
+                let pages = this.get('model.unit.pages');
+                if(pages.length === 8) {
+                    pageType = "synthesis";
+                    break;
+                }
+                if(pages.length % 2 === 0) {
+                    pageType = "hearing-pro";
+                } else {
+                    pageType = "hearing-con";
+                }
+                break;
+            case "synthesis":
+                pageType = "critic";
+                break;
+            default:
+                break;
+            }
+            this.transitionToRoute('new-page', this.get('model.unit.id'), pageType); 
         },
         showModal: function(modalID) {
             Ember.$('#'+modalID).modal('show');
@@ -56,11 +57,8 @@ export default Ember.Controller.extend({
         },
         selectImage: function () {
             let image = this.get('store').createRecord('image', {
-                name: "Kein Bild ausgewählt",
-                unit: this.get('model.unit')
+                name: "Kein Bild ausgewählt"
             });
-            console.log("unit id:");
-            console.log(image.get('unit.id'));
             this.set('uploadImage', image);
             let promise = Ember.RSVP.defer();
             this.set('getImagePromise', promise);
