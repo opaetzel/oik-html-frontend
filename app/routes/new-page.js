@@ -7,18 +7,19 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         return Ember.RSVP.hash({
             page: this.store.createRecord('page', {
                 rows:Ember.A([{left_markdown: "", right_markdown: ""}]),
-                page_type: params.page_type
+                page_type: params.page_type,
+                title: this.titleHash[params.page_type]
             }),
             unit: this.store.findRecord('unit', params.unit_id)
-        })
+        });
     },
-    actions: {
-        showModal: function() {
-            this.render("image-upload-modal", {
-            into: 'new-page',
-            outlet: 'modal',
-            model: this.get('model.unit')
-          });
-        }
+    titleHash: {
+        "opening": "Aufruf der Sache und Aufnahme der objektbezogenen Daten",
+        "presentation": "Referat der Streitfrage",
+        "hearing-pro": "Beweisaufnahme",
+        "hearing-con": "Beweisaufnahme",
+        "synthesis": "Schlussplädoyers und Abstimmung",
+        "critic": "Urteilsverkündung"
     }
+
 });

@@ -2,7 +2,7 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
     session: Ember.inject.service('session'),
-    response: function(e) {
+    response: function() {
         let urlCreator = window.URL || window.webkitURL;
         let imageUrl = urlCreator.createObjectURL(this.response);
         if(this.imageObj) {

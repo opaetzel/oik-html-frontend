@@ -5,6 +5,6 @@ export default Ember.Route.extend({
         return Ember.RSVP.hash({
             page: this.store.findRecord('page', params.page_id),
             unit: this.store.findRecord('unit', params.unit_id)
-        })
+        });
     }
 });

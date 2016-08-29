@@ -33,7 +33,7 @@ export default EmberRemarkableComponent.extend({
         return {
             start: e.selectionStart,
             end: e.selectionEnd
-        }
+        };
     },
     decorate: function(prepend, append) {
         let text = this.get('text');
@@ -53,7 +53,6 @@ export default EmberRemarkableComponent.extend({
             this.decorate(italic, italic);
         }, 
         heading: function() {
-            const heading = "### ";
             this.decorate("### ", "\n");
         },
         preview: function() {

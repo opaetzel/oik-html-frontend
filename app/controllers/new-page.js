@@ -3,6 +3,35 @@ import EmberUploader from 'ember-uploader';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
+    transitionToNextNewPage: function(currentType) {
+        let pageType = "";
+        switch(currentType){
+        case "opening": 
+            pageType = "presentation";
+            break;
+        case "presentation":
+            pageType = "hearing-pro";
+            break;
+        case "hearing":
+            let pages = this.get('model.unit.pages');
+            if(pages.length === 8) {
+                pageType = "synthesis";
+                break;
+            }
+            if(pages.length % 2 === 0) {
+                pageType = "hearing-pro";
+            } else {
+                pageType = "hearing-con";
+            }
+            break;
+        case "synthesis":
+            pageType = "critic";
+            break;
+        default:
+            break;
+        }
+        this.transitionToRoute('new-page', this.get('model.unit.id'), pageType); 
+    },
     actions: {
         addRow: function() {
             this.get('model.page.rows').pushObject({left_markdown: "", right_markdown: ""});
@@ -12,9 +41,12 @@ export default Ember.Controller.extend({
             if(page.get('isNew')) {
                 let unit = this.get('model.unit');
                 page.set('unit', unit);
-                unit.get('pages').pushObject(page);
             }
             page.save();
+        },
+        saveAndNext: function() {
+            this.actions.save();
+            this.transitionToNextNewPage(this.get('model.page.type'));
         },
         showModal: function(modalID) {
             Ember.$('#'+modalID).modal('show');
@@ -24,8 +56,11 @@ export default Ember.Controller.extend({
         },
         selectImage: function () {
             let image = this.get('store').createRecord('image', {
-                name: "Kein Bild ausgewählt"
+                name: "Kein Bild ausgewählt",
+                unit: this.get('model.unit')
             });
+            console.log("unit id:");
+            console.log(image.get('unit.id'));
             this.set('uploadImage', image);
             let promise = Ember.RSVP.defer();
             this.set('getImagePromise', promise);
@@ -62,7 +97,7 @@ export default Ember.Controller.extend({
             image.save().then(function(record) {
                 console.log("saved, try to upload");
                 let imageId = record.get('id');
-                uploader.set('url', "/api/images/" + imageId)
+                uploader.set('url', "/api/images/" + imageId);
                     console.log(imageId);
                 console.log(files);
                 console.log("created uploader");

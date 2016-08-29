@@ -1,8 +1,23 @@
 {{top-menu}}
 <div class="container">
     <div class="row">
-        <div class="column-md-12">
-            <h1>New Unit</h1>
+        <div class="col-md-6 col-md-offset-3">
+            <h1>Neue Verhandlung</h1>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    {{input value=model.title id='name' class="form-control" placeholder="Name"}}
+                </div>
+                <div class="form-group">
+                    <label for="{{concat elementId '-streitfrage'}}">Streitfrage</label>
+                    {{input value=model.name id=(concat elementId '-streitfrage') class="form-control" placeholder="Streitfrage"}}
+                </div>
+                {{#link-to 'units' class="btn btn-default"}}Abbrechen{{/link-to}}
+                <div class="btn-toolbar pull-right">
+                    <button {{action "save"}} class="btn btn-default">Speichern</button>
+                    <button {{action "saveAndNext"}} class="btn btn-primary">Speichern und weiter</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
