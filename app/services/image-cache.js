@@ -25,7 +25,7 @@ export default Ember.Service.extend({
                 };
                 xhr.onload = (e) => {
                     let urlCreator = window.URL || window.webkitURL;
-                    let imageUrl = urlCreator.createObjectURL(this.response);
+                    let imageUrl = urlCreator.createObjectURL(e.target.response);
                     this.set(`cachedImages.${url}`, imageUrl);
                     resolve(imageUrl);
                 }
@@ -33,19 +33,6 @@ export default Ember.Service.extend({
                 
             } else {
                 resolve(element);
-            }
-            if(!isEmpty(token)) {
-                let claims = JSON.parse(atob(token.split('.')[1]));
-                if(!isEmpty(claims)) {
-                    return this.get('store').findRecord('user', claims.uid).then((user) => {
-                        this.set('user', user);
-                        resolve();
-                    }, reject);
-                } else {
-                    resolve();
-                }
-            } else {
-                resolve();
             }
         });
     }

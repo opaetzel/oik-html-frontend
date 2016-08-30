@@ -3,6 +3,7 @@ import EmberUploader from 'ember-uploader';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
+    imageCache: Ember.inject.service(),
     actions: {
         addRow: function() {
             this.get('model.page.rows').pushObject({left_markdown: "", right_markdown: ""});
@@ -19,6 +20,14 @@ export default Ember.Controller.extend({
             this.send("save");
             this.send("transitionToNextNewPage");
         },
+        saveAndSynthesis: function() {
+            this.send("save");
+            this.transitionToRoute('new-page', this.get('model.unit.id'), 'synthesis');
+        },
+        saveAndExit: function() {
+            this.send("save");
+            this.transitionToRoute('profile');
+        },
         transitionToNextNewPage: function() {
             let currentType = this.get('model.page.page_type');
             let pageType = "";
@@ -29,17 +38,16 @@ export default Ember.Controller.extend({
             case "presentation":
                 pageType = "hearing-pro";
                 break;
-            case "hearing":
-                let pages = this.get('model.unit.pages');
-                if(pages.length === 8) {
-                    pageType = "synthesis";
-                    break;
-                }
-                if(pages.length % 2 === 0) {
-                    pageType = "hearing-pro";
-                } else {
-                    pageType = "hearing-con";
-                }
+            case "hearing-pro":
+                pageType = "hearing-con";
+                break;
+            case "hearing-con":
+                let pagesLen = this.get('model.unit.pages.length');
+                 if(pagesLen >= 8) {
+                     console.log(currentType);
+                     break;
+                 }
+                pageType = "hearing-pro";
                 break;
             case "synthesis":
                 pageType = "critic";

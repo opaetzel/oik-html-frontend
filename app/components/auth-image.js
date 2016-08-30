@@ -10,13 +10,10 @@ export default Ember.Component.extend({
             return;
         }
         imageSrc = imageSrc.replace("${id}", imageId);
-        this.get('targetObject.store').findRecord('image', imageId).then( image => {
-            imageCache.getImage(imageSrc).then( value => {
-                document.querySelector("#"+this.get('elementId')).children[0].src = value;
-                image.set('blobUrl', value);
-            }).catch( reason => {
-                console.log(reason);
-            });
+        this.get('imageCache').getImage(imageSrc).then( value => {
+            document.querySelector("#"+this.get('elementId')).children[0].src = value;
+        }).catch( reason => {
+            console.log(reason);
         });
     }
 });

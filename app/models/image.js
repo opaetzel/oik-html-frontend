@@ -5,6 +5,7 @@ import { belongsTo } from 'ember-data/relationships';
 
 export default DS.Model.extend({
     session: Ember.inject.service('session'),
+    imageCache: Ember.inject.service(),
     caption: attr(),
     credits: attr(),
     name: attr(),
@@ -19,19 +20,9 @@ export default DS.Model.extend({
             return;
         }
         let imageSrc = "/api/get-image/" + imageId;
-        let xhr = new XMLHttpRequest();
-        xhr.targetId = this.get('elementId');
-        xhr.open("GET", imageSrc);
-        xhr.setRequestHeader("Authorization", "Bearer " + token);
-        xhr.setRequestHeader("Accept", "*/*");
-        xhr.responseType = "blob";
-        xhr.onload = response;
-        xhr.send(); 
-        function response() {
-            let urlCreator = window.URL || window.webkitURL;
-            let imageUrl = urlCreator.createObjectURL(this.response);
-            self.set('blobUrl', imageUrl);
-        }
+        this.get('imageCache').getImage(imageSrc).then( value => {
+            this.set("blobUrl", value);
+        });
     }),
     unit: belongsTo('unit'),
     selected: attr('boolean'),
