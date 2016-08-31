@@ -12,7 +12,9 @@ App = Ember.Application.extend({
   podModulePrefix: config.podModulePrefix,
   Resolver
 });
-
+Ember.RSVP.on('error', function(error) {
+      Ember.Logger.assert(false, error);
+});
 loadInitializers(App, config.modulePrefix);
 
 export default App;
