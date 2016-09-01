@@ -22,6 +22,7 @@ Router.map(function() {
   this.route('new-page', {
       path: '/unit/:unit_id/new/:page_type'
   });
+  this.route('register');
 });
 
 export default Router;

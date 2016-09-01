@@ -12,7 +12,13 @@ export default Ember.Controller.extend({
 
             this.get('session').authenticate(authenticator, credentials).then(() => {
             }, (reason) => {
-                this.set('errorMessage', reason.error || reason);
+                if(reason.error) {
+                    if(reason.error.code == 401) {
+                        this.set('errorMessage', "Username oder Passwort falsch");
+                    }
+                } else {
+                    this.set('errorMessage', "Unbekannter Fehler");
+                }
             });
         },
         logout: function() {
