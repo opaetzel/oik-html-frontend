@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
     imageCache: Ember.inject.service(),
     actions: {
         addRow: function() {
-            this.get('model.page.rows').pushObject({left_markdown: "", right_markdown: ""});
+            this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "", right_markdown: ""}));
         },
         save: function() {
             let page = this.get('model.page');
@@ -14,7 +14,9 @@ export default Ember.Controller.extend({
                 let unit = this.get('model.unit');
                 page.set('unit', unit);
             }
-            page.save();
+            page.save().then(function (returnItem) {
+                returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
+            });
         },
         saveAndNext: function() {
             this.send("save");

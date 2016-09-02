@@ -4,10 +4,10 @@
     {{#each model.page.rows as |row|}}
         <div class="row">
             <div class="col-md-6 {{row.left_style_classes}} oik-col">
-                {{oik-md text=row.left_markdown editable=true edit=true imageId=row.leftImage selectImage=(action "selectImage")}}
+                {{oik-md text=row.left_markdown editable=true edit=true image=row.leftImage selectImage=(action "selectImage")}}
             </div>
             <div class="col-md-6 {{row.right_style_classes}} oik-col">
-                {{oik-md text=row.right_markdown editable=true edit=true imageId=row.rightImage selectImage=(action "selectImage")}}
+                {{oik-md text=row.right_markdown editable=true edit=true image=row.rightImage selectImage=(action "selectImage")}}
             </div>
         </div>
     {{/each}}

@@ -4,7 +4,7 @@ import EmberRemarkableComponent from 'ember-remarkable/components/md-text';
 const {computed} = Ember;
 
 export default EmberRemarkableComponent.extend({
-    image: Ember.computed('imageId', function() {
+    /*image: Ember.computed('imageId', function() {
         let self = this;
         if(this.get('imageId') === undefined || this.get('imageId') === 0) {
             this.set('image', null);
@@ -13,7 +13,7 @@ export default EmberRemarkableComponent.extend({
         this.get('targetObject.store').findRecord('image', this.get('imageId')).then(function(image) {
             self.set('image', image);
         });
-    }),
+    }),*/
     parsedMarkdownCites: computed('parsedMarkdownUnsafe', 'image', function () {
         let parsedMarkdown = this.get('parsedMarkdownUnsafe');
         let image = this.get('image');
@@ -60,7 +60,6 @@ export default EmberRemarkableComponent.extend({
             let imageTemplate = '![${caption}](${blob-link} "${caption}")\n\n${caption}: ${credits}';
             deferred.promise.then(function(value) {
                 oik_md.decorate(imageTemplate.replace(/\$\{caption\}/g, value.get('caption')).replace(/\$\{credits\}/g, value.get('credits')), "");
-                oik_md.set('imageId', parseInt(value.get('id')));
                 oik_md.set('image', value);
             }, function(reason) {
                 console.log(reason);

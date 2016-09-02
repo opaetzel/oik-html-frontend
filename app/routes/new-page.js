@@ -6,7 +6,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         console.log(params.unit_id);
         return Ember.RSVP.hash({
             page: this.store.createRecord('page', {
-                rows:Ember.A([{left_markdown: "", right_markdown: ""}]),
+                rows: [this.store.createRecord('row', {left_markdown: "", right_markdown: ""})],
                 page_type: params.page_type,
                 title: this.titleHash[params.page_type]
             }),
