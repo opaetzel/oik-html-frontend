@@ -1,11 +1,11 @@
 import DS from 'ember-data';
 import attr from 'ember-data/attr';
-import { belongsTo } from 'ember-data/relationships';
+import { belongsTo, hasMany } from 'ember-data/relationships';
 
 export default DS.Model.extend({
     title: attr(),
-    rows: attr('array'),
     page_type: attr(),
     unit_id: attr(),
+    rows: hasMany('row'),
     unit: belongsTo('unit')
 });

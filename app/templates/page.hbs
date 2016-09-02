@@ -6,13 +6,13 @@
         {{#each model.page.rows as |row|}}
 		<div class="row equal margin-row">
             <div class="col-md-6 {{row.left_style_classes}}">
-                {{#if (idValid row.leftImage)}}
-                    <a href="{{currentUrl "bla"}}#lb-{{row.leftImage}}">
-                    {{auth-image imageSrc="/api/get-image/${id}" imageId=row.leftImage styleClasses="full-width-image"}}
+                {{#if row.leftImage}}
+                    <a href="{{currentUrl "bla"}}#lb-{{row.leftImage.id}}">
+                        <img src="{{row.leftImage.blobUrl}}" class="full-width-image">
                     </a>
-                    <div class="lightbox" id="lb-{{row.leftImage}}">
-                            {{auth-image imageSrc="/api/get-image/${id}" imageId=row.leftImage}}
-                            <div>Embed text here</div>
+                    <div class="lightbox" id="lb-{{row.leftImage.id}}">
+                        <img src="{{row.leftImage.blobUrl}}">
+                        <div>{{row.leftImage.caption}}</div>
                         <a class="lightbox-close" href="{{currentUrl "b"}}#_"></a>
                     </div>
                 {{else}}
@@ -20,13 +20,15 @@
                 {{/if}}
 			</div>
             <div class="col-md-6 {{row.right_style_classes}}">
-                {{#if (idValid row.rightImage)}}
-                    <a href="{{currentUrl "bla"}}#lb-{{row.rightImage}}">
-                    {{auth-image imageSrc="/api/get-image/${id}" imageId=row.rightImage styleClasses="full-width-image"}}
+                {{#if row.rightImage}}
+                    <a href="{{currentUrl "bla"}}#lb-{{row.rightImage.id}}">
+                        <img src="{{row.rightImage.blobUrl}}" class="full-width-image">
                     </a>
-                    <a href="{{currentUrl "b"}}#_" class="lightbox" id="lb-{{row.rightImage}}">
-                        {{auth-image imageSrc="/api/get-image/${id}" imageId=row.rightImage}}
-                    </a>
+                    <div class="lightbox" id="lb-{{row.leftImage.id}}">
+                        <img src="{{row.rightImage.blobUrl}}">
+                        <div>{{row.rightImage.caption}}</div>
+                        <a class="lightbox-close" href="{{currentUrl "b"}}#_"></a>
+                    </div>
                 {{else}}
                     {{oik-md text=row.right_markdown image=row.rightImage}}
                 {{/if}}
