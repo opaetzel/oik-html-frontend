@@ -10,9 +10,11 @@
                     <a href="{{currentUrl "bla"}}#lb-{{row.leftImage}}">
                     {{auth-image imageSrc="/api/get-image/${id}" imageId=row.leftImage styleClasses="full-width-image"}}
                     </a>
-                    <a href="{{currentUrl "b"}}#_" class="lightbox" id="lb-{{row.leftImage}}">
-                        {{auth-image imageSrc="/api/get-image/${id}" imageId=row.leftImage}}
-                    </a>
+                    <div class="lightbox" id="lb-{{row.leftImage}}">
+                            {{auth-image imageSrc="/api/get-image/${id}" imageId=row.leftImage}}
+                            <div>Embed text here</div>
+                        <a class="lightbox-close" href="{{currentUrl "b"}}#_"></a>
+                    </div>
                 {{else}}
                     {{oik-md text=row.left_markdown image=row.leftImage}}
                 {{/if}}

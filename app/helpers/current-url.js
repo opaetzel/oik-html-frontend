@@ -1,7 +1,11 @@
 import Ember from 'ember';
 
 export function currentUrl(params/*, hash*/) {
-  return window.location.href;
+    let location = window.location.href;
+    console.log("old location:", location);
+    location = location.replace(/#.*?$/, "");
+    console.log("returning: ", location);
+  return location;
 }
 
 export default Ember.Helper.helper(currentUrl);
