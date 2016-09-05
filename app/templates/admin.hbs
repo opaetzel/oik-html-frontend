@@ -1,0 +1,59 @@
+{{#top-menu}}
+    Administration
+{{/top-menu}}
+<div class="container">
+    <div class="col-md-12">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="{{currentUrl "bla"}}#users" aria-controls="users" role="tab" data-toggle="tab">Nutzer</a></li>
+            <li role="presentation" class=""><a href="{{currentUrl "bla"}}#units" aria-controls="units" role="tab" data-toggle="tab">Units</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="users">
+                <h4>User verwalten</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Aktiv</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each model.users as |user|}}
+                        <tr>
+                            <td>{{user.name}}</td>
+                            <td>{{input type="checkbox" checked=user.active}}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="units">
+                <h4>Units veröffentlichen</h4>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Nutzer</th>
+                        <th>Veröffentlicht</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {{#each model.units as |unit|}}
+                            <tr>
+                                <td>
+                                {{#link-to "page" unit.id unit.pages.firstObject.id}}
+                                    {{unit.title}}
+                                {{/link-to}}
+                                </td>
+                                <td>{{unit.user.name}}</td>
+                                <td>{{input type="checkbox" checked=unit.published}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{{outlet}}

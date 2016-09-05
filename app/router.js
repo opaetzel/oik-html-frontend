@@ -23,6 +23,7 @@ Router.map(function() {
       path: '/unit/:unit_id/new/:page_type'
   });
   this.route('register');
+  this.route('admin');
 });
 
 export default Router;

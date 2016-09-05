@@ -9,5 +9,6 @@ export default DS.Model.extend({
     units: hasMany('unit', {async: true}),
     isAdmin: Ember.computed('groups', function() {
         return this.get('groups').indexOf('admin') >= 0;
-    }) 
+    }),
+    active: attr()
 });
