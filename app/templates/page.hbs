@@ -36,6 +36,10 @@
                 {{/if}}
 			</div>
         </div>
-        {{/each}}
+    {{/each}}
+    <div class="row">
+        <a {{action 'prevPage'}}><img src="images/back.png"></a>
+        <a {{action 'nextPage'}} class="pull-right"><img src="images/next.png"></a>
+    </div>
 </div>
 {{outlet}}
