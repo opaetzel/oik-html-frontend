@@ -1,4 +1,5 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
       <span class="icon-bar"></span>
@@ -9,8 +10,25 @@
   <div class="navbar-collapse collapse">
     <span class="navbar-center"><h4>{{yield}}</h4></span>
     <ul class="nav navbar-nav">
-      <li class="navbar-left"><a class="" href="http://www.uni-goettingen.de"><img class="navbar-image" src="images/logo.png"></a></li>
-      <li class="navbar-right"><a href="#about"><img src="images/info.png" class="navbar-image"></a></li>
+        <!--      <li class="navbar-left"><a class="" href="http://www.uni-goettingen.de"><img class="navbar-image" src="images/logo.png"></a></li>-->
+        <li class="navbar-right">
+            <div class="btn-group" role="group">
+                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/menu.png" class="navbar-image"></a>
+                <ul class="dropdown-menu">
+                    <li>{{#link-to 'units'}}Übersicht Units{{/link-to}}</li>
+                    <li>{{#link-to 'index'}}Über diese Seite{{/link-to}}</li>
+                    <li role="separator" class="divider"></li>
+                    {{#if session.isAuthenticated}}
+                        <li>{{#link-to 'profile'}}Mein Profil{{/link-to}}</li>
+                        <li><a {{action 'logout'}}>Logout</a></li>
+                    {{else}}
+                        <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+                        <li>{{#link-to 'register'}}Registrieren{{/link-to}}</li>
+                    {{/if}}
+                </ul>
+            </div>
+        </li>
     </ul>
   </div>
+</div>
 </nav>

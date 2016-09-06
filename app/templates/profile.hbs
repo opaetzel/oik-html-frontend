@@ -19,11 +19,11 @@
             </div>
         {{/each}}
         <div class="col-md-3 text-center unit-preview {{if (isEven currentUser.user.units.length) "grey-light" "grey-strong"}}">
-            <a href="unit/new">
+            {{#link-to 'new-unit'}}
                 <img src="images/new_unit.png">
                 <br>
                 <b>Neue Verhandlung</b>
-            </a>
+            {{/link-to}}
         </div>
     </div>
 </div>
