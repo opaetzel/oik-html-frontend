@@ -5,9 +5,9 @@
 		<canvas width="15" height="120"></canvas>
 	</div>
     <div class="container" id="main-container">
-        {{#each model.page.rows as |row|}}
+        {{#each model.page.rows as |row index|}}
 		<div class="row equal margin-row">
-            <div class="col-md-6 {{row.left_style_classes}}">
+            <div class="col-md-6 {{genColClass model.page.page_type index true model.unit.color_scheme}}">
                 {{#if row.leftImage}}
                     <a href="{{currentUrl "bla"}}#lb-{{row.leftImage.id}}">
                         <img src="{{row.leftImage.blobUrl}}" class="full-width-image">
@@ -21,7 +21,7 @@
                     {{oik-md text=row.left_markdown image=row.leftImage}}
                 {{/if}}
 			</div>
-            <div class="col-md-6 {{row.right_style_classes}}">
+            <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}}">
                 {{#if row.rightImage}}
                     <a href="{{currentUrl "bla"}}#lb-{{row.rightImage.id}}">
                         <img src="{{row.rightImage.blobUrl}}" class="full-width-image">
