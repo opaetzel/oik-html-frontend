@@ -3,6 +3,11 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
     currentUser: Ember.inject.service(),
     actions: {
+        cancel: function() {
+            let unit = this.get('model');
+            unit.deleteRecord();
+            this.transitionToRoute('units');
+        },
         save: function() {
             let unit = this.get('model');
             unit.set('user', this.currentUser.get('user'));

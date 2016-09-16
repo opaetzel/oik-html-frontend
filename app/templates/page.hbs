@@ -38,8 +38,12 @@
         </div>
     {{/each}}
     <div class="row">
-        <a {{action 'prevPage'}}><img src="images/back.png"></a>
-        <a {{action 'nextPage'}} class="pull-right"><img src="images/next.png"></a>
+        {{#if (isNotFirst model.page model.unit.pages)}}
+            <a {{action 'prevPage'}}><img src="images/back.png"></a>
+        {{/if}}
+        {{#if (isNotLast model.page model.unit.pages)}}
+            <a {{action 'nextPage'}} class="pull-right"><img src="images/next.png"></a>
+        {{/if}}
     </div>
 </div>
 {{outlet}}

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-const { inject: { service }, isEmpty, RSVP } = Ember;
+const { inject: { service }, RSVP } = Ember;
 
 export default Ember.Service.extend({
     session: service('session'),
@@ -28,7 +28,7 @@ export default Ember.Service.extend({
                     let imageUrl = urlCreator.createObjectURL(e.target.response);
                     this.set(`cachedImages.${url}`, imageUrl);
                     resolve(imageUrl);
-                }
+                };
                 xhr.send(); 
                 
             } else {

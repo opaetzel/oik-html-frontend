@@ -7,7 +7,7 @@ export default Ember.Route.extend({
             unit: this.store.findRecord('unit', params.unit_id)
         });
     },
-    afterModel: function(model, transition) {
+    afterModel: function(model) {
         model.unit.set('currentPage', model.unit.get('pages').indexOf(model.page));
         Ember.run.schedule("afterRender", this, function() {
             console.log("after render"+Ember.$('#affix-left'));

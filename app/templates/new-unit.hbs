@@ -14,7 +14,35 @@
                     <label for="{{concat elementId '-streitfrage'}}">Streitfrage</label>
                     {{input value=model.name id=(concat elementId '-streitfrage') class="form-control" placeholder="Streitfrage"}}
                 </div>
-                {{#link-to 'units' class="btn btn-default"}}Abbrechen{{/link-to}}
+                <div class="form-group">
+                    <label>Farbschema</label>
+                    <div class="text-center">
+                        {{#each model.availableSchemes as |schemeId|}}
+                            <div class="col-md-3">
+                                <label>
+                                    <div class="row">
+                                        <div class="text-center col-md-6 colors-{{schemeId}} pos choose-color">Pro</div>
+                                        <div class="text-center col-md-6 colors-{{schemeId}} neg choose-color">Con</div>
+                                    </div>
+                                    <div class="text-center row">
+                                        {{radio-button value=schemeId groupValue=model.color_scheme id=(concat 'radio-' schemeId)}}
+                                    </div>
+                                </label>
+                            </div>
+                        {{/each}}
+                    </div>
+                    {{#x-select value=model.color_scheme class="form-control"}}
+                        {{#x-option value=1 class="colors-1 pos"}}Schema 1{{/x-option}}
+                        {{#x-option value=2 class="colors-2 pos"}}Schema 2{{/x-option}}
+                        {{#x-option value=3 class="colors-3 pos"}}Schema 3{{/x-option}}
+                        {{#x-option value=4 class="colors-4 pos"}}Schema 4{{/x-option}}
+                        {{#x-option value=5 class="colors-5 pos"}}Schema 5{{/x-option}}
+                        {{#x-option value=6 class="colors-6 pos"}}Schema 6{{/x-option}}
+                        {{#x-option value=7 class="colors-7 pos"}}Schema 7{{/x-option}}
+                        {{#x-option value=8 class="colors-8 pos"}}Schema 8{{/x-option}}
+                    {{/x-select}}
+                </div>
+                <button {{action "cancel"}}  class="btn btn-default">Abbrechen</button>
                 <div class="btn-toolbar pull-right">
                     <button {{action "save"}} class="btn btn-default">Speichern</button>
                     <button {{action "saveAndNext"}} class="btn btn-primary">Speichern und weiter</button>

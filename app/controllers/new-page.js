@@ -92,7 +92,7 @@ export default Ember.Controller.extend({
                 }
             });
             const doSelectImage = this.get('actions.doSelectImage');
-            uploader.on('didUpload', e => {
+            uploader.on('didUpload', () => {
                 console.log("didUpload");
                 image.set('uploaded', true);
                 let images = this.get('model.unit.images');

@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-export function currentUrl(params/*, hash*/) {
+export function currentUrl(/*, hash*/) {
     let location = window.location.href;
     location = location.replace(/#.*?$/, "");
   return location;

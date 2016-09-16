@@ -13,8 +13,6 @@ export default DS.Model.extend({
         if(!this.get('uploaded')) {
             return;
         }
-        let self = this;
-        let token = this.get('session.data.authenticated.token');
         let imageId = this.get('id');
         if(imageId === undefined || isNaN(imageId) || imageId == null) {
             return;
