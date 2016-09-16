@@ -18,51 +18,53 @@ export function genColClass(params/*, hash*/) {
     switch(pageType) {
         case "opening":
             if (rowIndex == 0 && left) {
-                colClass=negClass;
+                colClass=negClass+" bg";
             }
             if (rowIndex == 2 && !left) {
-                colClass=posClass;
+                colClass=posClass+" bg";
             }
             break;
         case "presentation":
             if (rowIndex == 0 && !left) {
-                colClass=posClass;
+                colClass=posClass+" bg";
             }
             if (rowIndex == 1 && left) {
-                colClass=negClass;
+                colClass=negClass+" bg";
             }
             break;
         case "hearing-pro":
+            colClass=negClass;
             if (rowIndex%2 === 0) {
                 if(left) {
-                    colClass=negClass;
+                    colClass+=" bg";
                 }
             } else {
                 if (!left) {
-                    colClass=negClass;
+                    colClass+=" bg";
                 }
             }
             break;
         case "hearing-con":
+            colClass=posClass;
             if (rowIndex%2 === 0) {
                 if(!left) {
-                    colClass=posClass;
+                    colClass+=" bg";
                 }
             } else {
                 if (left) {
-                    colClass=posClass;
+                    colClass+=" bg";
                 }
             }
             break;
         case "synthesis":
             if(rowIndex === 0) {
                 if(!left) {
-                    colClass=posClass;
+                    colClass=posClass+" bg";
                 }
             }
             if(rowIndex === 1) {
                 if(left) {
-                    colClass=negClass;
+                    colClass=negClass+" bg";
                 }
             }
             break;
