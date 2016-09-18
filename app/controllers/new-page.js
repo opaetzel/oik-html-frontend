@@ -8,55 +8,68 @@ export default Ember.Controller.extend({
         addRow: function() {
             this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "", right_markdown: ""}));
         },
-        save: function() {
+        saveAndNext: function() {
             let page = this.get('model.page');
             if(page.get('isNew')) {
                 let unit = this.get('model.unit');
                 page.set('unit', unit);
             }
-            page.save().then(function (returnItem) {
+            page.save().then( (returnItem) => {
                 returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
+                this.send("transitionToNextNewPage");
             });
         },
-        saveAndNext: function() {
-            this.send("save");
-            this.send("transitionToNextNewPage");
-        },
         saveAndSynthesis: function() {
-            this.send("save");
-            this.transitionToRoute('new-page', this.get('model.unit.id'), 'synthesis');
+            let page = this.get('model.page');
+            if(page.get('isNew')) {
+                let unit = this.get('model.unit');
+                page.set('unit', unit);
+            }
+            page.save().then( (returnItem) => {
+                returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
+                this.set('nextType', 'synthesis');
+                this.transitionToRoute('new-page', this.get('model.unit.id'), 'synthesis');
+            });
         },
         saveAndExit: function() {
-            this.send("save");
-            this.transitionToRoute('profile');
+            let page = this.get('model.page');
+            if(page.get('isNew')) {
+                let unit = this.get('model.unit');
+                page.set('unit', unit);
+            }
+            page.save().then( (returnItem) => {
+                returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
+                this.transitionToRoute('profile');
+            });
         },
         transitionToNextNewPage: function() {
             let currentType = this.get('model.page.page_type');
             let pageType = "";
             switch(currentType){
-            case "opening": 
-                pageType = "presentation";
-                break;
-            case "presentation":
-                pageType = "hearing-pro";
-                break;
-            case "hearing-pro":
-                pageType = "hearing-con";
-                break;
-            case "hearing-con":
-                let pagesLen = this.get('model.unit.pages.length');
-                 if(pagesLen >= 8) {
-                     console.log(currentType);
-                     break;
-                 }
-                pageType = "hearing-pro";
-                break;
-            case "synthesis":
-                pageType = "critic";
-                break;
-            default:
-                break;
+                case "opening": 
+                    pageType = "presentation";
+                    break;
+                case "presentation":
+                    pageType = "hearing-pro";
+                    break;
+                case "hearing-pro":
+                    pageType = "hearing-con";
+                    break;
+                case "hearing-con":
+                    let pagesLen = this.get('model.unit.pages.length');
+                    if(pagesLen >= 8) {
+                        console.log(currentType);
+                        break;
+                    }
+                    pageType = "hearing-pro";
+                    break;
+                case "synthesis":
+                    pageType = "critic";
+                    break;
+                default:
+                    break;
             }
+            this.set('nextType', pageType);
             this.transitionToRoute('new-page', this.get('model.unit.id'), pageType); 
         },
         showModal: function(modalID) {
@@ -106,7 +119,7 @@ export default Ember.Controller.extend({
                 console.log("saved, try to upload");
                 let imageId = record.get('id');
                 uploader.set('url', "/api/images/" + imageId);
-                    console.log(imageId);
+                console.log(imageId);
                 console.log(files);
                 console.log("created uploader");
                 if (!Ember.isEmpty(files)) {

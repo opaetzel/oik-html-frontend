@@ -24,6 +24,10 @@ Router.map(function() {
   });
   this.route('register');
   this.route('admin');
+
+  this.route('edit-page', {
+    path: '/unit/:unid_id/edit/:page_id'
+  });
 });
 
 export default Router;
