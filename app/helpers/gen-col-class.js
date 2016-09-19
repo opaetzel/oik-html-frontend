@@ -17,18 +17,18 @@ export function genColClass(params/*, hash*/) {
     console.log(pageType, params[1]);
     switch(pageType) {
         case "opening":
-            if (rowIndex == 0 && left) {
+            if (rowIndex === 0 && left) {
                 colClass=negClass+" bg";
             }
-            if (rowIndex == 2 && !left) {
+            if (rowIndex === 2 && !left) {
                 colClass=posClass+" bg";
             }
             break;
         case "presentation":
-            if (rowIndex == 0 && !left) {
+            if (rowIndex === 0 && !left) {
                 colClass=posClass+" bg";
             }
-            if (rowIndex == 1 && left) {
+            if (rowIndex === 1 && left) {
                 colClass=negClass+" bg";
             }
             break;

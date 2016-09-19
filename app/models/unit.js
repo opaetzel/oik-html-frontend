@@ -15,6 +15,6 @@ export default DS.Model.extend({
     pages: hasMany('page', {async: true}),
     user: belongsTo('user'),
     availableSchemes: Ember.computed(function() { 
-        return [1,2,3,4,5,6,7,8]
+        return [1,2,3,4,5,6,7,8];
     })
 });

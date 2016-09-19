@@ -1,5 +1,4 @@
 import Ember from 'ember';
-import EmberUploader from 'ember-uploader';
 
 export default Ember.Controller.extend({
     session: Ember.inject.service('session'),
@@ -8,16 +7,20 @@ export default Ember.Controller.extend({
         addRow: function() {
             this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "", right_markdown: ""}));
         },
-        save: function() {
-            let page = this.get('model.page');
-            if(page.get('isNew')) {
-                let unit = this.get('model.unit');
-                page.set('unit', unit);
-            }
-            page.save().then( (returnItem) => {
-                returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
-                this.get("target").send("editThis", this.get("model.unit.id"), this.get("model.page.id"));
+        nextPage: function() {
+            let currentPage = this.get('model.unit.pages').indexOf(this.get('model.page'));
+            let nextPage = this.get('model.unit.pages').find(function(item, index) {
+                return index === currentPage+1;
             });
+            this.transitionToRoute('edit-page', this.get('model.unit.id'), nextPage.get('id'));
+        },
+        prevPage: function() {
+            let currentPage = this.get('model.unit.pages').indexOf(this.get('model.page'));
+            let prevPage = this.get('model.unit.pages').find(function(item, index) {
+                return index === currentPage-1;
+            });
+            this.transitionToRoute('edit-page', this.get('model.unit.id'), prevPage.get('id'));
+
         },
         saveAndNext: function() {
             let page = this.get('model.page');
@@ -27,7 +30,13 @@ export default Ember.Controller.extend({
             }
             page.save().then( (returnItem) => {
                 returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
-                this.send("transitionToNextNewPage");
+                let page = this.get('model.page');
+                let pages = this.get('model.unit.pages');
+                if(page.id === pages.get('lastObject').id) {
+                    this.send("transitionToNextNewPage");
+                } else {
+                    this.send("nextPage");
+                }
             });
         },
         saveAndSynthesis: function() {
@@ -39,7 +48,6 @@ export default Ember.Controller.extend({
             page.save().then( (returnItem) => {
                 returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
                 this.set('nextType', 'synthesis');
-                window.history.replaceState({}, "", "/app/unit/"+this.get('model.unit.id')+"/edit/"+this.get('model.page.id'));
                 this.transitionToRoute('new-page', this.get('model.unit.id'), "synthesis"); 
             });
         },
@@ -82,7 +90,7 @@ export default Ember.Controller.extend({
                     break;
             }
             this.set('nextType', pageType);
-            window.history.replaceState({}, "", "/app/unit/"+this.get('model.unit.id')+"/edit/"+this.get('model.page.id'));
+            window.history.pushState({}, "", "/app/unit/"+this.get('model.unit.id')+"/edit/"+this.get('model.page.id'));
             this.transitionToRoute('new-page', this.get('model.unit.id'), pageType); 
         },
         showModal: function(modalID) {

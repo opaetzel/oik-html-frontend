@@ -26,7 +26,7 @@ Router.map(function() {
   this.route('admin');
 
   this.route('edit-page', {
-    path: '/unit/:unid_id/edit/:page_id'
+    path: '/unit/:unit_id/edit/:page_id'
   });
 });
 
