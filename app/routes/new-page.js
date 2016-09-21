@@ -2,6 +2,7 @@ import Ember from 'ember';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 
 export default Ember.Route.extend(AuthenticatedRouteMixin, {
+    currentUser: Ember.inject.service('current-user'),
     actions: {
         /*willTransition: function(transition) {
             console.log("in willTransition", transition);
@@ -20,6 +21,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     events: {
         editThis(unitId, pageId) {
             this.replaceWith("edit-page", unitId, pageId);
+        }
+    },
+    beforeModel() {
+        if(!(this.get('currentUser.user')) || !(this.get('currentUser.user.groups').indexOf('editor') > -1)) {
+            this.transitionTo('index');
         }
     },
     model(params, transition) {

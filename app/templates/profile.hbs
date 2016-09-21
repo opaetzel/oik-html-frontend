@@ -8,8 +8,8 @@
         </div>
     </div>
     <div class="row margin-row pad {{if currentUser.user.units.length "equal" ""}}">
-        {{#each currentUser.user.units as |unit|}}
-            <div class="col-md-3 text-center unit-preview {{if (isEven @index) "grey-strong" "grey-light"}}">
+        {{#each currentUser.user.units as |unit index|}}
+            <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
                 {{#link-to "page" unit.id unit.pages.firstObject.id}}
                     {{unit.rotateImageId}}
                     {{auth-image imageSrc="api/get-rotate-image/${id}/0" imageId=unit.rotateImageId styleClasses="full-width-image"}}
@@ -18,13 +18,15 @@
                 {{/link-to}}
             </div>
         {{/each}}
-        <div class="col-md-3 text-center unit-preview {{if (isEven currentUser.user.units.length) "grey-light" "grey-strong"}}">
-            {{#link-to 'new-unit'}}
-                <img src="images/new_unit.png">
-                <br>
-                <b>Neue Verhandlung</b>
-            {{/link-to}}
-        </div>
+        {{#if (userInGroup currentUser.user 'editor')}}
+            <div class="col-md-3 text-center unit-preview {{if (isEven currentUser.user.units.length) "grey-strong" "grey-light"}}">
+                {{#link-to 'new-unit'}}
+                    <img src="images/new_unit.png">
+                    <br>
+                    <b>Neue Verhandlung</b>
+                {{/link-to}}
+            </div>
+        {{/if}}
     </div>
 </div>
 {{outlet}}
