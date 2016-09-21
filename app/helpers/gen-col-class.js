@@ -20,7 +20,7 @@ export function genColClass(params/*, hash*/) {
             if (rowIndex === 0 && left) {
                 colClass=negClass+" bg";
             }
-            if (rowIndex === 2 && !left) {
+            if (rowIndex === 2 && left) {
                 colClass=posClass+" bg";
             }
             break;

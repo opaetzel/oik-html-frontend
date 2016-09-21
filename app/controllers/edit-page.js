@@ -22,6 +22,16 @@ export default Ember.Controller.extend({
             this.transitionToRoute('edit-page', this.get('model.unit.id'), prevPage.get('id'));
 
         },
+        save: function() {
+            let page = this.get('model.page');
+            if(page.get('isNew')) {
+                let unit = this.get('model.unit');
+                page.set('unit', unit);
+            }
+            page.save().then( (returnItem) => {
+                returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
+            });
+        },
         saveAndNext: function() {
             let page = this.get('model.page');
             if(page.get('isNew')) {
