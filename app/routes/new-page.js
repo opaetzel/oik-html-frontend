@@ -68,7 +68,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             case "synthesis":
 				rows = [
                     this.store.createRecord('row', {left_markdown: "Abbildung Schluss Contra (image)", right_markdown: "# Schlussplädoyer Contra (text)"}),
-                    this.store.createRecord('row', {left_markdown: "Schlussplädoyer Pro (text)", right_markdown: "Abbildung Schluss Pro (image)"}),
+                    this.store.createRecord('row', {left_markdown: "# Schlussplädoyer Pro (text)", right_markdown: "Abbildung Schluss Pro (image)"}),
                     this.store.createRecord('row', {left_markdown: "Abbildung des Objekts (image)", right_markdown: "# Stellungnahme Objekt (text)"})
                 ];
 				

@@ -19,6 +19,11 @@
                     </div>
                 {{else}}
                     {{oik-md text=row.left_markdown image=row.leftImage}}
+                    {{#if (isEqualOr model.page.page_type 'hearing-con' 'hearing-pro')}}
+                        <div class="text-right pull-right">
+                            ◎✓ ◎✗ ◉?
+                        </div>
+                    {{/if}}
                 {{/if}}
 			</div>
             <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}}">
@@ -33,6 +38,11 @@
                     </div>
                 {{else}}
                     {{oik-md text=row.right_markdown image=row.rightImage}}
+                    {{#if (isEqualOr model.page.page_type 'hearing-con' 'hearing-pro')}}
+                        <div class="text-right pull-right">
+                            ◎✓ ◎✗ ◉?
+                        </div>
+                    {{/if}}
                 {{/if}}
 			</div>
         </div>
