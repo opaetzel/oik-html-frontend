@@ -28,6 +28,10 @@ Router.map(function() {
   this.route('edit-page', {
     path: '/unit/:unit_id/edit/:page_id'
   });
+
+  this.route('confirm-mail', {
+    path: '/confirm-mail/:token'
+  });
 });
 
 export default Router;
