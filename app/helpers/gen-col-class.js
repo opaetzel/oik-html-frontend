@@ -13,12 +13,17 @@ export function genColClass(params/*, hash*/) {
     let colorScheme = params[3];
     let negClass = "colors-"+colorScheme + " neg";
     let posClass = "colors-"+colorScheme + " pos";
-    let colClass="";
+    let strong = " grey-strong";
+    let light = " grey-light";
+    let colClass=light;
     console.log(pageType, params[1]);
     switch(pageType) {
         case "opening":
             if (rowIndex === 0 && left) {
                 colClass=negClass+" bg";
+            }
+            if (rowIndex === 1 && !left) {
+                colClass=strong;
             }
             if (rowIndex === 2 && left) {
                 colClass=posClass+" bg";
@@ -37,10 +42,14 @@ export function genColClass(params/*, hash*/) {
             if (rowIndex%2 === 0) {
                 if(left) {
                     colClass+=" bg";
+                } else {
+                    colClass+= light;
                 }
             } else {
                 if (!left) {
                     colClass+=" bg";
+                } else {
+                    colClass+= light;
                 }
             }
             break;
@@ -49,10 +58,14 @@ export function genColClass(params/*, hash*/) {
             if (rowIndex%2 === 0) {
                 if(!left) {
                     colClass+=" bg";
+                } else {
+                    colClass+= light;
                 }
             } else {
                 if (left) {
                     colClass+=" bg";
+                } else {
+                    colClass+= light;
                 }
             }
             break;
@@ -66,6 +79,9 @@ export function genColClass(params/*, hash*/) {
                 if(left) {
                     colClass=negClass+" bg";
                 }
+            } 
+            if(rowIndex === 2 && !left) {
+                colClass=strong;
             }
             break;
         default:

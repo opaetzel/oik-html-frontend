@@ -7,5 +7,9 @@ export default DS.Model.extend({
     page_type: attr(),
     unit_id: attr(),
     rows: hasMany('row'),
+    extendable: Ember.computed(function() {
+        let pageType = this.get('page_type');
+        return (pageType === "hearing-pro" || pageType === "hearing-con");
+    }),
     unit: belongsTo('unit')
 });

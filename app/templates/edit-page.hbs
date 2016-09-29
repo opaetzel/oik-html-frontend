@@ -15,7 +15,9 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
-            <button {{action "addRow"}} class="btn btn-sm btn-default">Neue Zeile</button>
+            {{#if model.page.extendable}}
+                <button {{action "addRow"}} class="btn btn-sm btn-default">Neue Zeile</button>
+            {{/if}}
             <div class="btn-toolbar pull-right">
                 <button {{action "save"}} class="btn btn-sm btn-primary">Speichern</button>
                 {{#if (startsWith model.page.page_type "critic")}}
