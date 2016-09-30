@@ -3,5 +3,6 @@ import attr from 'ember-data/attr';
 
 export default DS.Model.extend({
     username: attr(),
+    email: attr(),
     password: attr()
 });

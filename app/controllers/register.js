@@ -4,7 +4,7 @@ export default Ember.Controller.extend({
     actions: {
         register: function() {
             this.set('error', false);
-            let credentials = this.getProperties('username', 'password');
+            let credentials = this.getProperties('username', 'email', 'password');
             console.log(credentials);
             let newUser = this.get('store').createRecord('newuser', credentials);
             console.log(credentials);
