@@ -26,7 +26,7 @@ export default Ember.Controller.extend({
                     xhr.send(JSON.stringify(user)); 
                 }
             }).then( () => {
-                this.set('model.confirmed', true);
+                this.set('model.confirmed', 'true');
             }).catch( (error) => {
                 this.set('errorMessage', error);
             });
