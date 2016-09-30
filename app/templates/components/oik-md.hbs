@@ -8,7 +8,10 @@
         </div>
         <div class="btn-group">
             <button tabindex="-1" title="URL/Link" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-link"></span> </button>
-            <button {{action 'selectImage'}} tabindex="-1" title="Image" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-picture"></span> </button>
+            <button {{action 'selectImage'}} tabindex="-1" title="Bild auswählen" type="button" class="btn-default btn-sm btn"><span class="glyphicon glyphicon-picture"></span> </button>
+        </div>
+        <div class="btn-group">
+            <label class="checkbox-inline">{{input type="checkbox" checked=hasImage}}Bild anzeigen</label>
         </div>
         <!--
         <div class="btn-group">

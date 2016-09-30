@@ -5,7 +5,12 @@ export default Ember.Controller.extend({
     imageCache: Ember.inject.service(),
     actions: {
         addRow: function() {
-            this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "", right_markdown: ""}));
+            let lastRow = this.get('model.page.rows.lastObject');
+            if(lastRow.get('left_is_argument')) {
+                this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "Bild", left_has_image: true, right_markdown: "Zeugenbefragung", right_is_argument: true}));
+            } else {
+                this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "Zeugenbefragung", left_is_argument: true, right_markdown: "Bild", right_has_image: true}));
+            }
         },
         nextPage: function() {
             let currentPage = this.get('model.unit.pages').indexOf(this.get('model.page'));

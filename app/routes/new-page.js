@@ -47,8 +47,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             case "opening":
 				rows = [
                     this.store.createRecord('row', {left_markdown: "## Streitfrage (text)", right_markdown: "Eröffnung (text)"}),
-                    this.store.createRecord('row', {left_markdown: "Abbildung zur Sache (image)", right_markdown: "Aufruf der Sache (text)"}),
-                    this.store.createRecord('row', {left_markdown: "objektbezogene Daten (text)", right_markdown: "Abbildung des Objekts (image)"})
+                    this.store.createRecord('row', {left_markdown: "Abbildung zur Sache (image)", left_has_image: true, right_markdown: "Aufruf der Sache (text)"}),
+                    this.store.createRecord('row', {left_markdown: "objektbezogene Daten (text)", right_markdown: "Abbildung des Objekts (image)", right_has_image: true})
                 ];
 				break;
             case "presentation":
@@ -59,23 +59,23 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
 				break;
             case "hearing-pro":
 				rows = [
-                    this.store.createRecord('row', {left_markdown: "# Überschrift Argument Pro (text)  \nArgument Pro (text)", right_markdown: "## *Zitat Pro(text)*"}),
-                    this.store.createRecord('row', {left_markdown: "Abbildung Objekt (image)", right_markdown: "__Überschrift zur Objektbefragung (text)__  \nFrage an das Objekt(text)"}),
-                    this.store.createRecord('row', {left_markdown: "__Überschrift zur Zeugenbefragung 1 (text)__  \nZeugenbefragung 1 (text)", right_markdown: "Abbildung Zeuge 1 (image)"})
+                    this.store.createRecord('row', {left_markdown: "# Überschrift Argument Pro (text)  \nArgument Pro (text)", left_is_argument: true, right_markdown: "## *Zitat Pro(text)*"}),
+                    this.store.createRecord('row', {left_markdown: "Abbildung Objekt (image)", left_has_image: true, right_markdown: "__Überschrift zur Objektbefragung (text)__  \nFrage an das Objekt(text)", right_is_argument: true}),
+                    this.store.createRecord('row', {left_markdown: "__Überschrift zur Zeugenbefragung 1 (text)__  \nZeugenbefragung 1 (text)", left_is_argument: true, right_markdown: "Abbildung Zeuge 1 (image)", right_has_image: true})
                 ];
 				break;
             case "hearing-con":
 				rows = [
-                    this.store.createRecord('row', {left_markdown: "## *Zitat Contra (text)*", right_markdown: "# Überschrift Argument Contra (text)  \nArgument Contra (text)"}),
-                    this.store.createRecord('row', {left_markdown: "__Überschrift zur Objektbefragung (text)__  \nFrage an das Objekt(text)", right_markdown: "Abbildung Objekt (image)"}),
-                    this.store.createRecord('row', {left_markdown: "Abbildung Zeuge 1 (image)", right_markdown: "__Überschrift zur Zeugenbefragung 1 (text)__  \nZeugenbefragung 1 (text)"})
+                    this.store.createRecord('row', {left_markdown: "## *Zitat Contra (text)*", right_markdown: "# Überschrift Argument Contra (text)  \nArgument Contra (text)", right_is_argument: true}),
+                    this.store.createRecord('row', {left_markdown: "__Überschrift zur Objektbefragung (text)__  \nFrage an das Objekt(text)", left_is_argument: true, right_markdown: "Abbildung Objekt (image)", right_has_image: true}),
+                    this.store.createRecord('row', {left_markdown: "Abbildung Zeuge 1 (image)", left_has_image: true, right_markdown: "__Überschrift zur Zeugenbefragung 1 (text)__  \nZeugenbefragung 1 (text)", right_is_argument: true})
                 ];
 				break;
             case "synthesis":
 				rows = [
-                    this.store.createRecord('row', {left_markdown: "Abbildung Schluss Contra (image)", right_markdown: "# Schlussplädoyer Contra (text)"}),
-                    this.store.createRecord('row', {left_markdown: "# Schlussplädoyer Pro (text)", right_markdown: "Abbildung Schluss Pro (image)"}),
-                    this.store.createRecord('row', {left_markdown: "Abbildung des Objekts (image)", right_markdown: "# Stellungnahme Objekt (text)"})
+                    this.store.createRecord('row', {left_markdown: "Abbildung Schluss Contra (image)", left_has_image: true, right_markdown: "# Schlussplädoyer Contra (text)"}),
+                    this.store.createRecord('row', {left_markdown: "# Schlussplädoyer Pro (text)", right_markdown: "Abbildung Schluss Pro (image)", right_has_image: true}),
+                    this.store.createRecord('row', {left_markdown: "Abbildung des Objekts (image)", left_has_image: true, right_markdown: "# Stellungnahme Objekt (text)"})
                 ];
 				
 				break;

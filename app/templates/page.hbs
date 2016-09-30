@@ -8,7 +8,7 @@
         {{#each model.page.rows as |row index|}}
 		<div class="row equal margin-row">
             <div class="col-md-6 {{genColClass model.page.page_type index true model.unit.color_scheme}}">
-                {{#if row.leftImage}}
+                {{#if row.left_has_image}}
                     <a href="{{currentUrl "bla"}}#lb-{{row.leftImage.id}}">
                         <img src="{{row.leftImage.blobUrl}}" class="full-width-image">
                     </a>
@@ -17,17 +17,18 @@
                         <div>{{row.leftImage.caption}}</div>
                         <a class="lightbox-close" href="{{currentUrl "b"}}#_"></a>
                     </div>
-                {{else}}
-                    {{oik-md text=row.left_markdown image=row.leftImage}}
-                    {{#if (isEqualOr model.page.page_type 'hearing-con' 'hearing-pro')}}
-                        <div class="text-right pull-right">
-                            ◎✓ ◎✗ ◉?
-                        </div>
-                    {{/if}}
+                {{/if}}
+                {{oik-md text=row.left_markdown image=row.leftImage}}
+                {{#if row.left_is_argument}}
+                    <div class="text-right pull-right">
+                        <label class="checkbox-inline">{{input type="checkbox"}}✓</label>
+                        <label class="checkbox-inline">{{input type="checkbox"}}✗</label>
+                        <label class="checkbox-inline">{{input type="checkbox"}}?</label>
+                    </div>
                 {{/if}}
 			</div>
             <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}}">
-                {{#if row.rightImage}}
+                {{#if row.right_has_image}}
                     <a href="{{currentUrl "bla"}}#lb-{{row.rightImage.id}}">
                         <img src="{{row.rightImage.blobUrl}}" class="full-width-image">
                     </a>
@@ -36,13 +37,14 @@
                         <div>{{row.rightImage.caption}}</div>
                         <a class="lightbox-close" href="{{currentUrl "b"}}#_"></a>
                     </div>
-                {{else}}
-                    {{oik-md text=row.right_markdown image=row.rightImage}}
-                    {{#if (isEqualOr model.page.page_type 'hearing-con' 'hearing-pro')}}
-                        <div class="text-right pull-right">
-                            ◎✓ ◎✗ ◉?
-                        </div>
-                    {{/if}}
+                {{/if}}
+                {{oik-md text=row.right_markdown image=row.rightImage}}
+                {{#if row.right_is_argument}}
+                    <div class="text-right pull-right">
+                        <label class="checkbox-inline">{{input type="checkbox"}}✓</label>
+                        <label class="checkbox-inline">{{input type="checkbox"}}✗</label>
+                        <label class="checkbox-inline">{{input type="checkbox"}}?</label>
+                    </div>
                 {{/if}}
 			</div>
         </div>
