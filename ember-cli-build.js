@@ -35,5 +35,6 @@ module.exports = function(defaults) {
   app.import(app.bowerDirectory + '/bootstrap/fonts/glyphicons-halflings-regular.woff2', {
           destDir: 'fonts'
   });
+  app.import('vendor/viewer.js')
   return app.toTree();
 };

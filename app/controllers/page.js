@@ -16,6 +16,18 @@ export default Ember.Controller.extend({
             });
             this.transitionToRoute('page', this.get('model.unit.id'), prevPage.get('id'));
 
+        },
+        showRotateImage: function() {
+            if(!this.get('rotateViewer')) {
+                const token = this.get('session.data.authenticated.token');
+                let headers = [
+                    { key: "Accept", value: "*/*"},
+                    { key: "Authorization", value: "Bearer " + token}
+                ];
+                let viewer = new Viewer("rotate-canvas", "api/rotate-images/" + this.get('model.unit.rotateImageId') + "/", 36, headers);
+                this.set('rotateViewer', viewer);
+            }
+            Ember.$('#rotate-modal').modal('show');
         }
     }
 });
