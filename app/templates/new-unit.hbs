@@ -8,16 +8,36 @@
             <form>
                 <div class="form-group">
                     <label for="name">Name</label>
-                    {{input value=model.title id='name' class="form-control" placeholder="Name"}}
+                    {{input value=model.unit.title id='name' class="form-control" placeholder="Name"}}
                 </div>
                 <div class="form-group">
                     <label for="{{concat elementId '-streitfrage'}}">Streitfrage</label>
-                    {{input value=model.name id=(concat elementId '-streitfrage') class="form-control" placeholder="Streitfrage"}}
+                    {{input value=model.unit.name id=(concat elementId '-streitfrage') class="form-control" placeholder="Streitfrage"}}
                 </div>
+                <hr>
+                <div class="form-group">
+                    <h4>Rotationsbild</h4>
+                    <div class="form-group">
+                        <label for="{{concat elementId '-caption'}}">Caption</label>
+                        {{input value=model.rotateImage.caption id=(concat elementId '-caption') class="form-control" placeholder="Caption"}}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{concat elementId '-credits'}}">Credits</label>
+                        {{input value=model.rotateImage.credits id=(concat elementId '-credits') class="form-control" placeholder="Credits"}}
+                    </div>
+                    {{#x-file-input name="files" id="inputFile" multiple=false action=(action "didSelectFiles") alt="Datei auswählen"}}
+                        <button class="btn btn-sm btn-default">Datei auswählen</button>
+                    {{/x-file-input}}
+                    {{#if 'uploadfile'}}
+                        {{uploadfile.name}}
+                    {{/if}}
+                    <button {{action "doUpload"}} class="btn btn-sm btn-primary pull-right">Starte Upload!</button>
+                </div>
+                <hr>
                 <div class="form-group">
                     <label>Farbschema</label>
                     <div class="text-center">
-                        {{#each model.availableSchemes as |schemeId|}}
+                        {{#each model.unit.availableSchemes as |schemeId|}}
                             <div class="col-md-3">
                                 <label>
                                     <div class="row">
@@ -25,7 +45,7 @@
                                         <div class="text-center col-md-6 colors-{{schemeId}} neg bg choose-color"><b>Con</b></div>
                                     </div>
                                     <div class="text-center row">
-                                        {{radio-button value=schemeId groupValue=model.color_scheme id=(concat 'radio-' schemeId)}}
+                                        {{radio-button value=schemeId groupValue=model.unit.color_scheme id=(concat 'radio-' schemeId)}}
                                     </div>
                                 </label>
                             </div>

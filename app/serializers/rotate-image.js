@@ -1,6 +1,6 @@
 import DS from 'ember-data';
 
-export default DS.JSONAPISerializer.extend({
+export default DS.RESTSerializer.extend({
     serializeBelongsTo: function(record, json, relationship) {
         this._super(record, json, relationship);
         var key = relationship.key;

@@ -9,8 +9,11 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         }
     },
     model() {
-        return this.store.createRecord('unit', {
-            published: false
+        return Ember.RSVP.hash({
+            unit: this.store.createRecord('unit', {
+                published: false
+            }),
+            rotateImage: this.store.createRecord('rotate-image')
         });
     }
 });
