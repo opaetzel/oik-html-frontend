@@ -2,6 +2,7 @@ import Ember from 'ember';
 import EmberUploader from 'ember-uploader';
 
 export default Ember.Controller.extend({
+    session: Ember.inject.service('session'),
     currentUser: Ember.inject.service(),
     actions: {
         cancel: function() {
@@ -28,6 +29,7 @@ export default Ember.Controller.extend({
             console.log(files[0]);
         },
         doUpload: function() {
+            this.set('uploading', true);
             let image = this.get('model.rotateImage');
             let file = this.get('uploadfile');
             const uploader = EmberUploader.Uploader.create({
@@ -38,22 +40,42 @@ export default Ember.Controller.extend({
                     }
                 }
             });
+            uploader.on('progress', e => {
+                this.set('uploadprogress', e.percent);
+            });
             uploader.on('didUpload', () => {
                 console.log("didUpload");
-                image.set('uploaded', true);
+                this.set('uploading', false);
+                this.set('uploadedFile', file);
+            });
+            uploader.on('didError', (jqXHR, textStatus, errorThrown) => {
+                console.log(jqXHR, textStatus, errorThrown);
+                this.set('uploadError', errorThrown + " (" + textStatus + ")");
             });
             let unit = this.get('model.unit');
-            unit.set('rotateImage', image);
-            image.save().then(function(record) {
-                console.log("saved, try to upload");
-                let imageId = record.get('id');
-                uploader.set('url', "/api/rotateImages/" + imageId);
-                console.log(imageId);
-                console.log("created uploader");
-                if (file) {
-                    // this second argument is optional and can to be sent as extra data with the upload
-                    uploader.upload(file);
-                }
+            unit.set('user', this.get("currentUser.user"));
+            console.log("set user");
+            image.save().then( (record) => {
+                unit.set('rotateImage', image);
+                unit.save().then(function() {
+                    console.log("saved, try to upload");
+                    let imageId = record.get('id');
+                    uploader.set('url', "/api/upload-rotate-image/" + imageId);
+                    console.log(imageId);
+                    console.log("created uploader");
+                    if (file) {
+                        // this second argument is optional and can to be sent as extra data with the upload
+                        uploader.upload(file).then(data => {
+                            console.log("didUpload");
+                            this.set('uploading', false);
+                            this.set('uploadedFile', file);
+                        }, error => {
+                          // Handle failure
+                            console.log(error);
+                            this.set('uploadError', error);
+                        });
+                    }
+                });
             });
         }
     }

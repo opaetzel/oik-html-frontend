@@ -5,7 +5,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Viewer = function () {
-    function Viewer(canvasId, relativePath, numImages, xhrHeaders) {
+    function Viewer(canvasId, relativePath, numImages, headers, withExtension) {
         _classCallCheck(this, Viewer);
 
         this.canvasId = canvasId;
@@ -15,7 +15,8 @@ var Viewer = function () {
         this.numImages = numImages;
         this.images = {};
         this.imagesLoaded = 0;
-        this.xhrHeaders = xhrHeaders;
+        this.headers = headers;
+        this.withExtension = withExtension;
 
         this.currentImage = 0;
         this.startImage = 0;
@@ -31,17 +32,20 @@ var Viewer = function () {
         value: function preload() {
             var _this = this;
 
+            console.log("in preload", this.numImages);
             for (var i = 0; i < this.numImages; i++) {
                 var xhr = new XMLHttpRequest();
-                xhr.open("GET", this.relativePath + i + ".jpg");
-                xhr.imageNum = i;
-                xhr.responseType = "blob";
+                if (this.withExtension) {
+                    xhr.open("GET", this.relativePath + i + ".jpg");
+                } else {
+                    xhr.open("GET", this.relativePath + i);
+                }
                 var _iteratorNormalCompletion = true;
                 var _didIteratorError = false;
                 var _iteratorError = undefined;
 
                 try {
-                    for (var _iterator = this.xhrHeaders[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    for (var _iterator = this.headers[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                         header = _step.value;
 
                         xhr.setRequestHeader(header.key, header.value);
@@ -61,6 +65,8 @@ var Viewer = function () {
                     }
                 }
 
+                xhr.imageNum = i;
+                xhr.responseType = "blob";
                 xhr.onload = function (e) {
                     var urlCreator = window.URL || window.webkitURL;
                     var imageUrl = urlCreator.createObjectURL(e.target.response);
@@ -146,6 +152,7 @@ var Viewer = function () {
     }, {
         key: "renderImage",
         value: function renderImage() {
+            console.log("render image..");
             var xpos = 0,
                 ypos = 0;
             var ctx = this.context;
@@ -162,6 +169,7 @@ var Viewer = function () {
                 console.log("ypos", ypos);
             }
             console.log(xpos, ypos, image.width * scale, image.height * scale);
+            console.log(image);
             ctx.drawImage(image, xpos, ypos, image.width * scale, image.height * scale);
         }
     }, {

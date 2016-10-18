@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row margin-row pad">
         <div class="col-md-12 grey-light">
-            Hallo <b>{{currentUser.user.name}}</b>! Hier kannst Du Dir deine Units ansehen:
+            Hallo <b>{{currentUser.user.name}}</b>! {{#if currentUser.user.units}}Hier kannst Du Dir deine Units ansehen:{{/if}}
         </div>
     </div>
     <div class="row margin-row pad {{if currentUser.user.units.length "equal" ""}}">
@@ -12,7 +12,7 @@
             <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
                 {{#link-to "page" unit.id unit.pages.firstObject.id}}
                     {{unit.rotateImageId}}
-                    {{auth-image imageSrc="api/get-rotate-image/${id}/0" imageId=unit.rotateImageId styleClasses="full-width-image"}}
+                    {{auth-image imageSrc="api/get-rotate-image/${id}/0" imageId=unit.rotateImage.id styleClasses="full-width-image"}}
                     <br>
                     <b>{{unit.title}}</b>
                 {{/link-to}}

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             {{#if sent}}
-                Registrierung erfolgreich! Sie müssen noch durch einen Admin freigeschaltet werden.<br>
+                <p>Registrierung erfolgreich! Eine Mail wurde an die hinterlegte E-Mail Adresse geschickt, um sie zu bestätigen.</p><br>
                 <button {{action "newUser"}} class="btn btn-primary pull-right">Einen weiteren Nutzer registrieren</button>
             {{else}}
                 <form {{action 'register' on='submit'}}>
@@ -21,7 +21,7 @@
                         <label for="password">Passwort</label>
                         {{input id='password' placeholder='Passwort' type='password' value=password class="form-control"}}
                     </div>
-                        <button type="submit" class="btn btn-primary pull-right">Register</button>
+                        <button type="submit" class="btn btn-primary pull-right">Registrieren</button>
                 </form>
             {{/if}}
             {{#if error}}

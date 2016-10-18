@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
+    session: Ember.inject.service('session'),
     actions: {
         nextPage: function() {
             let currentPage = this.get('model.unit.currentPage');
@@ -18,16 +19,18 @@ export default Ember.Controller.extend({
 
         },
         showRotateImage: function() {
+            Ember.$('#rotate-modal').modal('show');
             if(!this.get('rotateViewer')) {
                 const token = this.get('session.data.authenticated.token');
                 let headers = [
                     { key: "Accept", value: "*/*"},
                     { key: "Authorization", value: "Bearer " + token}
                 ];
-                let viewer = new Viewer("rotate-canvas", "api/rotate-images/" + this.get('model.unit.rotateImageId') + "/", 36, headers);
-                this.set('rotateViewer', viewer);
+                this.get('store').findRecord('rotate-image', this.get('model.unit.rotateImage.id')).then( (rotateImage) => {
+                    let viewer = new Viewer("rotate-canvas", "api/get-rotate-image/" + rotateImage.get('id') + "/", rotateImage.get('numImages'), headers, false);
+                    this.set('rotateViewer', viewer);
+                });
             }
-            Ember.$('#rotate-modal').modal('show');
         }
     }
 });
