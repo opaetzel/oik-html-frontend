@@ -40,6 +40,11 @@ export default Ember.Controller.extend({
                     viewer.renderImage();
                 }
             });
+        },
+        viewerFS: function() {
+            if(this.get('rotateViewer')) {
+                this.get('rotateViewer').fullscreen();
+            }
         }
     }
 });

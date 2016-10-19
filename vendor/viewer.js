@@ -106,8 +106,11 @@ var Viewer = function () {
                 this.oldHeight = this.canvas.height;
                 this.canvas.width = document.body.clientWidth;
                 this.canvas.height = document.body.clientHeight;
+                console.log(this.canvas.width, this.canvas.height);
+                $('#' + this.canvasId).addClass('fullscreen');
             } else {
                 console.log("removing class");
+                $('#' + this.canvasId).removeClass('fullscreen');
                 this.canvas.width = this.oldWidth;
                 this.canvas.height = this.oldHeight;
             }
@@ -159,18 +162,30 @@ var Viewer = function () {
             ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             var image = this.images[this.currentImage];
             console.log($('#' + this.canvasId).width(), $('#' + this.canvasId).height());
-            var scale = $('#' + this.canvasId).width() / image.width;
+            //let scale = $('#'+this.canvasId).width()/image.width;
+            var scale = this.canvas.width / image.width;
             if (scale * image.height > $('#' + this.canvasId).height()) {
-                scale = $('#' + this.canvasId).height() / image.height;
-                xpos = ($('#' + this.canvasId).width() - image.width * scale) / 2;
+                //scale = $('#'+this.canvasId).height()/image.height;
+                scale = this.canvas.height / image.height;
+                //xpos = ($('#'+this.canvasId).width() - image.width*scale)/2;
+                xpos = (this.canvas.width - image.width * scale) / 2;
                 console.log("xpos", xpos);
             } else {
-                ypos = ($('#' + this.canvasId).height() - image.height * scale) / 2;
+                //ypos = ($('#'+this.canvasId).height() - image.height*scale)/2;
+                ypos = (this.canvas.height - image.height * scale) / 2;
                 console.log("ypos", ypos);
             }
-            console.log(xpos, ypos, image.width * scale, image.height * scale);
-            console.log(image);
-            ctx.drawImage(image, xpos, ypos, image.width * scale, image.height * scale);
+            if (document.webkitFullscreenElement) {
+                var scaleWidth = scale * ($(this.canvas).height() / this.canvas.height);
+                xpos = (this.canvas.width - image.width * scaleWidth) / 2;
+                console.log(xpos, ypos, image.width * scaleWidth, image.height * scale);
+                console.log(image);
+                ctx.drawImage(image, xpos, ypos, image.width * scaleWidth, image.height * scale);
+            } else {
+                console.log(xpos, ypos, image.width * scale, image.height * scale);
+                console.log(image);
+                ctx.drawImage(image, xpos, ypos, image.width * scale, image.height * scale);
+            }
         }
     }, {
         key: "fullscreen",
