@@ -7,8 +7,33 @@ export default DS.Model.extend({
     name: attr('string'),
     groups: attr(),
     units: hasMany('unit', {async: true}),
-    isAdmin: Ember.computed('groups', function() {
-        return this.get('groups').indexOf('admin') >= 0;
+    isAdmin: Ember.computed('groups', {
+        get(key) {
+            return this.get('groups').indexOf('admin') >= 0;
+        },
+        set(key, value) {
+            let index = this.get('groups').indexOf('admin');
+            if(!value && index >= 0) {
+                this.get('groups').splice(index, 1);
+            }
+            if(value && index < 0) {
+                this.get('groups').push('admin');
+            }
+        }
+    }),
+    isEditor: Ember.computed('groups', {
+        get(key) {
+            return this.get('groups').indexOf('editor') >= 0;
+        },
+        set(key, value) {
+            let index = this.get('groups').indexOf('editor');
+            if(!value && index >= 0) {
+                this.get('groups').splice(index, 1);
+            }
+            if(value && index < 0) {
+                this.get('groups').push('editor');
+            }
+        }
     }),
     active: attr()
 });
