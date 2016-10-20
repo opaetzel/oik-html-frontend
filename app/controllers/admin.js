@@ -7,7 +7,7 @@ export default Ember.Controller.extend({
                 item.save();
             });
         },
-        saveUsers: function() {
+        saveUnits: function() {
             this.get('model.units').forEach(function(item) {
                 item.save();
             });

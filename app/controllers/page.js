@@ -28,9 +28,11 @@ export default Ember.Controller.extend({
                 if(!this.get('rotateViewer')) {
                     const token = this.get('session.data.authenticated.token');
                     let headers = [
-                        { key: "Accept", value: "*/*"},
-                        { key: "Authorization", value: "Bearer " + token}
+                        { key: "Accept", value: "*/*"}
                     ];
+                    if(token) {
+                        headers.push({ key: "Authorization", value: "Bearer " + token});
+                    }
                     this.get('store').findRecord('rotate-image', this.get('model.unit.rotateImage.id')).then( (rotateImage) => {
                         let viewer = new Viewer("rotate-canvas", "api/get-rotate-image/" + rotateImage.get('id') + "/", rotateImage.get('numImages'), headers, false);
                         this.set('rotateViewer', viewer);

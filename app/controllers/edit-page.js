@@ -2,6 +2,15 @@ import Ember from 'ember';
 import EmberUploader from 'ember-uploader';
 
 export default Ember.Controller.extend({
+    queryParams: ['previewAll'],
+    previewAll: null,
+    doEdit: Ember.computed('previewAll', function() {
+        let previewAll = this.get('previewAll');
+        if(previewAll === 'true') {
+            return false;
+        }
+        return true;
+    }),
     session: Ember.inject.service('session'),
     imageCache: Ember.inject.service(),
     actions: {

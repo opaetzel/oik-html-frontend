@@ -47,7 +47,7 @@
                         {{#each model.units as |unit|}}
                             <tr>
                                 <td>
-                                    {{#link-to "page" unit.id unit.pages.firstObject.id}}
+                                    {{#link-to "edit-page" unit.id unit.pages.firstObject.id (query-params previewAll="true")}}
                                         {{unit.title}}
                                     {{/link-to}}
                                 </td>

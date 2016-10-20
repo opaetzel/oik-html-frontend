@@ -14,7 +14,10 @@
                     {{unit.rotateImageId}}
                     {{auth-image imageSrc="api/get-rotate-image/${id}/0" imageId=unit.rotateImage.id styleClasses="full-width-image"}}
                     <br>
-                    <b>{{unit.title}}</b>
+                    <b>{{unit.title}}</b><br>
+                    {{#link-to "edit-page" unit.id unit.pages.firstObject.id (query-params previewAll="true") class="pull-right" title="Editieren"}}
+                        <i class="glyphicon glyphicon-edit"></i>
+                    {{/link-to}}
                 {{/link-to}}
             </div>
         {{/each}}
