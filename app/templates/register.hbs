@@ -21,11 +21,18 @@
                         <label for="password">Passwort</label>
                         {{input id='password' placeholder='Passwort' type='password' value=password class="form-control"}}
                     </div>
-                        <button type="submit" class="btn btn-primary pull-right">Registrieren</button>
+                    {{#if error}}
+                        <div class="alert alert-danger">
+                            Ein Fehler ist aufgetreten, bitte versuchen Sie es in wenigen Minuten erneut
+                        </div>
+                    {{/if}}
+                    {{#if errormessage}}
+                        <div class="alert alert-danger">
+                            {{errormessage}}
+                        </div>
+                    {{/if}}
+                    <button type="submit" class="btn btn-primary pull-right">Registrieren</button>
                 </form>
-            {{/if}}
-            {{#if error}}
-                Ein Fehler ist aufgetreten, bitte versuchen Sie es in wenigen Minuten erneut
             {{/if}}
         </div>
     </div>
