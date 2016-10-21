@@ -47,6 +47,12 @@ export default Ember.Controller.extend({
             if(this.get('rotateViewer')) {
                 this.get('rotateViewer').fullscreen();
             }
+        },
+        goto: function(pageType) {
+            let gotoPage = this.get('model.unit.pages').find(function(item, index) {
+                 return item.get('page_type') === pageType;
+             });
+            this.transitionToRoute('page', this.get('model.unit.id'), gotoPage.get('id'));
         }
     }
 });

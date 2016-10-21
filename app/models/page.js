@@ -10,7 +10,7 @@ export default DS.Model.extend({
     rows: hasMany('row'),
     extendable: Ember.computed(function() {
         let pageType = this.get('page_type');
-        return (pageType === "hearing-pro" || pageType === "hearing-con");
+        return (pageType === "hearing-pro" || pageType === "hearing-con" || pageType === "literature");
     }),
     unit: belongsTo('unit')
 });

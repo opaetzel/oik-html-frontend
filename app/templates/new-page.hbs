@@ -20,7 +20,7 @@
             {{/if}}
             <div class="btn-toolbar pull-right">
                 <button {{action "save"}} class="btn btn-sm btn-primary">Speichern</button>
-                {{#if (startsWith model.page.page_type "critic")}}
+                {{#if (startsWith model.page.page_type "literature")}}
                     <button {{action "saveAndExit"}} class="btn btn-sm btn-primary">Speichern und Ende</button>
                 {{else}}
                     {{#if (startsWith model.page.page_type "hearing")}}

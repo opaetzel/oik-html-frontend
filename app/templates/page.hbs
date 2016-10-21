@@ -17,6 +17,11 @@
             <div class="btn-group" role="group">
                 <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/menu.png" class="navbar-image"></a>
                 <ul class="dropdown-menu">
+                    <li><a {{action 'goto' 'presentation'}}><img class="navbar-image" src="images/menu_meinungsstreit.png">Meinungsstreit</a></li>
+                    <li><a {{action 'goto' 'hearing-pro'}}><img class="navbar-image" src="images/menu_beweisaufnahme.png">Beweisaufnahme</a></li>
+                    <li><a {{action 'goto' 'synthesis'}}><img class="navbar-image" src="images/menu_synthese.png">Bewertung der Argumente</a></li>
+                    <li><a {{action 'goto' 'literature'}}><img class="navbar-image" src="images/menu_nachweise.png">Nachweise</a></li>
+                    <li role="separator" class="divider"></li>
                     <li>{{#link-to 'units'}}Übersicht Units{{/link-to}}</li>
                     <li>{{#link-to 'index'}}Über diese Seite{{/link-to}}</li>
                     <li role="separator" class="divider"></li>

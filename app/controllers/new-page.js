@@ -81,7 +81,7 @@ export default Ember.Controller.extend({
                     pageType = "hearing-pro";
                     break;
                 case "synthesis":
-                    pageType = "critic";
+                    pageType = "literature";
                     break;
                 default:
                     break;
