@@ -2,5 +2,5 @@
 
 Es gibt eine Editor- und eine Admindokumentation:
 
-[Editor](editor-doc.md)
+[Editor](editor-doc.md)  
 [Admin](admin-doc.md)
