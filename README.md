@@ -4,6 +4,10 @@ This is the frontend for the "Objekte im Kreuzverhör" E-learning application. I
 
 Find the backend here: [oik-backend](https://github.com/opaetzel/oik-backend)
 
+The user-documentation (german) is located here:
+
+[Documentation](doc/doc-index.md)
+
 ## Prerequisites
 
 You will need the following things properly installed on your computer.
