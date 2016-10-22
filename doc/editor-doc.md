@@ -1,8 +1,8 @@
-## Dokumentation für Editoren
+# Dokumentation für Editoren
 
 Diese Dokumentation richtet sich an Editoren, das heißt die Personen, die neue Verhandlungen erstellen wollen.
 
-### Login und neue Verhandlung anlegen
+## Login und neue Verhandlung anlegen
 
 Nachdem Sie sich registriert haben und als Editor freigeschaltet wurden, können Sie sich einloggen und neue units erstellen.
 Um sich einzuloggen, navigieren sie über das Menü oben rechts auf die Login-Seite:
@@ -28,7 +28,7 @@ Das Programm skaliert die Bilder im angegebenen input Ordner so, dass sie in die
 
 Wenn alles eingegeben und hochgeladen ist, mit einem Klick auf "Speichern und weiter" fortfahren.
 
-### Die Seiten bearbeiten
+## Die Seiten bearbeiten
 Der Inhalt der eigentlichen Verhandlung ist in verschiedene Teile aufgeteilt:
 
 - Aufruf der Sache und Aufnahme der objektbezogenen Daten (1 Seite)
