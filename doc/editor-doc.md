@@ -17,9 +17,16 @@ Mit einem Klick auf "Neue Verhandlung" wird eine neue Verhandlung angelegt. Auf 
 ![Neue Verhandlung](new_unit.png "Neue Verhandlung")
 
 Das "Rotationsbild" muss als "tar.gz"-Archiv hochgeladen werden, in dem auf unterster Ebene (kein Unterordner) die alphabetisch (nach Dateinamen) sortierten Bilder liegen.  
-Dieses Archiv kann mit dem folgenden Thumbnail-Generator einfach erzeugt werden: TODO  
+Dieses Archiv kann mit dem folgenden Thumbnail-Generator einfach erzeugt werden: [oik-thumbnailer](https://github.com/opaetzel/oik-thumbnailer/releases/tag/v0.9)  
+Dieses Programm besitzt zwar keine GUI, tut aber auch in der Kommandozeile genau das was wir wollen. Es gibt drei Versionen, eine für Linux, eine für MacOS und eine für Windows. 
+Die jeweils passende Version kann auf der oben verlinkten Seite heruntergeladen werden. Um das Tool zu benutzen, müssen wir zunächst einen Terminal öffnen. Dann navigieren wir zu der vorher heruntergeladenenen Datei und führen sie mit den gewünschten Parametern aus:
+```bash
+cd /path/to/download/dir
+./oik-thumbnailer-macos -dim 1600x1600 -input /path/to/folder/containing/images -output my-images.tar.gz
+```
+Das Programm skaliert die Bilder im angegebenen input Ordner so, dass sie in die angegebenen Dimensionen passen und schreibt sie in das Archiv-Format, das unsere Anwendung benötigt (tar.gz).
 
-Wenn alles eingegeben ist, mit einem Klick auf "Speichern und weiter" fortfahren.
+Wenn alles eingegeben und hochgeladen ist, mit einem Klick auf "Speichern und weiter" fortfahren.
 
 ### Die Seiten bearbeiten
 Der Inhalt der eigentlichen Verhandlung ist in verschiedene Teile aufgeteilt:
