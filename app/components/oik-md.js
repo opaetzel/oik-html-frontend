@@ -57,9 +57,7 @@ export default EmberRemarkableComponent.extend({
         selectImage: function() {
             let deferred = this.attrs.selectImage();
             let oik_md = this;
-            let imageTemplate = '![${caption}](${blob-link} "${caption}")\n\n${caption}: ${credits}';
             deferred.promise.then(function(value) {
-                oik_md.decorate(imageTemplate.replace(/\$\{caption\}/g, value.get('caption')).replace(/\$\{credits\}/g, value.get('credits')), "");
                 oik_md.set('image', value);
             }, function(reason) {
                 console.log(reason);
