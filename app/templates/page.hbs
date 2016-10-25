@@ -49,7 +49,7 @@
         {{#each model.page.rows as |row index|}}
 		<div class="row equal margin-row">
             <div class="col-md-6 {{genColClass model.page.page_type index true model.unit.color_scheme}}">
-                {{#if row.left_has_image}}
+                <!--{{#if row.left_has_image}}
                     <a href="{{currentUrl "bla"}}#lb-{{row.leftImage.id}}">
                         <img src="{{row.leftImage.blobUrl}}" class="full-width-image">
                     </a>
@@ -58,8 +58,8 @@
                         <div>{{row.leftImage.caption}}</div>
                         <a class="lightbox-close" href="{{currentUrl "b"}}#_"></a>
                     </div>
-                {{/if}}
-                {{oik-md text=row.left_markdown image=row.leftImage}}
+                {{/if}}-->
+                {{oik-md text=row.left_markdown image=row.leftImage has_image=row.left_has_image}}
                 {{#if row.left_is_argument}}
                     <div class="text-right pull-right bottom-controls">
                         <label class="checkbox-inline">{{input type="checkbox"}}✓</label>
@@ -69,7 +69,7 @@
                 {{/if}}
 			</div>
             <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}}">
-                {{#if row.right_has_image}}
+                <!--{{#if row.right_has_image}}
                     <a href="{{currentUrl "bla"}}#lb-{{row.rightImage.id}}">
                         <img src="{{row.rightImage.blobUrl}}" class="full-width-image">
                     </a>
@@ -78,8 +78,8 @@
                         <div>{{row.rightImage.caption}}</div>
                         <a class="lightbox-close" href="{{currentUrl "b"}}#_"></a>
                     </div>
-                {{/if}}
-                {{oik-md text=row.right_markdown image=row.rightImage}}
+                {{/if}}-->
+                {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image}}
                 {{#if row.right_is_argument}}
                     <div class="text-right pull-right bottom-controls">
                         <label class="checkbox-inline">{{input type="checkbox"}}✓</label>
