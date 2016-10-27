@@ -31,6 +31,10 @@
                     <button {{action "saveAndNext"}} class="btn btn-sm btn-primary">Speichern und weiter</button>
                 {{/if}}
             </div>
+            {{#if (startsWith model.page.page_type "opening")}}
+            {{else}}
+                <button {{action "prevPage"}} class="btn btn-sm pull-left">Zurück</button>
+            {{/if}}
         </div>
     </div>
 </div>
