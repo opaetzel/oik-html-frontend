@@ -22,6 +22,10 @@ export default Ember.Controller.extend({
                 this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "Zeugenbefragung", left_is_argument: true, right_markdown: "Bild", right_has_image: true}));
             }
         },
+        deleteRow: function(row) {
+            row.deleteRecord();
+            row.save();
+        },
         nextPage: function() {
             let currentPage = this.get('model.unit.pages').indexOf(this.get('model.page'));
             let nextPage = this.get('model.unit.pages').find(function(item, index) {
