@@ -19,11 +19,5 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             console.log("redirecting to new page", transition.params["edit-page"].unit_id);
             this.transitionTo('new-page', transition.params["edit-page"].unit_id, transition.data.nextType);
         }
-    },actions : {
-        willTransition: function(transition) {
-            console.log(transition);
-            transition.abort();
-        }
     }
-
 });
