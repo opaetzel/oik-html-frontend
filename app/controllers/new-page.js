@@ -13,6 +13,10 @@ export default Ember.Controller.extend({
                 this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "Zeugenbefragung", left_is_argument: true, right_markdown: "Bild", right_has_image: true}));
             }
         },
+        deleteRow: function(row) {
+            row.deleteRecord();
+            row.save();
+        },
         save: function() {
             let page = this.get('model.page');
             if(page.get('isNew')) {
