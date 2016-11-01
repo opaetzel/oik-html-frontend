@@ -4,6 +4,9 @@ import EmberUploader from 'ember-uploader';
 export default Ember.Controller.extend({
     queryParams: ['previewAll'],
     previewAll: null,
+    isNewImage: Ember.computed('currentImage', function() {
+        return this.get('currentImage.isNew');
+    }),
     doEdit: Ember.computed('previewAll', function() {
         let previewAll = this.get('previewAll');
         if(previewAll === 'true') {
@@ -143,7 +146,7 @@ export default Ember.Controller.extend({
             this.set('files', files);
         },
         doUpload: function() {
-            let image = this.get('uploadImage');
+            let image = this.get('currentImage');
             image.set('unit', this.get('model.unit'));
             let files = this.get('files');
             const uploader = EmberUploader.Uploader.create({
@@ -178,9 +181,18 @@ export default Ember.Controller.extend({
                 }
             });
         },
+        newUploadImage: function() {
+            let images = this.get('model.unit.images');
+            images.forEach(function(feImage) {
+                feImage.set('selected', false);
+            });
+            let image = this.get('store').createRecord('image');
+            this.set('currentImage', image);
+        },
         doSelectImage: function(image, images) {
             if(!images) {
                 images = this.get('model.unit.images');
+                this.set('currentImage', image);
             }
             images.forEach(function(feImage) {
                 feImage.set('selected', false);
