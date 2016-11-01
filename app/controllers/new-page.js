@@ -116,11 +116,13 @@ export default Ember.Controller.extend({
         didSelectFiles: function(files) {
             console.log(files);
             this.set('files', files);
+            this.set('uploadfile', files[0]);
         },
         saveCurrentImage: function() {
             this.get('currentImage').save();
         },
         doUpload: function() {
+            this.set('uploading', true);
             let image = this.get('currentImage');
             image.set('unit', this.get('model.unit'));
             let files = this.get('files');
@@ -132,8 +134,13 @@ export default Ember.Controller.extend({
                     }
                 }
             });
+            uploader.on('progress', e => {
+                this.set('uploadprogress', e.percent);
+            });
             const doSelectImage = this.get('actions.doSelectImage');
             uploader.on('didUpload', () => {
+                this.set('uploading', false);
+                this.set('uploadedFile', files[0]);
                 console.log("didUpload");
                 image.set('uploaded', true);
                 let images = this.get('model.unit.images');

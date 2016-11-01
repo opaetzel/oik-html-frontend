@@ -89,7 +89,18 @@
                             {{#x-file-input name="files" id="inputFile" multiple=false action=(action "didSelectFiles") alt="Datei auswählen"}}
                                 <button class="btn btn-sm btn-default">Datei auswählen</button>
                             {{/x-file-input}}
+                            {{#if uploadfile}}
+                                {{uploadfile.name}}
+                            {{/if}}
+
                             <button {{action "doUpload"}} class="btn btn-sm btn-primary pull-right">Starte Upload!</button>
+                            {{#if uploading}}
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{uploadprogress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadprogress}}%;">
+                                        {{uploadprogress}}%
+                                    </div>
+                                </div>
+                            {{/if}}
                         {{else}}
                             <button {{action "saveCurrentImage"}} class="btn btn-sm btn-default pull-right">Änderungen speichern</button>
                         {{/if}}
