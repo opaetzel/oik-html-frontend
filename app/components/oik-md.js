@@ -59,24 +59,42 @@ export default EmberRemarkableComponent.extend({
             ]);
         }
         //overwrite the footnote rules with what we will need:
+        const anchorId = this.get('anchorId');
         let location = window.location.href;
         location = location.replace(/#.*?$/, "");
         md.renderer.rules.footnote_ref = function (tokens, idx) {
             var n = Number(tokens[idx].id + 1).toString();
-            var id = 'fnref' + n;
-            if (tokens[idx].subId > 0) {
-                id += ':' + tokens[idx].subId;
-            }
-            return '<sup class="footnote-ref"><a href="' + location + '#fn' + n + '" id="' + id + '">[' + n + ']</a></sup>';
+            var id = anchorId + n;
+            console.log(n);
+            return '<sup class="footnote-ref"><a class="has-popover" data-toggle="popover" data-trigger="click" tabindex="0" id="' + id + '">[' + n + ']</a></sup>';
         };
 
         md.renderer.rules.footnote_anchor = function (tokens, idx) {
-            var n = Number(tokens[idx].id + 1).toString();
-            var id = 'fnref' + n;
-            if (tokens[idx].subId > 0) {
-                id += ':' + tokens[idx].subId;
-            }
-            return ' <a href="' + location + '#' + id + '" class="footnote-backref">↩</a>';
+            /*var n = Number(tokens[idx].id + 1).toString();
+              var id = 'fnref' + n;
+              if (tokens[idx].subId > 0) {
+              id += ':' + tokens[idx].subId;
+              }
+              return ' <a href="' + location + '#' + id + '" class="footnote-backref">↩</a>';*/
+            return "";
+        };
+
+        md.renderer.rules.footnote_block_open = function(tokens, idx, options) {
+            /*var hr = options.xhtmlOut
+              ? '<hr class="footnotes-sep" />\n'
+              : '<hr class="footnotes-sep">\n';
+              return hr + '<section class="footnotes">\n<ol class="footnotes-list">\n';*/
+            return '<div class="footnotes-block" style="display:none;">';
+        };
+        md.renderer.rules.footnote_block_close = function() {
+            return '</div>';
+        };
+        md.renderer.rules.footnote_open = function(tokens, idx) {
+            var id = anchorId + Number(tokens[idx].id + 1).toString() + "-content";
+            return '<span id="' + id + '" class="footnote-item">';
+        };
+        md.renderer.rules.footnote_close = function() {
+            return '</span>\n';
         };
 
         return md.render(this.get('text'));
@@ -85,9 +103,6 @@ export default EmberRemarkableComponent.extend({
         let parsedMarkdown = this.get('parsedMarkdownUnsafe');
         let image = this.get('image');
         let retMarkdown = parsedMarkdown;
-        if(image) {
-            retMarkdown = retMarkdown.replace('${blob-link}', image.get('blobUrl'));
-        }
         return new Ember.Handlebars.SafeString(retMarkdown);
     }),
     getSelection: function() {
@@ -98,12 +113,12 @@ export default EmberRemarkableComponent.extend({
             end: e.selectionEnd
         };
     },
-setSelectionRange: function(selectionStart, selectionEnd) {
+    setSelectionRange: function(selectionStart, selectionEnd) {
         let e = Ember.$('#' + this.get('elementId')).find("textarea");
         e = e[0];
-    e.focus();
-    e.setSelectionRange(selectionStart, selectionEnd);
-},
+        e.focus();
+        e.setSelectionRange(selectionStart, selectionEnd);
+    },
     decorate: function(prepend, append) {
         let text = this.get('text');
         let selection = this.getSelection();

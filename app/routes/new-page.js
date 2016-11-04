@@ -23,24 +23,46 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
             this.replaceWith("edit-page", unitId, pageId);
         }
     },
-        beforeModel() {
-            if(!(this.get('currentUser.user')) || !(this.get('currentUser.user.groups').indexOf('editor') > -1)) {
-                this.transitionTo('index');
-            }
-        },
-        model(params, transition) {
-            console.log("data", transition.data);
-            console.log(params.unit_id);
-            console.log(params.page_type);
-            return Ember.RSVP.hash({
-                page: this.store.createRecord('page', {
-                    rows: this.createRows(params.page_type),
-                    page_type: params.page_type,
-                    title: this.titleHash[params.page_type]
-                }),
-                unit: this.store.findRecord('unit', params.unit_id)
+    beforeModel() {
+        if(!(this.get('currentUser.user')) || !(this.get('currentUser.user.groups').indexOf('editor') > -1)) {
+            this.transitionTo('index');
+        }
+    },
+    model(params, transition) {
+        console.log("data", transition.data);
+        console.log(params.unit_id);
+        console.log(params.page_type);
+        return Ember.RSVP.hash({
+            page: this.store.createRecord('page', {
+                rows: this.createRows(params.page_type),
+                page_type: params.page_type,
+                title: this.titleHash[params.page_type]
+            }),
+            unit: this.store.findRecord('unit', params.unit_id)
+        });
+    },
+    afterModel() {
+        $(document).on('click', function (e) {
+            $('[data-toggle="popover"],[data-original-title]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {                
+                    (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+                }
+
             });
-        },
+        });
+        Ember.run.schedule("afterRender", this, () => {
+            console.log("afterRender");
+            Ember.$('.container').popover({
+                selector: '.has-popover',
+                content: function() {
+                    console.log("getting content");
+                    return $('#' + this.id + "-content").html();
+                },
+                container: 'body',
+                html: true
+            });
+        });
+    },
     createRows: function(pageType) {
         let rows = [this.store.createRecord('row', {left_markdown: "", right_markdown: ""})];
         switch(pageType) {
@@ -93,7 +115,7 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
         "opening": "Aufruf der Sache und Aufnahme der objektbezogenen Daten",
         "presentation": "Referat der Streitfrage",
         "hearing-pro": "Beweisaufnahme",
-            "hearing-con": "Beweisaufnahme",
+        "hearing-con": "Beweisaufnahme",
         "synthesis": "Schlussplädoyers und Abstimmung",
         "literature": "Literatur"
     },
