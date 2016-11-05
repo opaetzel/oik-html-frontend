@@ -75,8 +75,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
                 break;
             case "presentation":
                 rows = [
-                    this.store.createRecord('row', {left_markdown: "# Situation Überschrift (text)  \nAusführungen zur Situation(text)", right_markdown: "## *Zitat zur Situation (text)*"}),
-                    this.store.createRecord('row', {left_markdown: "## *Zitat zum Problem (text)*", right_markdown: "# Problem (text)  \nAusführungen zum Problem(text)"})
+                    this.store.createRecord('row', {left_markdown: "# Situation Überschrift (text)  \nAusführungen zur Situation(text)", right_markdown: "## *Zitat zur Situation (text)*", right_has_image: true}),
+                    this.store.createRecord('row', {left_markdown: "## *Zitat zum Problem (text)*", left_has_image: true, right_markdown: "# Problem (text)  \nAusführungen zum Problem(text)"})
                 ];
                 break;
             case "hearing-pro":
