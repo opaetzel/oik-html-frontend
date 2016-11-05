@@ -1,0 +1,82 @@
+{{#top-menu}}
+    Verhandlung editieren
+{{/top-menu}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <p>Bitte gib einen Namen und eine Streitfrage ein!</p>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    {{input value=model.title id='name' class="form-control" placeholder="Name"}}
+                </div>
+                <div class="form-group">
+                    <label for="{{concat elementId '-streitfrage'}}">Streitfrage</label>
+                    {{input value=model.name id=(concat elementId '-streitfrage') class="form-control" placeholder="Streitfrage"}}
+                </div>
+                <hr>
+                <div class="form-group">
+                    <h4>Rotationsbild</h4>
+                    <div class="form-group">
+                        <label for="{{concat elementId '-caption'}}">Caption</label>
+                        {{input value=model.rotateImage.caption id=(concat elementId '-caption') class="form-control" placeholder="Caption"}}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{concat elementId '-credits'}}">Credits</label>
+                        {{input value=model.rotateImage.credits id=(concat elementId '-credits') class="form-control" placeholder="Credits"}}
+                    </div>
+                    {{#x-file-input name="files" id="inputFile" multiple=false action=(action "didSelectFiles") alt="Datei auswählen"}}
+                        <button class="btn btn-sm btn-default">Datei auswählen</button>
+                    {{/x-file-input}}
+                    {{#if uploadfile}}
+                        {{uploadfile.name}}
+                    {{/if}}
+
+                    <button {{action "doUpload"}} class="btn btn-sm btn-primary pull-right">Starte Upload!</button>
+                    {{#if uploading}}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{uploadprogress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadprogress}}%;">
+                                {{uploadprogress}}%
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if uploadedFile}}
+                        <div class="info">
+                            Datei erfolgreich auf den Server übertragen!
+                        </div>
+                    {{/if}}
+                    {{#if uploadError}}
+                        <div class="alert alert-danger">
+                            {{uploadError}}
+                        </div>
+                    {{/if}}
+                </div>
+                <hr>
+                <div class="form-group">
+                    <label>Farbschema</label>
+                    <div class="text-center">
+                        {{#each model.availableSchemes as |schemeId|}}
+                            <div class="col-md-3">
+                                <label>
+                                    <div class="row">
+                                        <div class="text-center col-md-6 colors-{{schemeId}} pos bg choose-color"><b>Pro</b></div>
+                                        <div class="text-center col-md-6 colors-{{schemeId}} neg bg choose-color"><b>Con</b></div>
+                                    </div>
+                                    <div class="text-center row">
+                                        {{radio-button value=schemeId groupValue=model.color_scheme id=(concat 'radio-' schemeId)}}
+                                    </div>
+                                </label>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <button {{action "cancel"}}  class="btn btn-default">Abbrechen</button>
+                <div class="btn-toolbar pull-right">
+                    <button {{action "save"}} class="btn btn-default">Speichern</button>
+                    <button {{action "saveAndNext"}} class="btn btn-primary">Speichern und weiter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{outlet}}

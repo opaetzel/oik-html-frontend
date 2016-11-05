@@ -32,6 +32,9 @@ Router.map(function() {
   this.route('confirm-mail', {
     path: '/confirm-mail/:token'
   });
+  this.route('edit-unit', {
+    path: '/unit/:unit_id/edit'
+  });
 });
 
 export default Router;
