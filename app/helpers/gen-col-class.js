@@ -26,7 +26,7 @@ export function genColClass(params/*, hash*/) {
                 colClass=strong;
             }
             if (rowIndex === 2 && left) {
-                colClass=posClass+" bg";
+                colClass=posClass+" bg strong-black";
             }
             break;
         case "presentation":
