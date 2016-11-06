@@ -5,6 +5,7 @@ import EmberRemarkableComponent from 'ember-remarkable/components/md-text';
 const {computed} = Ember;
 
 export default EmberRemarkableComponent.extend({
+    store: Ember.inject.service(),
     /*image: Ember.computed('imageId', function() {
       let self = this;
       if(this.get('imageId') === undefined || this.get('imageId') === 0) {
@@ -97,6 +98,29 @@ export default EmberRemarkableComponent.extend({
             return '</span>\n';
         };
 
+        md.renderer.rules.image = (tokens, idx, options /*, env */) => {
+            let imageId = tokens[idx].src;
+            console.log(imageId);
+            let image = this.get('store').getReference('image', parseInt(imageId));
+            if(image.value() == 0) {
+                return "<img>"
+            } else {
+                image = image.value()
+            }
+            console.log(image.get('id'));
+            var src = ' src="' + image.get('blobUrl') + '"';
+            console.log(src);
+            var suffix = options.xhtmlOut ? ' /' : '';
+            return '<a href="' + location + '#lb-' + imageId + '">'+
+                    '<img src="' + image.get('blobUrl') + '" class="std-image">'+
+                '</a>'+
+                '<div class="lightbox" id="lb-' + imageId + '">'+
+                    '<img src="' + image.get('blobUrl') + '">'+
+                '<div>' + image.get('caption') + '</div>'+
+                    '<a class="lightbox-close" href="' + location + '#_"></a>'+
+                '</div>'
+        };
+
         return md.render(this.get('text'));
     }),
     parsedMarkdownCites: computed('parsedMarkdownUnsafe', 'image', function () {
@@ -159,9 +183,15 @@ export default EmberRemarkableComponent.extend({
         selectImage: function() {
             let deferred = this.attrs.selectImage();
             let oik_md = this;
-            deferred.promise.then(function(value) {
+            deferred.promise.then( (value) => {
                 oik_md.set('image', value);
-            }, function(reason) {
+                console.log(value.get('id'));
+                let imageId = value.get('id');
+                let titleText = ' "' + value.get('caption') + '"';
+                let imageMd = '![image-' + imageId + '](' + imageId + titleText + ')';
+                console.log(imageMd);
+                this.decorate(imageMd, "");
+            }, (reason) => {
                 console.log(reason);
             });
         },
