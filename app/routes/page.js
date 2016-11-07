@@ -1,6 +1,7 @@
 import Ember from 'ember';
+import ResetScrollPositionMixin from '../mixins/reset-scroll-position';
 
-export default Ember.Route.extend({
+export default Ember.Route.extend(ResetScrollPositionMixin, {
     model(params) {
         return Ember.RSVP.hash({
             page: this.store.findRecord('page', params.page_id),
