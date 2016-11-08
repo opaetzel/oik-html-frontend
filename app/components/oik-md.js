@@ -6,6 +6,7 @@ const {computed} = Ember;
 
 export default EmberRemarkableComponent.extend({
     store: Ember.inject.service(),
+    imageCache: Ember.inject.service(),
     /*image: Ember.computed('imageId', function() {
       let self = this;
       if(this.get('imageId') === undefined || this.get('imageId') === 0) {
@@ -100,25 +101,19 @@ export default EmberRemarkableComponent.extend({
 
         md.renderer.rules.image = (tokens, idx, options /*, env */) => {
             let imageId = tokens[idx].src;
-            console.log(imageId);
-            let image = this.get('store').getReference('image', parseInt(imageId));
-            if(image.value() == 0) {
-                return "<img>"
-            } else {
-                image = image.value()
+            if(!this.get('images')) {
+                this.set('images', []);
             }
-            console.log(image.get('id'));
-            var src = ' src="' + image.get('blobUrl') + '"';
-            console.log(src);
-            var suffix = options.xhtmlOut ? ' /' : '';
+            let images = this.get('images');
+            images.push(imageId);
             return '<a href="' + location + '#lb-' + imageId + '">'+
-                    '<img src="' + image.get('blobUrl') + '" class="std-image">'+
-                '</a>'+
-                '<div class="lightbox" id="lb-' + imageId + '">'+
-                    '<img src="' + image.get('blobUrl') + '">'+
-                '<div>' + image.get('caption') + '</div>'+
-                    '<a class="lightbox-close" href="' + location + '#_"></a>'+
-                '</div>'
+                        '<img id="im-' + imageId + '" class="std-image">'+
+                    '</a>'+
+                    '<div class="lightbox" id="lb-' + imageId + '">'+
+                        '<img id="im-bg-' + imageId + '">'+
+                    '<div id="im-caption-' + imageId + '"></div>'+
+                        '<a class="lightbox-close" href="' + location + '#_"></a>'+
+                    '</div>';
         };
 
         return md.render(this.get('text'));
@@ -129,6 +124,21 @@ export default EmberRemarkableComponent.extend({
         let retMarkdown = parsedMarkdown;
         return new Ember.Handlebars.SafeString(retMarkdown);
     }),
+    didRender: function() {
+        let images = this.get('images');
+        if(images) {
+            for(var imageId of images) {
+                let imageSrc = "/api/get-image/" + imageId;
+                this.get('imageCache').getImage(imageSrc).then( blobUrl => {
+                    Ember.$('#im-' + imageId).attr('src', blobUrl);
+                    Ember.$('#im-bg-' + imageId).attr('src', blobUrl);
+                });
+                this.get('store').findRecord('image', imageId).then( image => {
+                    Ember.$('#im-caption-' + imageId).html(image.get('caption'));
+                });
+            }
+        }
+    },
     getSelection: function() {
         let e = Ember.$('#' + this.get('elementId')).find("textarea");
         e = e[0];
