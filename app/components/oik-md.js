@@ -130,7 +130,9 @@ export default EmberRemarkableComponent.extend({
             for(var imageId of images) {
                 let imageSrc = "/api/get-image/" + imageId;
                 this.get('imageCache').getImage(imageSrc).then( blobUrl => {
-                    Ember.$('#im-' + imageId).attr('src', blobUrl);
+                    let $im = Ember.$('#im-' + imageId)
+                    $im.attr('src', blobUrl);
+                    $im.parent().parent().addClass('im-parent');
                     Ember.$('#im-bg-' + imageId).attr('src', blobUrl);
                 });
                 this.get('store').findRecord('image', imageId).then( image => {
