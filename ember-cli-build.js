@@ -36,5 +36,6 @@ module.exports = function(defaults) {
           destDir: 'fonts'
   });
   app.import('vendor/viewer.js')
+  app.import('vendor/lightbox.js')
   return app.toTree();
 };

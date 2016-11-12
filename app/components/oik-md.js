@@ -7,6 +7,7 @@ const {computed} = Ember;
 export default EmberRemarkableComponent.extend({
     store: Ember.inject.service(),
     imageCache: Ember.inject.service(),
+    session: Ember.inject.service(),
     /*image: Ember.computed('imageId', function() {
       let self = this;
       if(this.get('imageId') === undefined || this.get('imageId') === 0) {
@@ -18,6 +19,7 @@ export default EmberRemarkableComponent.extend({
       });
       }),*/
     parsedMarkdownUnsafe: computed('text', 'html', 'typographer', 'linkify', function() {
+        const jwt_token = this.get('session.data.authenticated.token');
         var md = new Remarkable({
             typographer: this.get('typographer'),
             linkify:     this.get('linkify'),
@@ -106,14 +108,14 @@ export default EmberRemarkableComponent.extend({
             }
             let images = this.get('images');
             images.push(imageId);
-            return '<a href="' + location + '#lb-' + imageId + '">'+
-                        '<img id="im-' + imageId + '" class="std-image">'+
-                    '</a>'+
-                    '<div class="lightbox" id="lb-' + imageId + '">'+
-                        '<img id="im-bg-' + imageId + '">'+
-                    '<div id="im-caption-' + imageId + '"></div>'+
-                        '<a class="lightbox-close" href="' + location + '#_"></a>'+
-                    '</div>';
+            return '<a id="lb-link-' + imageId + '" href="' + location + '#lb-' + imageId + '" data-token="' + jwt_token + '" onclick="loadLargeIm(this);">'+
+                '<img id="im-' + imageId + '" class="std-image">'+
+                '</a>'+
+                '<div class="lightbox" id="lb-' + imageId + '">'+
+                '<img id="im-bg-' + imageId + '">'+
+                '<div id="im-caption-' + imageId + '"></div>'+
+                '<a class="lightbox-close" href="' + location + '#_"></a>'+
+                '</div>';
         };
 
         return md.render(this.get('text'));
@@ -131,7 +133,7 @@ export default EmberRemarkableComponent.extend({
                 let imageSrc = "/api/get-image/" + imageId;
                 this.get('imageCache').getImage(imageSrc).then( blobUrl => {
                     let $im = Ember.$('#im-' + imageId)
-                    $im.attr('src', blobUrl);
+                        $im.attr('src', blobUrl);
                     $im.parent().parent().addClass('im-parent');
                     Ember.$('#im-bg-' + imageId).attr('src', blobUrl);
                 });
@@ -201,20 +203,20 @@ export default EmberRemarkableComponent.extend({
                 let imageId = value.get('id');
                 let titleText = ' "' + value.get('caption') + '"';
                 let imageMd = '![image-' + imageId + '](' + imageId + titleText + ')';
-                console.log(imageMd);
-                this.decorate(imageMd, "");
-            }, (reason) => {
-                console.log(reason);
-            });
-        },
-        addFootnote: function () {
-            let text = this.get('text');
-            let selection = this.getSelection();
-            let id = text.substring(selection.start, selection.end);
-            this.decorate('[^', ']');
-            this.set('text', this.get('text') + '\n\n[^'+id+']: ');
-            let endPos = this.get('text.length');
-            this.setSelectionRange(endPos, endPos);
-        }
+                        console.log(imageMd);
+                        this.decorate(imageMd, "");
+                        }, (reason) => {
+                            console.log(reason);
+                        });
+                },
+                addFootnote: function () {
+                    let text = this.get('text');
+                    let selection = this.getSelection();
+                    let id = text.substring(selection.start, selection.end);
+                    this.decorate('[^', ']');
+                    this.set('text', this.get('text') + '\n\n[^'+id+']: ');
+                    let endPos = this.get('text.length');
+                    this.setSelectionRange(endPos, endPos);
+                }
     }
 });
