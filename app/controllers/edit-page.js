@@ -54,6 +54,9 @@ export default Ember.Controller.extend({
                 returnItem.get('rows').filterBy('id', null).invoke('deleteRecord');
             });
         },
+        saveCurrentImage: function() {
+            this.get('currentImage').save();
+        },
         saveAndNext: function() {
             let page = this.get('model.page');
             if(page.get('isNew')) {
