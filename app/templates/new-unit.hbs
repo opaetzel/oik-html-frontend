@@ -12,6 +12,18 @@
                 </div>
                 <hr>
                 <div class="form-group">
+                    <label for="{{concat elementId '-bild'}}">Bild (Icon)</label>
+                    <div id="{{concat elementId '-bild'}}">
+                        {{#if model.unit.front_image}}
+                            <span class="image-thumb">
+                                {{auth-image imageSrc='/api/get-image/${id}' imageId=model.unit.front_image}} 
+                            </span>
+                        {{/if}}
+                        <a class="btn btn-default" {{action 'selectImage'}}>Bild auswählen</a>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-group">
                     <h4>Rotationsbild</h4>
                     <div class="form-group">
                         <label for="{{concat elementId '-caption'}}">Caption</label>
@@ -75,4 +87,7 @@
         </div>
     </div>
 </div>
+
+{{oik-image-modal unit=model.unit getImagePromise=getImagePromise}}
+
 {{outlet}}

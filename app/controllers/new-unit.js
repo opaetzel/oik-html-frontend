@@ -25,6 +25,21 @@ export default Ember.Controller.extend({
                 self.transitionToRoute("new-page", unit.get('id'), "opening");
             });
         }, 
+        selectImage: function() {
+            let unit = this.get('model.unit');
+            unit.set('user', this.get("currentUser.user"));
+            this.get('model.unit').save().then( () => {
+                let deferred = Ember.RSVP.defer();
+                this.set('getImagePromise', deferred);
+                Ember.$('#select-image-modal').modal('show');
+                deferred.promise.then( (value) => {
+                    this.get('model.unit').set('front_image', value.get('id'));
+                }, (reason) => {
+                    console.log(reason);
+                });
+                
+            });
+        },
         didSelectFiles: function(files) {
             console.log(files);
             this.set('uploadfile', files[0]);

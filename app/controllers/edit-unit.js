@@ -27,6 +27,16 @@ export default Ember.Controller.extend({
                 }
             });
         }, 
+        selectImage: function() {
+            let deferred = Ember.RSVP.defer();
+            this.set('getImagePromise', deferred);
+            Ember.$('#select-image-modal').modal('show');
+            deferred.promise.then( (value) => {
+                this.get('model').set('front_image', value.get('id'));
+            }, (reason) => {
+                console.log(reason);
+            });
+        },
         didSelectFiles: function(files) {
             console.log(files);
             this.set('uploadfile', files[0]);
@@ -74,7 +84,7 @@ export default Ember.Controller.extend({
                             this.set('uploading', false);
                             this.set('uploadedFile', file);
                         }, error => {
-                          // Handle failure
+                            // Handle failure
                             console.log(error);
                             this.set('uploadError', error);
                         });

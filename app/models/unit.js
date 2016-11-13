@@ -14,6 +14,7 @@ export default DS.Model.extend({
     pages: hasMany('page', {async: true}),
     user: belongsTo('user'),
     rotateImage: belongsTo('rotate-image'),
+    front_image: attr('number'),
     availableSchemes: Ember.computed(function() { 
         return [1,2,3,4,5,6,7,8];
     })

@@ -12,7 +12,7 @@
             <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
                 {{#link-to "page" unit.id unit.pages.firstObject.id}}
                     {{unit.rotateImageId}}
-                    {{auth-image imageSrc="api/get-rotate-image/${id}/0" imageId=unit.rotateImage.id styleClasses="full-width-image"}}
+                    {{auth-image imageSrc="api/get-image/${id}" imageId=unit.front_image styleClasses="full-width-image"}}
                     <br>
                     <b>{{unit.title}}</b><br>
                     {{#link-to "edit-unit" unit.id class="pull-right" title="Editieren"}}

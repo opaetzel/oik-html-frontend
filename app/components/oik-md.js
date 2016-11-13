@@ -202,21 +202,21 @@ export default EmberRemarkableComponent.extend({
                 console.log(value.get('id'));
                 let imageId = value.get('id');
                 let titleText = ' "' + value.get('caption') + '"';
-                let imageMd = '![image-' + imageId + '](' + imageId + titleText + ')';
-                        console.log(imageMd);
-                        this.decorate(imageMd, "");
-                        }, (reason) => {
-                            console.log(reason);
-                        });
-                },
-                addFootnote: function () {
-                    let text = this.get('text');
-                    let selection = this.getSelection();
-                    let id = text.substring(selection.start, selection.end);
-                    this.decorate('[^', ']');
-                    this.set('text', this.get('text') + '\n\n[^'+id+']: ');
-                    let endPos = this.get('text.length');
-                    this.setSelectionRange(endPos, endPos);
-                }
+                let imageMd = "![image-" + imageId + "](" + imageId + titleText + ")";
+                console.log(imageMd);
+                this.decorate(imageMd, "");
+            }, (reason) => {
+                console.log(reason);
+            });
+        },
+        addFootnote: function () {
+            let text = this.get('text');
+            let selection = this.getSelection();
+            let id = text.substring(selection.start, selection.end);
+            this.decorate('[^', ']');
+            this.set('text', this.get('text') + '\n\n[^'+id+']: ');
+            let endPos = this.get('text.length');
+            this.setSelectionRange(endPos, endPos);
+        }
     }
 });
