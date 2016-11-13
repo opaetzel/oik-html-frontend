@@ -12,8 +12,10 @@ export default Ember.Controller.extend({
         },
         save: function() {
             let unit = this.get('model.unit');
-            unit.set('user', this.currentUser.get('user'));
-            unit.save();
+            unit.set('user', this.get('currentUser.user'));
+            unit.save().then( () => {
+                this.get("target").send("editThis", this.get("model.unit.id"));
+            });
         },
         saveAndNext: function() {
             let unit = this.get('model.unit');

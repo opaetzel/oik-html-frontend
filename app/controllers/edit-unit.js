@@ -20,7 +20,11 @@ export default Ember.Controller.extend({
             unit.set('user', this.get('currentUser.user'));
             let self = this;
             unit.save().then( (unit) => {
-                this.transitionToRoute('edit-page', this.get('model.id'), this.get('model.pages.firstObject.id'));
+                if(unit.get('pages.length') > 0) {
+                    this.transitionToRoute('edit-page', this.get('model.id'), this.get('model.pages.firstObject.id'));
+                } else {
+                    this.transitionToRoute('new-page', unit.get('id'), "opening");
+                }
             });
         }, 
         didSelectFiles: function(files) {
