@@ -7,12 +7,8 @@
             <p>Bitte gib einen Namen und eine Streitfrage ein!</p>
             <form>
                 <div class="form-group">
-                    <label for="name">Name</label>
-                    {{input value=model.unit.title id='name' class="form-control" placeholder="Name"}}
-                </div>
-                <div class="form-group">
                     <label for="{{concat elementId '-streitfrage'}}">Streitfrage</label>
-                    {{input value=model.unit.name id=(concat elementId '-streitfrage') class="form-control" placeholder="Streitfrage"}}
+                    {{input value=model.unit.title id=(concat elementId '-streitfrage') class="form-control" placeholder="Streitfrage"}}
                 </div>
                 <hr>
                 <div class="form-group">
