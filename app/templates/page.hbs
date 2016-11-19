@@ -59,7 +59,11 @@
                 {{/if}}
 			</div>
             <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}}">
-                {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image anchorId=(concat index "-right")}}
+                {{#if (and (eq model.page.page_type 'opening') (eq index 2))}}
+                    {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image anchorId=(concat index "-right") is_big_image=true}}
+                {{else}}
+                    {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image anchorId=(concat index "-right")}}
+                {{/if}}
                 {{#if row.right_is_argument}}
                     <div class="text-right pull-right bottom-controls">
                         <label class="checkbox-inline">{{input type="checkbox"}}✓</label>

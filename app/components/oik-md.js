@@ -132,11 +132,18 @@ export default EmberRemarkableComponent.extend({
         if(images) {
             for(var imageId of images) {
                 let imageSrc = "/api/get-image/" + imageId;
+                if(this.get('is_big_image')) {
+                    console.log('big image');
+                    imageSrc += "?size=full";
+                }
                 this.get('imageCache').getImage(imageSrc).then( blobUrl => {
                     let $im = Ember.$('#im-' + imageId)
                         $im.attr('src', blobUrl);
                     $im.parent().parent().addClass('im-parent');
                     Ember.$('#im-bg-' + imageId).attr('src', blobUrl);
+                    if(this.get('is_big_image')) {
+                        Ember.$('#im-' + imageId).addClass('big-image');
+                    }
                 });
                 this.get('store').findRecord('image', imageId).then( image => {
                     Ember.$('#im-caption-' + imageId).html(image.get('caption'));
