@@ -91,6 +91,12 @@ export default Ember.Controller.extend({
             this.set('nextType', pageType);
             window.history.replaceState({}, "", "/app/unit/"+this.get('model.unit.id')+"/edit/"+this.get('model.page.id'));
             this.transitionToRoute('new-page', this.get('model.unit.id'), pageType); 
+        },
+        selectImage: function () {
+            let promise = Ember.RSVP.defer();
+            this.set('getImagePromise', promise);
+            Ember.$('#select-image-modal').modal('show');
+            return promise;
         }
     }
 });

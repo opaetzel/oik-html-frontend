@@ -55,6 +55,9 @@ export default Ember.Component.extend({
                 }
             });
         },
+        saveCurrentImage: function() {
+            this.get('currentImage').save();
+        },
         newUploadImage: function() {
             let images = this.get('unit.images');
             images.forEach(function(feImage) {
