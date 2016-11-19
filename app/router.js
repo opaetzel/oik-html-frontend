@@ -35,6 +35,7 @@ Router.map(function() {
   this.route('edit-unit', {
     path: '/unit/:unit_id/edit'
   });
+  this.route('unpublished-units');
 });
 
 export default Router;

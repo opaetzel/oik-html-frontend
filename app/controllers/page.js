@@ -18,6 +18,9 @@ export default Ember.Controller.extend({
             this.transitionToRoute('page', this.get('model.unit.id'), prevPage.get('id'));
 
         },
+        logout: function() {
+            this.get('session').invalidate();
+        },
         showRotateImage: function() {
             Ember.$('#rotate-modal').modal('show');
             Ember.$('#rotate-modal').on('shown.bs.modal', () => {
