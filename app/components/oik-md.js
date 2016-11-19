@@ -114,6 +114,7 @@ export default EmberRemarkableComponent.extend({
                 '<div class="lightbox" id="lb-' + imageId + '">'+
                 '<img id="im-bg-' + imageId + '">'+
                 '<div id="im-caption-' + imageId + '"></div>'+
+                '<div class="im-credits" id="im-credits-' + imageId + '"></div>' +
                 '<a class="lightbox-close" href="' + location + '#_"></a>'+
                 '</div>';
         };
@@ -139,6 +140,7 @@ export default EmberRemarkableComponent.extend({
                 });
                 this.get('store').findRecord('image', imageId).then( image => {
                     Ember.$('#im-caption-' + imageId).html(image.get('caption'));
+                    Ember.$('#im-credits-' + imageId).html(image.get('credits'));
                 });
             }
         }
