@@ -12,5 +12,6 @@ export default DS.Model.extend({
         let pageType = this.get('page_type');
         return (pageType === "hearing-pro" || pageType === "hearing-con" || pageType === "literature");
     }),
+    pageResult: belongsTo('pageResult'),
     unit: belongsTo('unit')
 });

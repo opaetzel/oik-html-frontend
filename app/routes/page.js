@@ -11,6 +11,25 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
     afterModel: function(model) {
         let currentPage = model.unit.get('pages').indexOf(model.page);
         model.unit.set('currentPage', currentPage);
+        if(!model.page.get('pageResult').content) {
+            let pageResult = null;
+            model.page.get('rows').forEach( (row) => {
+                if(row.get('left_is_argument') || row.get('right_is_argument')) {
+                    console.log("try to set some results...");
+                    if(pageResult == null) {
+                        pageResult = this.get('store').createRecord('pageResult', { page: model.page });
+                    }
+                    let res = this.get('store').createRecord('result', {row: row, pageResult: pageResult});
+                    row.set('result', res);
+                    res.set('pageResult', pageResult);
+                    //pageResult.get('results').pushObject(res);
+                }
+            });
+            if(pageResult != null) {
+                pageResult.set('unit', model.unit);
+                model.page.set('pageResult', pageResult);
+            }
+        }
         let numPages = model.unit.get('pages.length');
         Ember.run.schedule("afterRender", this, () => {
             console.log("after render"+Ember.$('#affix-left'));

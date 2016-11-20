@@ -36,6 +36,10 @@ Router.map(function() {
     path: '/unit/:unit_id/edit'
   });
   this.route('unpublished-units');
+
+  this.route('rendition', {
+    path: '/unit/:unit_id/rendition'
+  });
 });
 
 export default Router;

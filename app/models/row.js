@@ -10,5 +10,6 @@ export default DS.Model.extend({
     leftImage: belongsTo('image'),
     rightImage: belongsTo('image'),
     left_is_argument: attr(),
-    right_is_argument: attr()
+    right_is_argument: attr(),
+    result: belongsTo('result')
 });

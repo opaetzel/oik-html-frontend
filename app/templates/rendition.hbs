@@ -1,0 +1,78 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>    
+  </div>
+  <div class="navbar-collapse collapse">
+      <span class="navbar-center"><h4>{{model.page.title}}</h4></span>
+    <ul class="nav navbar-nav">
+        <li class="navbar-left">
+            <a {{action 'showRotateImage'}} class=""><img class="navbar-image" src="images/icon-object.png"></a>
+        </li>
+        <li class="navbar-right">
+            <div class="btn-group" role="group">
+                <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="images/menu.png" class="navbar-image"></a>
+                <ul class="dropdown-menu">
+                    <li><a {{action 'goto' 'presentation'}}><img class="navbar-image" src="images/menu_meinungsstreit.png">Meinungsstreit</a></li>
+                    <li><a {{action 'goto' 'hearing-pro'}}><img class="navbar-image" src="images/menu_beweisaufnahme.png">Beweisaufnahme</a></li>
+                    <li><a {{action 'goto' 'synthesis'}}><img class="navbar-image" src="images/menu_synthese.png">Bewertung der Argumente</a></li>
+                    <li><a {{action 'goto' 'literature'}}><img class="navbar-image" src="images/menu_nachweise.png">Nachweise</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li>{{#link-to 'units'}}Übersicht Units{{/link-to}}</li>
+                    <li>{{#link-to 'index'}}Über diese Seite{{/link-to}}</li>
+                    <li role="separator" class="divider"></li>
+                    {{#if session.isAuthenticated}}
+                        <li>{{#link-to 'profile'}}Mein Profil{{/link-to}}</li>
+                        {{#if (userInGroup currentUser.user 'editor')}}
+                            <li>{{#link-to 'unpublished-units'}}Nicht veröffentlichte Units{{/link-to}}</li>
+                        {{/if}}
+                        <li><a {{action 'logout'}}>Logout</a></li>
+                    {{else}}
+                        <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+                        <li>{{#link-to 'register'}}Registrieren{{/link-to}}</li>
+                    {{/if}}
+                </ul>
+            </div>
+        </li>
+    </ul>
+  </div>
+</div>
+</nav>
+
+<!-- BEGIN PAGE CONTENT -->
+
+<div class="container" id="main-container">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <td></td>
+                {{#each model.maxWitnessArr as |num index|}}
+                    <td>Zeuge {{num}}</td>
+                {{/each}}
+                <td>Gesamteindruck</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each model.results as |pageResult index|}}
+                <tr>
+                    <td>Zeugenbefragung {{add index 1}}</td>
+                    {{#each model.maxWitnessArr as |num index|}}
+                        {{#if (getObjAt pageResult.rowResults index)}}
+                            <td>{{getObjAt pageResult.rowResults index 'decision'}}</td>
+                        {{else}}
+                            <td>{{index}}-{{num}}</td>
+                        {{/if}}
+                    {{/each}}
+                    <td>{{pageResult.totalResult}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+        
+</div>
+
+{{outlet}}
