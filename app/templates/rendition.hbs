@@ -46,32 +46,41 @@
 <!-- BEGIN PAGE CONTENT -->
 
 <div class="container" id="main-container">
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <td></td>
-                {{#each model.maxWitnessArr as |num index|}}
-                    <td>Zeuge {{num}}</td>
-                {{/each}}
-                <td>Gesamteindruck</td>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each model.results as |pageResult index|}}
-                <tr>
-                    <td>Zeugenbefragung {{add index 1}}</td>
-                    {{#each model.maxWitnessArr as |num index|}}
-                        {{#if (getObjAt pageResult.rowResults index)}}
-                            <td>{{getObjAt pageResult.rowResults index 'decision'}}</td>
-                        {{else}}
-                            <td>{{index}}-{{num}}</td>
-                        {{/if}}
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-responsive">
+                <thead>
+                    <tr>
+                        <th></th>
+                        {{#each model.maxWitnessArr as |num index|}}
+                            <th>Zeuge {{num}}</th>
+                        {{/each}}
+                        <th>Gesamteindruck</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each model.results as |pageResult index|}}
+                        <tr>
+                            <th>Zeugenbefragung {{add index 1}}</th>
+                            {{#each model.maxWitnessArr as |num index|}}
+                                {{#if (getObjAt pageResult.rowResults index)}}
+                                    <td>{{getObjAt pageResult.rowResults index 'decision'}}</td>
+                                {{else}}
+                                    <td>{{index}}-{{num}}</td>
+                                {{/if}}
+                            {{/each}}
+                            <td>{{pageResult.totalResult}}</td>
+                        </tr>
                     {{/each}}
-                    <td>{{pageResult.totalResult}}</td>
-                </tr>
-            {{/each}}
-        </tbody>
-    </table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {{#link-to "page" model.id model.pages.lastObject.id}}<img src="images/back.png">{{/link-to}}
+        </div>
+    </div>
         
 </div>
 
