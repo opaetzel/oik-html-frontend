@@ -15,7 +15,6 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
             let pageResult = null;
             model.page.get('rows').forEach( (row) => {
                 if(row.get('left_is_argument') || row.get('right_is_argument')) {
-                    console.log("try to set some results...");
                     if(pageResult == null) {
                         pageResult = this.get('store').createRecord('pageResult', { page: model.page });
                     }

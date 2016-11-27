@@ -60,16 +60,36 @@
                 </thead>
                 <tbody>
                     {{#each model.results as |pageResult index|}}
-                        <tr>
+                        <tr class="colors-{{model.color_scheme}} {{if (isEven index) 'neg' 'pos'}} bg">
                             <th>Zeugenbefragung {{add index 1}}</th>
                             {{#each model.maxWitnessArr as |num index|}}
                                 {{#if (getObjAt pageResult.rowResults index)}}
-                                    <td>{{getObjAt pageResult.rowResults index 'decision'}}</td>
+                                    <td>
+                                        {{#if (eq (getObjAt pageResult.rowResults index 'decision') 'persuasive')}}
+                                            ✓
+                                        {{/if}}
+                                        {{#if (eq (getObjAt pageResult.rowResults index 'decision') 'inconseclusively')}}
+                                            ✗
+                                        {{/if}}
+                                        {{#if (eq (getObjAt pageResult.rowResults index 'decision') 'abstention')}}
+                                            ?
+                                        {{/if}}
+                                    </td>
                                 {{else}}
-                                    <td>{{index}}-{{num}}</td>
+                                    <td>-</td>
                                 {{/if}}
                             {{/each}}
-                            <td>{{pageResult.totalResult}}</td>
+                            <td>
+                                {{#if (eq pageResult.totalResult 'persuasive')}}
+                                    ✓
+                                {{/if}}
+                                {{#if (eq pageResult.totalResult 'inconseclusively')}}
+                                    ✗
+                                {{/if}}
+                                {{#if (eq pageResult.totalResult 'abstention')}}
+                                    ?
+                                {{/if}}
+                            </td>
                         </tr>
                     {{/each}}
                 </tbody>

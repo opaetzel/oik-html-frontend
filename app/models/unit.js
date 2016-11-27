@@ -16,6 +16,8 @@ export default DS.Model.extend({
     rotateImage: belongsTo('rotate-image'),
     front_image: attr('number'),
     results: hasMany('page-result'),
+    unitResults: belongsTo('unit-results'),
+    unitResult: belongsTo('unit-result'),
     maxWitnessArr: Ember.computed('results', function() {
         let maxSize = 0;
         this.get('results').forEach((result) => {
