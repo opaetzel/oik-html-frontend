@@ -9,6 +9,8 @@ export default DS.Model.extend({
     caption: attr(),
     credits: attr(),
     name: attr(),
+    age: attr('number'),
+    imprecision: attr('number'),
     blobUrl: Ember.computed('id', 'uploaded', function() {
         if(!this.get('uploaded')) {
             return;
