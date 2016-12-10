@@ -54,14 +54,21 @@
                                     <label for="inputCaption">Caption</label>
                                     {{input type="text" class="form-control" id="imageModalInputCaption" placeholder="Caption" value=currentImage.caption}}
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputAge">Alter</label>
-                                    {{input type="number" class="form-control" id="imageModalInputAge" placeholder="Alter" value=currentImage.age}}
+                                <div class="checkbox">
+                                    <label>
+                                        {{input type="checkbox" id="imageModalAgeKnown" placeholder="Alter bekannt" checked=currentImage.ageKnown}} Alter bekannt
+                                    </label>
                                 </div>
-                                <div class="form-group">
-                                    <label for="inputImprecision">Ungenauigkeit</label>
-                                    {{input type="number" class="form-control" id="imageModalInputImprecision" placeholder="Ungenauigkeit" value=currentImage.imprecision}}
-                                </div>
+                                {{#if currentImage.ageKnown}}
+                                    <div class="form-group">
+                                        <label for="inputAge">Alter</label>
+                                        {{input type="number" class="form-control" id="imageModalInputAge" placeholder="Alter" value=currentImage.age}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputImprecision">Ungenauigkeit</label>
+                                        {{input type="number" class="form-control" id="imageModalInputImprecision" placeholder="Ungenauigkeit" value=currentImage.imprecision}}
+                                    </div>
+                                {{/if}}
                             </form>
                             {{#if isNewImage}}
                                 <button {{action "doUpload"}} class="btn btn-sm btn-primary pull-right">Starte Upload!</button>
