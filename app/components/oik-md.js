@@ -147,7 +147,7 @@ export default EmberRemarkableComponent.extend({
                 });
                 this.get('store').findRecord('image', imageId).then( image => {
                     Ember.$('#im-caption-' + imageId).html(image.get('caption'));
-                    Ember.$('#im-credits-' + imageId).html(image.get('credits'));
+                    Ember.$('#im-credits-' + imageId).html("[" + image.get('credits') + "]");
                 });
             }
         }
