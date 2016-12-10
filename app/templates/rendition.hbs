@@ -94,6 +94,12 @@
                     {{/each}}
                 </tbody>
             </table>
+            <hr>
+            {{#if (eq model.overallDecision 'undecided')}}
+                Die Frage kann deshalb nicht entschieden werden.
+            {{else}}
+                Die Frage wurde also zugunsten der Seite {{model.overallDecision}} entschieden.
+            {{/if}}
         </div>
     </div>
     <div class="row">

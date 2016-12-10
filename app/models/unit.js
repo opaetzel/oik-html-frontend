@@ -31,6 +31,28 @@ export default DS.Model.extend({
         }
         return arr;
     }),
+    overallDecision: Ember.computed('pages', function() {
+        let proCount=0, conCount=0;
+        this.get('pages').forEach((page) => {
+            let pageType = page.get('pageType');
+            if(pageType === 'hearing-pro' || pageType === 'hearing-con') {
+                if(page.get('pageResult.totalResult') === 'persuasive') {
+                    if(pageType === 'hearing-pro') {
+                        proCount++;
+                    } else if(pageType === 'hearing-con') {
+                        conCount++;
+                    }
+                }
+            }
+        });
+        if(proCount > conCount) {
+            return "pro";
+        } else if(conCount>proCount) {
+            return "contra";
+        } else {
+            return "undecided";
+        }
+    }),
     availableSchemes: Ember.computed(function() { 
         return [1,2,3,4,5,6,7,8];
     })
