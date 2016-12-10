@@ -31,10 +31,11 @@ export default DS.Model.extend({
         }
         return arr;
     }),
-    overallDecision: Ember.computed('pages', function() {
+    overallDecision: Ember.computed('pages.@each.pageResult.totalResult', function() {
         let proCount=0, conCount=0;
         this.get('pages').forEach((page) => {
-            let pageType = page.get('pageType');
+            let pageType = page.get('page_type');
+            console.log(pageType);
             if(pageType === 'hearing-pro' || pageType === 'hearing-con') {
                 if(page.get('pageResult.totalResult') === 'persuasive') {
                     if(pageType === 'hearing-pro') {

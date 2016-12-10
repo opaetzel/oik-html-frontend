@@ -1,9 +1,11 @@
 import DS from 'ember-data';
 import { belongsTo, hasMany} from 'ember-data/relationships';
+import attr from 'ember-data/attr';
 
 export default DS.Model.extend({
     rowResults: hasMany('result'),
-    totalResult: Ember.computed('rowResults', function() {
+    totalResult: Ember.computed( 'rowResults.@each.decision', function() {
+        this.set('foo', !this.get('foo'));
         let resultMap = {};
         this.get('rowResults').forEach(function(result) {
             if(resultMap[result.get('decision')]) {
@@ -22,6 +24,7 @@ export default DS.Model.extend({
                 maxVal = key;
             }
         }
+        console.log(resultMap);
         return maxVal;
     }),
     page: belongsTo('page'),
