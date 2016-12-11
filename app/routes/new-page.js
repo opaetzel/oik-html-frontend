@@ -114,8 +114,8 @@ export default Ember.Route.extend(AuthenticatedRouteMixin, {
     titleHash: {
         "opening": "Aufruf der Sache und Aufnahme der objektbezogenen Daten",
         "presentation": "Referat der Streitfrage",
-        "hearing-pro": "Beweisaufnahme",
-        "hearing-con": "Beweisaufnahme",
+        "hearing-pro": "Beweisaufnahme Pro",
+        "hearing-con": "Beweisaufnahme Contra",
         "synthesis": "Schlussplädoyers und Abstimmung",
         "literature": "Literatur"
     },
