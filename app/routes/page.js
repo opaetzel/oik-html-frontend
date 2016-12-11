@@ -60,7 +60,7 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
             });
 
             var containerLeft = Ember.$('#main-container').offset().left;
-            var newPos = containerLeft-35;
+            var newPos = containerLeft-45;
             if(newPos>0) {
                 console.log(newPos);
                 Ember.$('#affix-left').css({left: newPos +"px",position: "fixed"});
@@ -70,7 +70,7 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
             Ember.$('#affix-left').on('affix.bs.affix', function() {
                 console.log("affixing");
                 var containerLeft = Ember.$('#main-container').offset().left;
-                var newPos = containerLeft-35;
+                var newPos = containerLeft-45;
                 if(newPos>0) {
                     Ember.$(this).css({left: newPos +"px"});
                 } else {
@@ -81,17 +81,19 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
             let ctx = canvas.getContext('2d');
             ctx.clearRect(0,0,canvas.width, canvas.height);
             for(var i=0; i<numPages; i++) {
-                let y = i*12+50;
+                let y = i*15+50;
                 if(i===currentPage) {
                     ctx.beginPath();
                     ctx.moveTo(0, y);
-                    ctx.lineTo(15, y);
+                    ctx.lineTo(24, y);
+                    ctx.lineWidth = 2;
                     ctx.strokeStyle = 'green';
                     ctx.stroke();
                 } else {
                     ctx.beginPath();
                     ctx.moveTo(0, y);
-                    ctx.lineTo(8, y);
+                    ctx.lineTo(12, y);
+                    ctx.lineWidth = 2;
                     ctx.strokeStyle = 'black';
                     ctx.stroke();
                 }
