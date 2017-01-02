@@ -6,6 +6,11 @@ export default Ember.Controller.extend({
     actions: {
         logout: function() {
             this.get('session').invalidate();
+        },
+        saveResults: function() {
+            this.get('model.results').forEach(function(item) {
+                item.save();
+            });
         }
     }
 });

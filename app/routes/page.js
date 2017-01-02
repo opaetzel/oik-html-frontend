@@ -2,6 +2,7 @@ import Ember from 'ember';
 import ResetScrollPositionMixin from '../mixins/reset-scroll-position';
 
 export default Ember.Route.extend(ResetScrollPositionMixin, {
+    currentUser: Ember.inject.service('current-user'),
     model(params) {
         return Ember.RSVP.hash({
             page: this.store.findRecord('page', params.page_id),
@@ -11,7 +12,9 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
     afterModel: function(model) {
         let currentPage = model.unit.get('pages').indexOf(model.page);
         model.unit.set('currentPage', currentPage);
-        if(!model.page.get('pageResult').content) {
+        if(this.get('currentUser.user')) {
+            model.page.belongsTo('pageResult').load();
+        } else {
             let pageResult = null;
             model.page.get('rows').forEach( (row) => {
                 if(row.get('left_is_argument') || row.get('right_is_argument')) {
