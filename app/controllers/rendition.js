@@ -11,6 +11,9 @@ export default Ember.Controller.extend({
             this.get('model.results').forEach(function(item) {
                 item.save();
             });
+            let user = this.get('currentUser.user');
+            user.set('points', user.get('points') + 5);
+            this.get('currentUser.user').save();
         }
     }
 });

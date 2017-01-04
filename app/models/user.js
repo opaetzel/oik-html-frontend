@@ -7,6 +7,7 @@ export default DS.Model.extend({
     name: attr('string'),
     groups: attr(),
     units: hasMany('unit', {async: true}),
+    points: attr('number'),
     isAdmin: Ember.computed('groups', {
         get(key) {
             return this.get('groups').indexOf('admin') >= 0;
