@@ -63,6 +63,9 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
             });
 
             var containerLeft = Ember.$('#main-container').offset().left;
+
+            Ember.$('#successMessage').css({left: containerLeft+10+"px"});
+
             var newPos = containerLeft-45;
             if(newPos>0) {
                 console.log(newPos);

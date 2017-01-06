@@ -103,11 +103,14 @@ export default EmberRemarkableComponent.extend({
 
         md.renderer.rules.image = (tokens, idx, options /*, env */) => {
             let imageId = tokens[idx].src;
+            let imageObj = Ember.Object.create({
+                id: imageId
+            });
             if(!this.get('images')) {
                 this.set('images', []);
             }
             let images = this.get('images');
-            images.push(imageId);
+            images.push(imageObj);
             return '<a id="lb-link-' + imageId + '" href="' + location + '#lb-' + imageId + '" data-token="' + jwt_token + '" onclick="loadLargeIm(this);">'+
                 '<img id="im-' + imageId + '" class="std-image">'+
                 '</a>'+
@@ -130,7 +133,9 @@ export default EmberRemarkableComponent.extend({
     didRender: function() {
         let images = this.get('images');
         if(images) {
-            for(var imageId of images) {
+            for(var imageObj of images) {
+                let imageId = imageObj.get('id');
+                console.log("iamgeId:", imageId);
                 let imageSrc = "/api/get-image/" + imageId;
                 if(this.get('is_big_image')) {
                     console.log('big image');
@@ -226,6 +231,9 @@ export default EmberRemarkableComponent.extend({
             this.set('text', this.get('text') + '\n\n[^'+id+']: ');
             let endPos = this.get('text.length');
             this.setSelectionRange(endPos, endPos);
+        },
+        imageClicked: function(imageId) {
+            this.sendAction("imageClicked", imageId);
         }
     }
 });

@@ -28,6 +28,9 @@
     {{/if}}
     <div class="oik-view">
         {{parsedMarkdownCites}}
+        {{#each images as |image index|}}
+            <a style="display: none;" {{action "imageClicked" image.id}} id="img-click-hidden-{{image.id}}">{{image.id}}This should be hidden</a>
+        {{/each}}
     </div>
 {{/if}}
 {{yield}}

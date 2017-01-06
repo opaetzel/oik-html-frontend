@@ -5,6 +5,8 @@ function loadLargeIm(el) {
     var imId = id.replace("lb-link-", "");
     var bigImage = document.getElementById('im-bg-' + imId);
     if ('true' == bigImage.getAttribute('bigLoaded')){
+        var linkId = 'img-click-hidden-' + imId;
+        document.getElementById(linkId).click();
         return;
     }
     var url = "/api/get-image/" + imId + "?size=full";
@@ -18,6 +20,8 @@ function loadLargeIm(el) {
         var imageUrl = urlCreator.createObjectURL(e.target.response);
         bigImage.src = imageUrl;
         bigImage.setAttribute('bigLoaded', 'true');
+        var linkId = 'img-click-hidden-' + imId;
+        document.getElementById(linkId).click();
     };
     xhr.send(); 
 }   

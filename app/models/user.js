@@ -36,5 +36,7 @@ export default DS.Model.extend({
             }
         }
     }),
+    clickedArguments: hasMany('row'),
+    clickedImages: [],
     active: attr()
 });

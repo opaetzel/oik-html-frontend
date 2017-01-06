@@ -22,6 +22,50 @@ export default Ember.Controller.extend({
         logout: function() {
             this.get('session').invalidate();
         },
+        radioClicked: function(val, row) {
+            let user = this.get('currentUser.user');
+            if(user) {
+                let rowId = row.get('id');
+                let foundRow = user.get('clickedArguments').findBy("id", rowId);
+                let points = 0;
+                console.log(user.get('clickedImages'));
+                if(!foundRow) {
+                    //has not yet been clicked, 5 points!
+                    points = 5;
+                    user.get('clickedArguments').pushObject(row);
+                } else {
+                    points = 2;
+                }
+                user.set('points', user.get('points') + points);
+                this.send('showSuccess', points);
+            }
+        },
+        imageClicked: function(imageId) {
+            let user = this.get('currentUser.user');                                                                                 
+            if(user) {
+                let clickedImages = user.get('clickedImages');
+                let points = 0;
+                let idx = clickedImages.indexOf(imageId);
+                console.log("imageIndex", idx);
+                if(idx<0) {
+                    points = 5;
+                    clickedImages.push(imageId);
+                } else {
+                    points = 2;
+                }
+                user.set('points', user.get('points') + points);
+                this.send('showSuccess', points);
+            }
+        },
+        showSuccess: function(addedPoints) {
+            let user = this.get('currentUser.user');
+            let userPoints = user.get('points');
+            this.set('successMessage', `+${addedPoints} Punkte! Neue Punktzahl: ${userPoints}`);
+            Ember.$('#successMessage').fadeIn();
+            setTimeout(() => {
+                Ember.$('#successMessage').fadeOut();
+            }, 2200);
+        },
         showRotateImage: function() {
             Ember.$('#rotate-modal').modal('show');
             Ember.$('#rotate-modal').on('shown.bs.modal', () => {
