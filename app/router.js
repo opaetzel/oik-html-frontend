@@ -40,6 +40,7 @@ Router.map(function() {
   this.route('rendition', {
     path: '/unit/:unit_id/rendition'
   });
+  this.route('leaderboard');
 });
 
 export default Router;

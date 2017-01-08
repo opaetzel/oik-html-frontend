@@ -1,0 +1,45 @@
+{{#top-menu}}
+    Bestenliste
+{{/top-menu}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Platzierung
+                        </th>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Punkte
+                        </th>
+                        <th>
+                            Rang
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each sortedUsers as |user idx|}}
+                        <tr>
+                            <th>
+                                {{user.rank}}
+                            </th>
+                            <td>
+                                {{user.name}}
+                            </td>
+                            <td>
+                                {{user.points}}
+                            </td>
+                            <td>
+                                Schöffe
+                            </td>
+                        </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

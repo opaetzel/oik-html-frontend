@@ -2,34 +2,55 @@
     Profil
 {{/top-menu}}
 <div class="container">
-    <div class="row margin-row pad">
-        <div class="col-md-12 grey-light">
-            Hallo <b>{{currentUser.user.name}}</b>! {{#if currentUser.user.units}}Hier kannst Du Dir deine Units ansehen:{{/if}}
+    {{#if currentUser.user.isEditor}}
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="{{currentUrl "bla"}}#profile" aria-controls="profile" role="tab" data-toggle="tab">Profil</a></li>
+            <li role="presentation" class=""><a href="{{currentUrl "bla"}}#units" aria-controls="units" role="tab" data-toggle="tab">Units</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <div role="tabpanel" class="tab-pane active" id="profile">
+                <div class="row">
+                    {{user-profile}}
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="units">
+                <div class="row margin-row pad">
+                    <div class="col-md-12 grey-light">
+                        Hallo <b>{{currentUser.user.name}}</b>! {{#if currentUser.user.units}}Hier kannst Du Dir deine Units ansehen:{{/if}}
+                    </div>
+                </div>
+                <div class="row margin-row pad {{if currentUser.user.units.length "equal" ""}}">
+                    {{#each currentUser.user.units as |unit index|}}
+                        <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
+                            {{#link-to "page" unit.id unit.pages.firstObject.id}}
+                                {{unit.rotateImageId}}
+                                {{auth-image imageSrc="api/get-image/${id}" imageId=unit.front_image styleClasses="full-width-image"}}
+                                <br>
+                                <b>{{unit.title}}</b><br>
+                                {{#link-to "edit-unit" unit.id class="pull-right" title="Editieren"}}
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                {{/link-to}}
+                            {{/link-to}}
+                        </div>
+                    {{/each}}
+                    {{#if (userInGroup currentUser.user 'editor')}}
+                        <div class="col-md-3 text-center unit-preview {{if (isEven currentUser.user.units.length) "grey-strong" "grey-light"}}">
+                            {{#link-to 'new-unit'}}
+                                <img src="images/new_unit.png">
+                                <br>
+                                <b>Neue Verhandlung</b>
+                            {{/link-to}}
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="row margin-row pad {{if currentUser.user.units.length "equal" ""}}">
-        {{#each currentUser.user.units as |unit index|}}
-            <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
-                {{#link-to "page" unit.id unit.pages.firstObject.id}}
-                    {{unit.rotateImageId}}
-                    {{auth-image imageSrc="api/get-image/${id}" imageId=unit.front_image styleClasses="full-width-image"}}
-                    <br>
-                    <b>{{unit.title}}</b><br>
-                    {{#link-to "edit-unit" unit.id class="pull-right" title="Editieren"}}
-                        <i class="glyphicon glyphicon-edit"></i>
-                    {{/link-to}}
-                {{/link-to}}
-            </div>
-        {{/each}}
-        {{#if (userInGroup currentUser.user 'editor')}}
-            <div class="col-md-3 text-center unit-preview {{if (isEven currentUser.user.units.length) "grey-strong" "grey-light"}}">
-                {{#link-to 'new-unit'}}
-                    <img src="images/new_unit.png">
-                    <br>
-                    <b>Neue Verhandlung</b>
-                {{/link-to}}
-            </div>
-        {{/if}}
-    </div>
+    {{else}}
+        <div class="row">
+            {{user-profile}}
+        </div>
+    {{/if}}
 </div>
 {{outlet}}

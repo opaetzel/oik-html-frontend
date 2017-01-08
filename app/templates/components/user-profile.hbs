@@ -1,0 +1,29 @@
+<div class="user-profile">
+    <div class="col-md-12">
+        <h2>
+            <i class="glyphicon glyphicon-user" aria-hidden="true"></i>
+            {{currentUser.user.name}}
+        </h2>
+        <div class="col-md-4">
+            <h3>
+                {{fa-icon "star"}}
+                {{currentUser.user.points}}            
+            </h3>
+            Punkte
+        </div>
+        <div class="col-md-4">
+            <h3>
+                <i class="glyphicon glyphicon-sort" aria-hidden="true"></i>
+                {{currentUser.user.rank}}
+            </h3>
+            Platzierung
+        </div>
+        <div class="col-md-4">
+            <h3>
+                {{fa-icon "graduation-cap"}}
+                Schöffe
+            </h3>
+            Rang
+        </div>
+    </div>
+</div>
