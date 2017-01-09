@@ -46,7 +46,7 @@
     "ember-truth-helpers": "1.2.0",
     "ember-uploader": "1.1.0",
     "emberx-file-input": "1.0.0",
-    "emberx-select": "2.2.2",
+    "emberx-select": "3.0.0",
     "loader.js": "^4.0.1"
   }
 }

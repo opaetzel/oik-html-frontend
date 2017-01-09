@@ -8,8 +8,8 @@
             </div>
             <div class="modal-body">
                 <div class="row equal">
-                    {{#if unit.images}}
-                        {{#each unit.images as |image|}}
+                    {{#if images}}
+                        {{#each images as |image|}}
                             <div class="col-md-4 selectable-image text-center unit-preview {{if image.selected "selected" ""}}">
                                 <a {{action "doSelectImage" image}}>
                                     <img src="{{image.blobUrl}}" class="full-width-image">
@@ -19,71 +19,75 @@
                             </div>
                         {{/each}}
                     {{/if}}
-                    <div class="col-md-4 selectable-image text-center unit-preview {{if image.selected "selected" ""}}">
-                        <a {{action "newUploadImage"}}>
-                            <img src="images/new_image.jpg" class="full-width-image">
-                            <br>
-                            Neues Bild 
-                        </a>
-                    </div>
-                </div>
-                {{#if currentImage}}
-                    <hr>
-                    {{#if isNewImage}}
-                        <p><b>Neues Bild hochladen</b></p>
-                    {{else}}
-                        <p><b>Bild editieren</b></p>
-                    {{/if}}
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{#if isNewImage}}
-                                <label for="inputFile">Datei</label>
-                                {{#x-file-input name="files" id="imageModalInputFile" multiple=false action=(action "didSelectFiles") alt="Datei auswählen"}}
-                                    <button class="btn btn-sm btn-default">Datei auswählen</button>
-                                {{/x-file-input}}
-                                {{#if uploadfile}}
-                                    {{uploadfile.name}}
-                                {{/if}}
-                            {{/if}}
-                            <form>
-                                <div class="form-group">
-                                    <label for="inputCredits">Credits</label>
-                                    {{input type="text" class="form-control" id="imageModalInputCredits" placeholder="Credits" value=currentImage.credits}}
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputCaption">Caption</label>
-                                    {{input type="text" class="form-control" id="imageModalInputCaption" placeholder="Caption" value=currentImage.caption}}
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        {{input type="checkbox" id="imageModalAgeKnown" placeholder="Alter bekannt" checked=currentImage.ageKnown}} Alter bekannt
-                                    </label>
-                                </div>
-                                {{#if currentImage.ageKnown}}
-                                    <div class="form-group">
-                                        <label for="inputAge">Alter</label>
-                                        {{input type="number" class="form-control" id="imageModalInputAge" placeholder="Alter" value=currentImage.age}}
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputImprecision">Ungenauigkeit</label>
-                                        {{input type="number" class="form-control" id="imageModalInputImprecision" placeholder="Ungenauigkeit" value=currentImage.imprecision}}
-                                    </div>
-                                {{/if}}
-                            </form>
-                            {{#if isNewImage}}
-                                <button {{action "doUpload"}} class="btn btn-sm btn-primary pull-right">Starte Upload!</button>
-                                {{#if uploading}}
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="{{uploadprogress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadprogress}}%;">
-                                            {{uploadprogress}}%
-                                        </div>
-                                    </div>
-                                {{/if}}
-                            {{else}}
-                                <button {{action "saveCurrentImage"}} class="btn btn-sm btn-default pull-right">Änderungen speichern</button>
-                            {{/if}}
+                    {{#if unit}}
+                        <div class="col-md-4 selectable-image text-center unit-preview {{if image.selected "selected" ""}}">
+                            <a {{action "newUploadImage"}}>
+                                <img src="images/new_image.jpg" class="full-width-image">
+                                <br>
+                                Neues Bild 
+                            </a>
                         </div>
-                    </div>
+                    {{/if}}
+                </div>
+                {{#if unit}}
+                    {{#if currentImage}}
+                        <hr>
+                        {{#if isNewImage}}
+                            <p><b>Neues Bild hochladen</b></p>
+                        {{else}}
+                            <p><b>Bild editieren</b></p>
+                        {{/if}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{#if isNewImage}}
+                                    <label for="inputFile">Datei</label>
+                                    {{#x-file-input name="files" id="imageModalInputFile" multiple=false action=(action "didSelectFiles") alt="Datei auswählen"}}
+                                        <button class="btn btn-sm btn-default">Datei auswählen</button>
+                                    {{/x-file-input}}
+                                    {{#if uploadfile}}
+                                        {{uploadfile.name}}
+                                    {{/if}}
+                                {{/if}}
+                                <form>
+                                    <div class="form-group">
+                                        <label for="inputCredits">Credits</label>
+                                        {{input type="text" class="form-control" id="imageModalInputCredits" placeholder="Credits" value=currentImage.credits}}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputCaption">Caption</label>
+                                        {{input type="text" class="form-control" id="imageModalInputCaption" placeholder="Caption" value=currentImage.caption}}
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            {{input type="checkbox" id="imageModalAgeKnown" placeholder="Alter bekannt" checked=currentImage.ageKnown}} Alter bekannt
+                                        </label>
+                                    </div>
+                                    {{#if currentImage.ageKnown}}
+                                        <div class="form-group">
+                                            <label for="inputAge">Alter</label>
+                                            {{input type="number" class="form-control" id="imageModalInputAge" placeholder="Alter" value=currentImage.age}}
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputImprecision">Ungenauigkeit</label>
+                                            {{input type="number" class="form-control" id="imageModalInputImprecision" placeholder="Ungenauigkeit" value=currentImage.imprecision}}
+                                        </div>
+                                    {{/if}}
+                                </form>
+                                {{#if isNewImage}}
+                                    <button {{action "doUpload"}} class="btn btn-sm btn-primary pull-right">Starte Upload!</button>
+                                    {{#if uploading}}
+                                        <div class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow="{{uploadprogress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadprogress}}%;">
+                                                {{uploadprogress}}%
+                                            </div>
+                                        </div>
+                                    {{/if}}
+                                {{else}}
+                                    <button {{action "saveCurrentImage"}} class="btn btn-sm btn-default pull-right">Änderungen speichern</button>
+                                {{/if}}
+                            </div>
+                        </div>
+                    {{/if}}
                 {{/if}}
             </div>
             <div class="modal-footer">

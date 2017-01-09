@@ -1,0 +1,43 @@
+{{#top-menu}}
+    Neues Fehlerbild erstellen
+{{/top-menu}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            {{#if imageUploaded}}
+                {{mark-areas-canvas width="500" height="500" errorImage=model}}
+                <button {{action "newError"}} class="btn btn-default">Neuer Fehler</button>
+                <button {{action "deleteError"}} class="btn btn-default">Fehler entfernen</button>
+            {{else}}
+                <p> Hier kann das Fehlerbild hochgeladen werden...</p>
+                {{#x-file-input name="files" id="inputFile" multiple=false action="didSelectFiles" alt="Datei auswählen"}}
+                    <button class="btn btn-default">Datei auswählen</button>
+                {{/x-file-input}}<br>
+                {{#if uploadfile}}
+                    {{uploadfile.name}}
+                    <button {{action "doUpload"}} class="btn btn-default">Hochladen</button>
+                    {{#if uploading}}
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="{{uploadprogress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{uploadprogress}}%;">
+                                {{uploadprogress}}%
+                            </div>
+                        </div>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        </div>
+        <div class="col-md-6">
+            {{#if model.correctImage}}
+                {{auth-image imageId=model.correctImage.id imageSrc="/api/get-image/${id}"}}
+            {{/if}}
+            {{#x-select value=currentUnit action="selectUnit" as |xs|}}
+                {{#each currentUser.user.units as |unit|}}
+                    {{#xs.option value=unit}}{{unit.title}}{{/xs.option}}
+                {{/each}}
+            {{/x-select}}
+            <button {{action "selectImage"}} class="btn btn-default">Korrektes Bild Auswählen</button><br>
+        </div>
+    </div>
+</div>
+
+{{oik-image-modal images=currentUnit.images getImagePromise=getImagePromise}}

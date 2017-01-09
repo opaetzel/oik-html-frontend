@@ -20,14 +20,18 @@ export default Ember.Service.extend({
                 xhr.setRequestHeader("Authorization", "Bearer " + token);
                 xhr.setRequestHeader("Accept", "*/*");
                 xhr.responseType = "blob";
-                xhr.onerror = (e) => {
-                    reject(e);
-                };
-                xhr.onload = (e) => {
-                    let urlCreator = window.URL || window.webkitURL;
-                    let imageUrl = urlCreator.createObjectURL(e.target.response);
-                    this.set(`cachedImages.${url}`, imageUrl);
-                    resolve(imageUrl);
+                xhr.onreadystatechange = (e) => {
+                    if(xhr.readyState === 4) {
+                        if(xhr.status === 200) {
+                            let urlCreator = window.URL || window.webkitURL;
+                            let imageUrl = urlCreator.createObjectURL(e.target.response);
+                            this.set(`cachedImages.${url}`, imageUrl);
+                            resolve(imageUrl);
+                        } else {
+                            console.log("image rejected");
+                            reject(e);
+                        }
+                    }
                 };
                 xhr.send(); 
                 

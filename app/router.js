@@ -41,6 +41,7 @@ Router.map(function() {
     path: '/unit/:unit_id/rendition'
   });
   this.route('leaderboard');
+  this.route('create-error-image');
 });
 
 export default Router;

@@ -1,24 +1,38 @@
 import Ember from 'ember';
+import EmberUploader from 'ember-uploader';
 
-export default Ember.Component.extend({
-    store: Ember.inject.service(),
-    session: Ember.inject.service('session'),
-    imageCache: Ember.inject.service(),
-    isNewImage: Ember.computed('currentImage', function() {
-        return this.get('currentImage.isNew');
-    }),
+export default Ember.Controller.extend({
+    currentUser: Ember.inject.service(),
+    session: Ember.inject.service(),
     actions: {
+        newError: function() {
+            let errorCircle = this.get('store').createRecord('circle', {centerX: 15, centerY: 15, radius: 15});
+            this.get('model.errorCircles').pushObject(errorCircle);
+        },
+        deleteError: function() {
+            this.get('model.errorCircles').popObject();
+        },
+        save: function() {
+            this.get('model').save();
+        },
+        selectImage: function() {
+            let promise = Ember.RSVP.defer();
+            this.set('getImagePromise', promise);
+            Ember.$('#select-image-modal').modal('show');
+            promise.promise.then( (img) => {
+                this.get('model').set('correctImage', img);
+            });
+        },
+        selectUnit(unit) {
+            this.set('currentUnit', unit);
+        },
         didSelectFiles: function(files) {
-            console.log(files);
             this.set('files', files);
             this.set('uploadfile', files[0]);
         },
         doUpload: function() {
             this.set('uploading', true);
-            let image = this.get('currentImage');
-            if(this.get('unit')) {
-                image.set('unit', this.get('unit'));
-            }
+            let image = this.get('model');
             let files = this.get('files');
             const uploader = EmberUploader.Uploader.create({
                 method: 'PUT',
@@ -28,7 +42,6 @@ export default Ember.Component.extend({
                     }
                 }
             });
-            const doSelectImage = this.get('actions.doSelectImage');
             uploader.on('didUpload', () => {
                 this.set('uploading', false);
                 this.set('uploadedFile', files[0]);
@@ -47,45 +60,13 @@ export default Ember.Component.extend({
             image.save().then(function(record) {
                 console.log("saved, try to upload");
                 let imageId = record.get('id');
-                uploader.set('url', "/api/images/" + imageId);
+                uploader.set('url', "/api/errorImages/" + imageId);
                 console.log(imageId);
                 console.log(files);
                 console.log("created uploader");
                 if (!Ember.isEmpty(files)) {
                     // this second argument is optional and can to be sent as extra data with the upload
                     uploader.upload(files[0]);
-                }
-            });
-        },
-        saveCurrentImage: function() {
-            this.get('currentImage').save();
-        },
-        newUploadImage: function() {
-            let images = this.get('images');
-            images.forEach(function(feImage) {
-                feImage.set('selected', false);
-            });
-            let image = this.get('store').createRecord('image');
-            this.set('currentImage', image);
-        },
-        doSelectImage: function(image, images) {
-            if(!images) {
-                images = this.get('images');
-                this.set('currentImage', image);
-            }
-            images.forEach(function(feImage) {
-                feImage.set('selected', false);
-            });
-            image.set('selected', true);
-            return false;
-        },
-        resolveImagePromise: function() {
-            let promise = this.get('getImagePromise');
-            this.get('images').forEach(function(image) {
-                if(image.get('selected')) {
-                    promise.resolve(image);
-                    Ember.$('#select-image-modal').modal('hide');
-                    return;
                 }
             });
         }
