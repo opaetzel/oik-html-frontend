@@ -10,7 +10,7 @@ export default Ember.Component.extend({
         this.set('ctx', this.get('element').getContext('2d'));
         this.draw();
     },
-    draw: Ember.observer('errorImage.errorCircles.@each.centerX', 'errorImage.errorCircles.@each.centerY', 'errorImage.errorCircles.@each.radius', function() {
+    draw: function() {
         if(!this.get('image')) {
             this.getImage().then( () => {
                 this.draw();
@@ -19,7 +19,14 @@ export default Ember.Component.extend({
         }
         this.clear()
         let ctx = this.get('ctx');
+        let foundCircles = this.get('foundCircles');
+        if(!foundCircles) {
+            return;
+        }
         this.get('errorImage.errorCircles').forEach( (circle)=> {
+            if(foundCircles.indexOf(circle.get('id'))<0) {
+                return;
+            }
             ctx.beginPath();
             ctx.strokeStyle = '#000';
             ctx.lineWidth = 1;
@@ -30,7 +37,7 @@ export default Ember.Component.extend({
             ctx.arc(circle.get('centerX'), circle.get('centerY'), circle.get('radius'), 2*Math.PI, false);
             ctx.stroke();
         });
-    }),
+    },
     getImage: function() {
         let tryGetImageCount = this.get('tryGetImageCount');
         if(tryGetImageCount && tryGetImageCount > 2) {
@@ -70,7 +77,7 @@ export default Ember.Component.extend({
         let scale = this.get('errorImage.scale');
         ctx.drawImage(img, 0, 0, img.width*scale, img.height*scale);
     },
-    mouseDown: function(event) {
+    click: function(event) {
         //check for hits
         let firstHit = this.get('errorImage.errorCircles').find( (item) => {
             let x0 = item.get('centerX');
@@ -81,40 +88,16 @@ export default Ember.Component.extend({
             return dist < item.get('radius');
         });
         if(firstHit) {
-            this.set('dragger', firstHit);
-            this.set('dist', {x: event.offsetX - firstHit.get('centerX'), y: event.offsetY - firstHit.get('centerY')});
-            if(event.ctrlKey) {
-                this.set('ctrlKey', true);
-                let oldDist = this.get('dist');
-                this.set('radiusDiff', firstHit.get('radius') - Math.sqrt(oldDist.x*oldDist.x + oldDist.y*oldDist.y))
+            let foundCircles = this.get('foundCircles');
+            if(!foundCircles) {
+                foundCircles = [];
+                this.set('foundCircles', foundCircles);
             }
-        }
-    },
-    mouseMove: function(event) {
-        let dragger = this.get('dragger');
-        if(!dragger) {
-            return;
-        }
-        if(this.get('ctrlKey')) {
-            let newDist = {x: event.offsetX - dragger.get('centerX'), y: event.offsetY - dragger.get('centerY')};
-            let oldDist = this.get('dist');
-            let newRadius = this.get('radiusDiff') + (Math.sqrt(newDist.x*newDist.x + newDist.y*newDist.y));
-            if(newRadius < 10) {
-                return;
+            let id = firstHit.get('id');
+            if(foundCircles.indexOf(id)<0) {
+                foundCircles.push(id);
             }
-            dragger.set('radius', newRadius);
-        } else {
-            let dist = this.get('dist');
-            dragger.set('centerX', event.offsetX-dist.x);
-            dragger.set('centerY', event.offsetY-dist.y);
+            this.draw();
         }
-    },
-    mouseUp: function(event) {
-        this.set('dragger', undefined);
-        this.set('ctrlKey', false);
-    },
-    mouseLeave: function(event) {
-        this.set('dragger', undefined);
-        this.set('ctrlKey', false);
     }
 });

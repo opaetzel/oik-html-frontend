@@ -42,6 +42,14 @@ Router.map(function() {
   });
   this.route('leaderboard');
   this.route('create-error-image');
+
+  this.route('edit-error-image', {
+    path: '/edit-error-image/:error_image_id'
+  });
+
+  this.route('solve-error-image', {
+    path: '/solve-error-image/:error_image_id'
+  });
 });
 
 export default Router;

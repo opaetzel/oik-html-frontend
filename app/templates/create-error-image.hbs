@@ -4,7 +4,18 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            {{#if imageUploaded}}
+            {{#if model.correctImage}}
+                {{auth-image imageId=model.correctImage.id imageSrc="/api/get-image/${id}?size=full" styleClasses="error-image-correct pull-right"}}
+            {{/if}}
+            {{#x-select value=currentUnit action="selectUnit" as |xs|}}
+                {{#each currentUser.user.units as |unit|}}
+                    {{#xs.option value=unit}}{{unit.title}}{{/xs.option}}
+                {{/each}}
+            {{/x-select}}
+            <button {{action "selectImage"}} class="btn btn-default">Korrektes Bild Auswählen</button><br>
+        </div>
+        <div class="col-md-6">
+            {{#if model.id}}
                 {{mark-areas-canvas width="500" height="500" errorImage=model}}
                 <button {{action "newError"}} class="btn btn-default">Neuer Fehler</button>
                 <button {{action "deleteError"}} class="btn btn-default">Fehler entfernen</button>
@@ -26,16 +37,11 @@
                 {{/if}}
             {{/if}}
         </div>
-        <div class="col-md-6">
-            {{#if model.correctImage}}
-                {{auth-image imageId=model.correctImage.id imageSrc="/api/get-image/${id}"}}
-            {{/if}}
-            {{#x-select value=currentUnit action="selectUnit" as |xs|}}
-                {{#each currentUser.user.units as |unit|}}
-                    {{#xs.option value=unit}}{{unit.title}}{{/xs.option}}
-                {{/each}}
-            {{/x-select}}
-            <button {{action "selectImage"}} class="btn btn-default">Korrektes Bild Auswählen</button><br>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <button {{action "save"}} class="btn btn-primary pull-right">Speichern</button>
         </div>
     </div>
 </div>

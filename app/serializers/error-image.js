@@ -2,8 +2,8 @@ import DS from 'ember-data';
 
 export default DS.RESTSerializer.extend(DS.EmbeddedRecordsMixin, {
     attrs: {
-        rows: {embedded: 'always' },
-        unit: { 
+        errorCircles: {embedded: 'always' },
+        correctImage: { 
             serialize: 'id',
             deserialize: 'id'
         }

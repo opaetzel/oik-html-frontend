@@ -88,10 +88,17 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
             ctx.clearRect(0,0,canvas.width, canvas.height);
             for(var i=0; i<numPages; i++) {
                 let y = i*15+50;
-                if(i===currentPage) {
+                if(i === currentPage) {
                     ctx.beginPath();
                     ctx.moveTo(0, y);
                     ctx.lineTo(24, y);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = 'green';
+                    ctx.stroke();
+                } else if(i <= currentPage) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(20, y);
                     ctx.lineWidth = 2;
                     ctx.strokeStyle = 'green';
                     ctx.stroke();

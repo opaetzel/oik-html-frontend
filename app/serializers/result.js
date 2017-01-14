@@ -12,7 +12,6 @@ export default DS.RESTSerializer.extend({
         if("id" in json){
             json.id = parseInt(json.id);
         }
-        console.log(json);
         return json;
     }
 });

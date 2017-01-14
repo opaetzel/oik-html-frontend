@@ -1,0 +1,14 @@
+{{#top-menu}}
+    Fehlerbild lösen
+{{/top-menu}}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            {{auth-image imageId=model.correctImage.id imageSrc="/api/get-image/${id}?size=full" styleClasses="error-image-correct pull-right"}}
+        </div>
+        <div class="col-md-6">
+            {{find-areas-canvas width="500" height="500" errorImage=model}}
+        </div>
+    </div>
+    <hr>
+</div>
