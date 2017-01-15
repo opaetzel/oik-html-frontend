@@ -25,22 +25,24 @@ export default Ember.Controller.extend({
         radioClicked: function(val, row) {
             let user = this.get('currentUser.user');
             if(user) {
-                let rowId = row.get('id');
-                let foundRow = user.get('clickedArguments').findBy("id", rowId);
+                let rowId = parseInt(row.get('id'));
+                let idx = user.get('clickedArguments').indexOf(rowId);
                 let points = 0;
                 console.log(user.get('clickedImages'));
-                if(!foundRow) {
+                if(idx<0) {
                     //has not yet been clicked, 5 points!
                     points = 5;
-                    user.get('clickedArguments').pushObject(row);
+                    user.get('clickedArguments').push(rowId);
                 } else {
                     points = 2;
                 }
                 user.set('points', user.get('points') + points);
                 this.send('showSuccess', points);
+                user.save();
             }
         },
-        imageClicked: function(imageId) {
+        imageClicked: function(_imageId) {
+            let imageId = parseInt(_imageId);
             let user = this.get('currentUser.user');                                                                                 
             if(user) {
                 let clickedImages = user.get('clickedImages');
@@ -55,6 +57,7 @@ export default Ember.Controller.extend({
                 }
                 user.set('points', user.get('points') + points);
                 this.send('showSuccess', points);
+                user.save();
             }
         },
         showSuccess: function(addedPoints) {

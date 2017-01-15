@@ -12,7 +12,7 @@ export default Ember.Route.extend(ResetScrollPositionMixin, {
     afterModel: function(model) {
         let currentPage = model.unit.get('pages').indexOf(model.page);
         model.unit.set('currentPage', currentPage);
-        if(this.get('currentUser.user')) {
+        if(model.page.belongsTo('pageResult').id() > 0) {
             model.page.belongsTo('pageResult').load();
         } else {
             let pageResult = null;

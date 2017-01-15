@@ -36,8 +36,9 @@ export default DS.Model.extend({
             }
         }
     }),
-    clickedArguments: hasMany('row'),
-    clickedImages: [],
+    clickedArguments: attr(),
+    clickedImages: attr(),
     active: attr(),
-    rank: attr()
+    rank: attr(),
+    newPw: attr()
 });

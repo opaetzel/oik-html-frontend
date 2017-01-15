@@ -26,4 +26,36 @@
             Rang
         </div>
     </div>
+    <div class="col-md-3 ">
+        <hr>
+        <form class="form" {{action "savePW" on="submit"}}>
+            <div class="form-group">
+                <label for="pw">Passwort ändern</label>
+                {{input type="password" value=password class="form-control" id="pw" placeholder="Neues Passwort"}}
+            </div>
+            <div class="form-group">
+                {{input type="password" value=passwordRepeat class="form-control" id="repeatPw" placeholder="Passwort wiederholen"}}
+            </div>
+            {{#if passwordsNotEq}}
+                {{#if password}}
+                    <div class="alert alert-danger">
+                        Passwörter stimmen nicht überein!
+                    </div>
+                    <button disabled class="btn btn-default pull-right">Passwort ändern</button>
+                {{/if}}
+            {{else}}
+                {{#if pwMessage}}
+                    <div class="alert alert-info">
+                        {{pwMessage}}
+                    </div>
+                {{/if}}
+                {{#if pwErrorMessage}}
+                    <div class="alert alert-danger">
+                        {{pwErrorMessage}}
+                    </div>
+                {{/if}}
+                <button type="submit" class="btn btn-default pull-right">Passwort ändern</button>
+            {{/if}}
+        </form>
+    </div>
 </div>
