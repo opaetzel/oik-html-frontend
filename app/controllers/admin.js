@@ -11,6 +11,17 @@ export default Ember.Controller.extend({
             this.get('model.units').forEach(function(item) {
                 item.save();
             });
+        },
+        deleteUnitConfirm: function(unit) {
+            this.set('deleteUnit', unit);
+            Ember.$('#confirmDelete').modal('show');
+        },
+        deleteUnit: function() {
+            let deleteUnit = this.get('deleteUnit');
+            if(deleteUnit) {
+                deleteUnit.deleteRecord();
+                deleteUnit.save();
+            }
         }
     }
 });

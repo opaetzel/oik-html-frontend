@@ -20,6 +20,19 @@ export default Ember.Controller.extend({
                 this.get('model.page.rows').pushObject(this.store.createRecord('row',{left_markdown: "Zeugenbefragung", left_is_argument: true, right_markdown: "Bild", right_has_image: true}));
             }
         },
+        deletePageConfirm: function() {
+            Ember.$('#confirmDelete').modal('show');
+        },
+        deletePage: function() {
+            let currentPage = this.get('model.unit.pages').indexOf(this.get('model.page'));
+            let prevPage = this.get('model.unit.pages').find(function(item, index) {
+                return index === currentPage-1;
+            });
+            let page = this.get('model.page');
+            page.deleteRecord();
+            page.save();
+            this.transitionToRoute('edit-page', this.get('model.unit.id'), prevPage.get('id'));
+        },
         deleteRow: function(row) {
             row.deleteRecord();
             row.save();

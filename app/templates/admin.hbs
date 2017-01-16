@@ -53,6 +53,9 @@
                                 </td>
                                 <td>{{unit.user.name}}</td>
                                 <td>{{input type="checkbox" checked=unit.published}}</td>
+                                <td>
+                                    <a class="" {{action "deleteUnitConfirm" unit}} title="Unit löschen"><i class="glyphicon glyphicon-trash"></i></a>
+                                </td>
                             </tr>
                         {{/each}}
                     </tbody>
@@ -62,4 +65,25 @@
         </div>
     </div>
 </div>
+
+<!-- confirm delete page modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="confirmDelete">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Einheit wirklich löschen?</h4>
+            </div>
+            <div class="modal-body">
+                <b>ID:</b> {{deleteUnit.id}} <br>
+                <b>User:</b> {{deleteUnit.user.name}} <br>
+                <b>Title:</b> {{deleteUnit.title}} <br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                <button type="button" {{action "deleteUnit"}} class="btn btn-danger" data-dismiss="modal">Löschen</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {{outlet}}
