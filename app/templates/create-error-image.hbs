@@ -4,19 +4,19 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6">
-            {{#if model.correctImage}}
-                {{auth-image imageId=model.correctImage.id imageSrc="/api/get-image/${id}?size=full" styleClasses="error-image-correct pull-right"}}
+            {{#if model.errorImage.correctImage}}
+                {{auth-image imageId=model.errorImage.correctImage.id imageSrc="/api/get-image/${id}?size=full" styleClasses="error-image-correct pull-right"}}
             {{/if}}
             {{#x-select value=currentUnit action="selectUnit" as |xs|}}
-                {{#each currentUser.user.units as |unit|}}
+                {{#each model.units as |unit|}}
                     {{#xs.option value=unit}}{{unit.title}}{{/xs.option}}
                 {{/each}}
             {{/x-select}}
             <button {{action "selectImage"}} class="btn btn-default">Korrektes Bild Auswählen</button><br>
         </div>
         <div class="col-md-6">
-            {{#if model.id}}
-                {{mark-areas-canvas width="500" height="500" errorImage=model}}
+            {{#if model.errorImage.id}}
+                {{mark-areas-canvas width="500" height="500" errorImage=model.errorImage}}
                 <button {{action "newError"}} class="btn btn-default">Neuer Fehler</button>
                 <button {{action "deleteError"}} class="btn btn-default">Fehler entfernen</button>
             {{else}}

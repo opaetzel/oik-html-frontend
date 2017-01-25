@@ -1,14 +1,30 @@
 {{#top-menu}}
     Fehlerbild lösen
 {{/top-menu}}
+<div id="successMessage" style="display: none;" class="alert alert-success">
+    {{successMessage}}
+</div>
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            {{auth-image imageId=model.correctImage.id imageSrc="/api/get-image/${id}?size=full" styleClasses="error-image-correct pull-right"}}
-        </div>
-        <div class="col-md-6">
-            {{find-areas-canvas width="500" height="500" errorImage=model}}
-        </div>
+        {{#if imageSolved}}
+            <div class="col-md-6 col-md-offset-3">
+                <h3>Sehr gut! Alle Fehler gefunden!</h3>
+                {{#link-to "error-images"}}Zurück zur Übersicht{{/link-to}}
+                {{find-areas-canvas width="500" height="500" errorImage=model foundError=(action "foundError") foundAll=(action "foundAll") showErrors=true}}
+            </div>
+        {{else}}
+            <div class="col-md-6">
+                <center>
+                    <h3>Korrektes Bild</h3>
+                    {{auth-image imageId=model.correctImage.id imageSrc="/api/get-image/${id}?size=full" styleClasses="error-image-correct"}}
+                </center>
+            </div>
+            <div class="col-md-6">
+                <center>
+                    <h3>Fehlerbild</h3>
+                    {{find-areas-canvas width="500" height="500" errorImage=model foundError=(action "foundError") foundAll=(action "foundAll")}}
+                </center>
+            </div>
+        {{/if}}
     </div>
-    <hr>
 </div>

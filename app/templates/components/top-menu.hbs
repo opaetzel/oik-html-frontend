@@ -21,8 +21,13 @@
                     {{#if session.isAuthenticated}}
                         <li>{{#link-to 'profile'}}Mein Profil{{/link-to}}</li>
                         <li>{{#link-to 'leaderboard'}}Bestenliste{{/link-to}}</li>
+                        <li>{{#link-to 'error-images'}}Fortbildung{{/link-to}}</li>
                         {{#if (userInGroup currentUser.user 'editor')}}
                             <li>{{#link-to 'unpublished-units'}}Nicht veröffentlichte Units{{/link-to}}</li>
+                        {{/if}}
+                        {{#if (userInGroup currentUser.user 'admin'}}
+                            <li>{{#link-to 'create-error-image'}}Fehlerbild erstellen{{/link-to}}</li>
+                            <li>{{#link-to 'admin'}}Admin-Backend{{/link-to}}</li>
                         {{/if}}
                         <li><a {{action 'logout'}}>Logout</a></li>
                     {{else}}

@@ -13,12 +13,8 @@ export default Ember.Controller.extend({
             this.get('model.errorCircles').popObject();
         },
         save: function() {
-            let modelId = this.get('model.id');
             this.get('model').save().then( (returnItem) => {
                 returnItem.get('errorCircles').filterBy('id', null).invoke('deleteRecord');
-                if(!modelId) {
-                    this.get("target").send("editThis", this.get("model.id"));
-                }
             });
         },
         selectImage: function() {
@@ -54,6 +50,10 @@ export default Ember.Controller.extend({
                 console.log("didUpload");
                 image.set('uploaded', true);
                 this.set('imageUploaded', true);
+                let modelId = this.get('model.id');
+                if(modelId) {
+                    this.get("target").send("editThis", this.get("model.id"));
+                }
             });
             uploader.on('progress', e => {
                 this.set('uploadprogress', e.percent);

@@ -2,10 +2,14 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
     model() {
-        return this.store.createRecord('errorImage');
+        return Ember.RSVP.hash({
+            units: this.store.query('unit', { filter: {published: false}}),
+            errorImage: this.store.createRecord('errorImage')
+        });
     },
     actions: {
         editThis(id, pageId) {
+            console.log("router - edit this");
             this.replaceWith("edit-error-image", id);
         }
     },

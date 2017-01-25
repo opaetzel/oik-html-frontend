@@ -21,7 +21,15 @@ export default Ember.Component.extend({
         let ctx = this.get('ctx');
         let foundCircles = this.get('foundCircles');
         if(!foundCircles) {
-            return;
+            if(this.get('showErrors')) {
+                foundCircles = [];
+                this.get('errorImage.errorCircles').forEach( (circle) => {
+                    foundCircles.push(circle.get('id'));
+                });
+                this.set('foundCircles', foundCircles);
+            } else {
+                return;
+            }
         }
         this.get('errorImage.errorCircles').forEach( (circle)=> {
             if(foundCircles.indexOf(circle.get('id'))<0) {
@@ -96,6 +104,11 @@ export default Ember.Component.extend({
             let id = firstHit.get('id');
             if(foundCircles.indexOf(id)<0) {
                 foundCircles.push(id);
+                this.attrs.foundError();
+            }
+            if(foundCircles.length === this.get('errorImage.errorCircles.length')) {
+                this.set('foundAll', true);
+                this.attrs.foundAll();
             }
             this.draw();
         }
