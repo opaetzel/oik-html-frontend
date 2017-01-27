@@ -25,7 +25,7 @@
                         {{#if (userInGroup currentUser.user 'editor')}}
                             <li>{{#link-to 'unpublished-units'}}Nicht veröffentlichte Units{{/link-to}}</li>
                         {{/if}}
-                        {{#if (userInGroup currentUser.user 'admin'}}
+                        {{#if (userInGroup currentUser.user 'admin')}}
                             <li>{{#link-to 'create-error-image'}}Fehlerbild erstellen{{/link-to}}</li>
                             <li>{{#link-to 'admin'}}Admin-Backend{{/link-to}}</li>
                         {{/if}}
