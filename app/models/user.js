@@ -38,6 +38,7 @@ export default DS.Model.extend({
     }),
     clickedArguments: attr(),
     clickedImages: attr(),
+    errorImages: hasMany('error-image'),
     active: attr(),
     rank: attr(),
     newPw: attr()

@@ -26,9 +26,10 @@
                             <li>{{#link-to 'unpublished-units'}}Nicht veröffentlichte Units{{/link-to}}</li>
                         {{/if}}
                         {{#if (userInGroup currentUser.user 'admin')}}
-                            <li>{{#link-to 'create-error-image'}}Fehlerbild erstellen{{/link-to}}</li>
+                            <li role="separator" class="divider"></li>
                             <li>{{#link-to 'admin'}}Admin-Backend{{/link-to}}</li>
                         {{/if}}
+                        <li role="separator" class="divider"></li>
                         <li><a {{action 'logout'}}>Logout</a></li>
                     {{else}}
                         <li>{{#link-to 'login'}}Login{{/link-to}}</li>

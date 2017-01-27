@@ -6,6 +6,9 @@
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="{{currentUrl "bla"}}#profile" aria-controls="profile" role="tab" data-toggle="tab">Profil</a></li>
             <li role="presentation" class=""><a href="{{currentUrl "bla"}}#units" aria-controls="units" role="tab" data-toggle="tab">Units</a></li>
+            {{#if currentUser.user.isAdmin}}
+                <li role="presentation" class=""><a href="{{currentUrl "bla"}}#errorImages" aria-controls="units" role="tab" data-toggle="tab">Fehlerbilder</a></li>
+            {{/if}}
         </ul>
 
         <div class="tab-content">
@@ -19,7 +22,7 @@
                 <div class="row margin-row pad">
                     <div class="col-md-12 grey-light">
                         Hallo <b>{{currentUser.user.name}}</b>! {{#if currentUser.user.units}}Hier kannst Du Dir deine Units ansehen:{{/if}}
-                    </div>
+                        </div>
                 </div>
                 <div class="row margin-row pad {{if currentUser.user.units.length "equal" ""}}">
                     {{#each currentUser.user.units as |unit index|}}
@@ -46,6 +49,37 @@
                     {{/if}}
                 </div>
             </div>
+
+
+            {{#if currentUser.user.isAdmin}}
+                <div role="tabpanel" class="tab-pane" id="errorImages">
+                    <div class="row margin-row pad">
+                        <div class="col-md-12 grey-light">
+                            Hallo <b>{{currentUser.user.name}}</b>! {{#if currentUser.user.errorImagess}}Hier kannst Du Dir deine Fehlerbilder ansehen:{{/if}}
+                            </div>
+                    </div>
+                    <div class="row margin-row pad {{if currentUser.user.units.length "equal" ""}}">
+                        {{#each currentUser.user.errorImages as |errorImage index|}}
+                            <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
+                                {{#link-to "solve-error-image" errorImage.id}}
+                                    {{auth-image imageSrc="api/get-image/${id}" imageId=errorImage.correctImage.id styleClasses="full-width-image"}}
+                                    <br>
+                                {{/link-to}}
+                                {{#link-to "edit-error-image" errorImage.id class="pull-right" title="Editieren"}}
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                {{/link-to}}
+                            </div>
+                        {{/each}}
+                        <div class="col-md-3 text-center unit-preview {{if (isEven currentUser.user.units.length) "grey-strong" "grey-light"}}">
+                            {{#link-to 'create-error-image'}}
+                                <img src="images/new_error_image.png">
+                                <br>
+                                <b>Neues Fehlerbild</b>
+                            {{/link-to}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
         </div>
     {{else}}
         <div class="row">

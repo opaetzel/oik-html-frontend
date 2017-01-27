@@ -6,5 +6,6 @@ export default DS.Model.extend({
     imageId: attr(),
     correctImage: belongsTo('image'),
     scale: attr('number'),
-    errorCircles: hasMany('circle')
+    errorCircles: hasMany('circle'),
+    user: belongsTo('user')
 });

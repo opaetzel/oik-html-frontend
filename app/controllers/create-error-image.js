@@ -7,14 +7,16 @@ export default Ember.Controller.extend({
     actions: {
         newError: function() {
             let errorCircle = this.get('store').createRecord('circle', {centerX: 15, centerY: 15, radius: 15});
-            this.get('model.errorCircles').pushObject(errorCircle);
+            this.get('model.errorImage.errorCircles').pushObject(errorCircle);
         },
         deleteError: function() {
-            this.get('model.errorCircles').popObject();
+            this.get('model.errorImage.errorCircles').popObject();
         },
         save: function() {
-            this.get('model').save().then( (returnItem) => {
+            this.get('model.errorImage.errorCircles').filterBy('radius', 0).invoke('deleteRecord');
+            this.get('model.errorImage').save().then( (returnItem) => {
                 returnItem.get('errorCircles').filterBy('id', null).invoke('deleteRecord');
+                returnItem.get('errorCircles').filterBy('radius', 0).invoke('deleteRecord');
             });
         },
         selectImage: function() {
@@ -22,7 +24,7 @@ export default Ember.Controller.extend({
             this.set('getImagePromise', promise);
             Ember.$('#select-image-modal').modal('show');
             promise.promise.then( (img) => {
-                this.get('model').set('correctImage', img);
+                this.get('model.errorImage').set('correctImage', img);
             });
         },
         selectUnit(unit) {
@@ -34,7 +36,7 @@ export default Ember.Controller.extend({
         },
         doUpload: function() {
             this.set('uploading', true);
-            let image = this.get('model');
+            let image = this.get('model.errorImage');
             let files = this.get('files');
             const uploader = EmberUploader.Uploader.create({
                 method: 'PUT',
@@ -50,7 +52,7 @@ export default Ember.Controller.extend({
                 console.log("didUpload");
                 image.set('uploaded', true);
                 this.set('imageUploaded', true);
-                let modelId = this.get('model.id');
+                let modelId = this.get('model.errorImage.id');
                 if(modelId) {
                     this.get("target").send("editThis", this.get("model.id"));
                 }
