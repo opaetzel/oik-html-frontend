@@ -9,12 +9,14 @@
     </div>
     <div class="row pad margin-row">
         {{#each model as |eimg index|}}  
+            {{#if eimg.published}}
                 <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
                     {{#link-to "solve-error-image" eimg.id}}
                         {{auth-image imageSrc='/api/get-image/${id}' imageId=eimg.correctImage.id styleClasses="full-width-image"}}
                     {{/link-to}}
                     <!--</a>-->
                 </div>
+            {{/if}}
         {{/each}}
     </div>
 </div>
