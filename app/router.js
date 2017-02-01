@@ -57,6 +57,7 @@ Router.map(function() {
       path: '/password-recovery/:token'
   });
   this.route('error-images');
+  this.route('date-determination');
 });
 
 export default Router;

@@ -2,7 +2,7 @@ import Ember from 'ember';
 import ResetScrollPositionMixin from '../mixins/reset-scroll-position';
 import DisableBootstrapMixin from '../mixins/disable-bootstrap';
 
-export default Ember.Route.extend(ResetScrollPositionMixin, DisableBootstrapMixin, {
+export default Ember.Route.extend(DisableBootstrapMixin, {
     currentUser: Ember.inject.service('current-user'),
     model(params) {
         return Ember.RSVP.hash({

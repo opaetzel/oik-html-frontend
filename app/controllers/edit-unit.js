@@ -44,7 +44,6 @@ export default Ember.Controller.extend({
         },
         doUpload: function() {
             this.set('uploading', true);
-            let image = this.get('model.rotateImage');
             let file = this.get('uploadfile');
             const uploader = EmberUploader.Uploader.create({
                 method: 'PUT',
@@ -69,28 +68,53 @@ export default Ember.Controller.extend({
             let unit = this.get('model');
             unit.set('user', this.get("currentUser.user"));
             console.log("set user");
-            image.save().then( (record) => {
-                unit.set('rotateImage', image);
-                unit.save().then(function() {
-                    console.log("saved, try to upload");
-                    let imageId = record.get('id');
-                    uploader.set('url', "/api/upload-rotate-image/" + imageId);
-                    console.log(imageId);
-                    console.log("created uploader");
-                    if (file) {
-                        // this second argument is optional and can to be sent as extra data with the upload
-                        uploader.upload(file).then(data => {
-                            console.log("didUpload");
-                            this.set('uploading', false);
-                            this.set('uploadedFile', file);
-                        }, error => {
-                            // Handle failure
-                            console.log(error);
-                            this.set('uploadError', error);
-                        });
-                    }
+            let image = unit.get('rotateImage');
+            if(!image.get('id') || image.get('id') == 0) {
+                console.log("model kaputt");
+                let newRImage = this.get('store').createRecord('rotate-image');
+                newRImage.set('credits', image.get('credits'));
+                newRImage.set('caption', image.get('caption'));
+                image = newRImage;
+                image.save().then( (record) => {
+                    unit.set('rotateImage', image);
+                    unit.save().then(function() {
+                        console.log("saved, try to upload");
+                        let imageId = record.get('id');
+                        uploader.set('url', "/api/upload-rotate-image/" + imageId);
+                        console.log(imageId);
+                        console.log("created uploader");
+                        if (file) {
+                            // this second argument is optional and can to be sent as extra data with the upload
+                            uploader.upload(file).then(data => {
+                                console.log("didUpload");
+                                this.set('uploading', false);
+                                this.set('uploadedFile', file);
+                            }, error => {
+                                // Handle failure
+                                console.log(error);
+                                this.set('uploadError', error);
+                            });
+                        }
+                    });
                 });
-            });
+            } else {
+                let imageId = image.get('id');
+                uploader.set('url', "/api/upload-rotate-image/" + imageId);
+                console.log(imageId);
+                console.log("created uploader");
+                if (file) {
+                    // this second argument is optional and can to be sent as extra data with the upload
+                    uploader.upload(file).then(data => {
+                        console.log("didUpload");
+                        this.set('uploading', false);
+                        this.set('uploadedFile', file);
+                    }, error => {
+                        // Handle failure
+                        console.log(error);
+                        this.set('uploadError', error);
+                    });
+                }
+            }
         }
     }
 });
