@@ -7,27 +7,29 @@
                 <h4 class="modal-title" id="selectImageModalLabel">Bild auswählen</h4>
             </div>
             <div class="modal-body">
-                <div class="row equal">
-                    {{#if images}}
-                        {{#each images as |image|}}
+                <div class="row">
+                    <div class="equal">
+                        {{#if images}}
+                            {{#each images as |image|}}
+                                <div class="col-md-4 selectable-image text-center unit-preview {{if image.selected "selected" ""}}">
+                                    <a {{action "doSelectImage" image}}>
+                                        <img src="{{image.blobUrl}}" class="full-width-image">
+                                        <br>
+                                        {{image.caption}}
+                                    </a>
+                                </div>
+                            {{/each}}
+                        {{/if}}
+                        {{#if unit}}
                             <div class="col-md-4 selectable-image text-center unit-preview {{if image.selected "selected" ""}}">
-                                <a {{action "doSelectImage" image}}>
-                                    <img src="{{image.blobUrl}}" class="full-width-image">
+                                <a {{action "newUploadImage"}}>
+                                    <img src="images/new_image.jpg" class="full-width-image">
                                     <br>
-                                    {{image.caption}}
+                                    Neues Bild 
                                 </a>
                             </div>
-                        {{/each}}
-                    {{/if}}
-                    {{#if unit}}
-                        <div class="col-md-4 selectable-image text-center unit-preview {{if image.selected "selected" ""}}">
-                            <a {{action "newUploadImage"}}>
-                                <img src="images/new_image.jpg" class="full-width-image">
-                                <br>
-                                Neues Bild 
-                            </a>
-                        </div>
-                    {{/if}}
+                        {{/if}}
+                    </div>
                 </div>
                 {{#if unit}}
                     {{#if currentImage}}

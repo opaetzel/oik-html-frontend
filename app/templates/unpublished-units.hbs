@@ -7,18 +7,20 @@
             <h3>Folgende Objekte werden gerade für eine Verhandlung vorbereitet:</h3>
         </div>
     </div>
-    <div class="row pad margin-row equal">
-        {{#each model as |unit index|}}  
-            <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
-                {{#link-to "page" unit.id unit.pages.firstObject.id}}
-                    {{auth-image imageSrc='/api/get-image/${id}' imageId=unit.front_image styleClasses="full-width-image"}}
-                    <br>
-                    <b>{{unit.title}}</b><br>
-                    <i>{{unit.user.name}}</i>
-                {{/link-to}}
-                <!--</a>-->
-            </div>
-        {{/each}}
+    <div class="row">
+        <div class=" pad margin-row equal">
+            {{#each model as |unit index|}}  
+                <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
+                    {{#link-to "page" unit.id unit.pages.firstObject.id}}
+                        {{auth-image imageSrc='/api/get-image/${id}' imageId=unit.front_image styleClasses="full-width-image"}}
+                        <br>
+                        <b>{{unit.title}}</b><br>
+                        <i>{{unit.user.name}}</i>
+                    {{/link-to}}
+                    <!--</a>-->
+                </div>
+            {{/each}}
+        </div>
     </div>
 </div>
 {{outlet}}

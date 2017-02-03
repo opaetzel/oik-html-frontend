@@ -3,17 +3,19 @@
 {{/top-menu}}
 <div class="container">
     {{#each model.page.rows as |row index|}}
-        <div class="row equal">
-            {{#if model.page.extendable}}
-                <div class="delete-row">
-                    <a class="" {{action "deleteRow" row}} title="Zeile löschen"><i class="glyphicon glyphicon-trash"></i></a>
+        <div class="row">
+            <div class="equal">
+                {{#if model.page.extendable}}
+                    <div class="delete-row">
+                        <a class="" {{action "deleteRow" row}} title="Zeile löschen"><i class="glyphicon glyphicon-trash"></i></a>
+                    </div>
+                {{/if}}
+                <div class="col-md-6 {{genColClass model.page.page_type index true model.unit.color_scheme}} oik-col">
+                    {{oik-md text=row.left_markdown editable=true edit=true image=row.leftImage has_image=row.left_has_image selectImage=(action "selectImage") anchorId=(concat index "-left")}}
                 </div>
-            {{/if}}
-            <div class="col-md-6 {{genColClass model.page.page_type index true model.unit.color_scheme}} oik-col">
-                {{oik-md text=row.left_markdown editable=true edit=true image=row.leftImage has_image=row.left_has_image selectImage=(action "selectImage") anchorId=(concat index "-left")}}
-            </div>
-            <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}} oik-col">
-                {{oik-md text=row.right_markdown editable=true edit=true image=row.rightImage has_image=row.right_has_image selectImage=(action "selectImage") anchorId=(concat index "-right")}}
+                <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}} oik-col">
+                    {{oik-md text=row.right_markdown editable=true edit=true image=row.rightImage has_image=row.right_has_image selectImage=(action "selectImage") anchorId=(concat index "-right")}}
+                </div>
             </div>
         </div>
     {{/each}}

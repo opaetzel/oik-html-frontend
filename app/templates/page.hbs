@@ -53,49 +53,51 @@
 </div>
 <div class="container" id="main-container">
     {{#each model.page.rows as |row index|}}
-		<div class="row equal margin-row">
-            <div class="col-md-6 {{genColClass model.page.page_type index true model.unit.color_scheme}}">
-                {{oik-md text=row.left_markdown image=row.leftImage has_image=row.left_has_image anchorId=(concat index "-left") imageClicked="imageClicked"}}
-                {{#if row.left_is_argument}}
-                    <div class="text-right pull-right bottom-controls">
-                        <label class="checkbox-inline" title="Überzeugend">
-                            {{oik-radio-button value='persuasive' groupValue=row.result.decision row=row changed="radioClicked"}}
-                            ✓
-                        </label>
-                        <label class="checkbox-inline" title="Nicht schlüssig">
-                            {{oik-radio-button value='inconseclusively' groupValue=row.result.decision row=row changed="radioClicked"}}
-                            ✗
-                        </label>
-                        <label class="checkbox-inline" title="Enthaltung">
-                            {{oik-radio-button value='abstention' groupValue=row.result.decision row=row changed="radioClicked"}}
-                            ?
-                        </label>
-                    </div>
-                {{/if}}
-			</div>
-            <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}}">
-                {{#if (and (eq model.page.page_type 'opening') (eq index 2))}}
-                    {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image anchorId=(concat index "-right") is_big_image=true imageClicked="imageClicked"}}
-                {{else}}
-                    {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image anchorId=(concat index "-right") imageClicked="imageClicked"}}
-                {{/if}}
-                {{#if row.right_is_argument}}
-                    <div class="text-right pull-right bottom-controls">
-                        <label class="checkbox-inline" title="Überzeugend">
-                            {{oik-radio-button value='persuasive' groupValue=row.result.decision row=row changed="radioClicked"}}
-                            ✓
-                        </label>
-                        <label class="checkbox-inline" title="Nicht schlüssig">
-                            {{oik-radio-button value='inconseclusively' groupValue=row.result.decision row=row changed="radioClicked"}}
-                            ✗
-                        </label>
-                        <label class="checkbox-inline" title="Enthaltung">
-                            {{oik-radio-button value='abstention' groupValue=row.result.decision row=row changed="radioClicked"}}
-                            ?
-                        </label>
-                    </div>
-                {{/if}}
-			</div>
+        <div class="row ">
+                <div class="equal margin-row">
+                <div class="col-md-6 {{genColClass model.page.page_type index true model.unit.color_scheme}}">
+                    {{oik-md text=row.left_markdown image=row.leftImage has_image=row.left_has_image anchorId=(concat index "-left") imageClicked="imageClicked"}}
+                    {{#if row.left_is_argument}}
+                        <div class="text-right pull-right bottom-controls">
+                            <label class="checkbox-inline" title="Überzeugend">
+                                {{oik-radio-button value='persuasive' groupValue=row.result.decision row=row changed="radioClicked"}}
+                                ✓
+                            </label>
+                            <label class="checkbox-inline" title="Nicht schlüssig">
+                                {{oik-radio-button value='inconseclusively' groupValue=row.result.decision row=row changed="radioClicked"}}
+                                ✗
+                            </label>
+                            <label class="checkbox-inline" title="Enthaltung">
+                                {{oik-radio-button value='abstention' groupValue=row.result.decision row=row changed="radioClicked"}}
+                                ?
+                            </label>
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="col-md-6 {{genColClass model.page.page_type index false model.unit.color_scheme}}">
+                    {{#if (and (eq model.page.page_type 'opening') (eq index 2))}}
+                        {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image anchorId=(concat index "-right") is_big_image=true imageClicked="imageClicked"}}
+                    {{else}}
+                        {{oik-md text=row.right_markdown image=row.rightImage has_image=row.right_has_image anchorId=(concat index "-right") imageClicked="imageClicked"}}
+                    {{/if}}
+                    {{#if row.right_is_argument}}
+                        <div class="text-right pull-right bottom-controls">
+                            <label class="checkbox-inline" title="Überzeugend">
+                                {{oik-radio-button value='persuasive' groupValue=row.result.decision row=row changed="radioClicked"}}
+                                ✓
+                            </label>
+                            <label class="checkbox-inline" title="Nicht schlüssig">
+                                {{oik-radio-button value='inconseclusively' groupValue=row.result.decision row=row changed="radioClicked"}}
+                                ✗
+                            </label>
+                            <label class="checkbox-inline" title="Enthaltung">
+                                {{oik-radio-button value='abstention' groupValue=row.result.decision row=row changed="radioClicked"}}
+                                ?
+                            </label>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
         </div>
     {{/each}}
     <div class="row">
