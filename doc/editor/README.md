@@ -12,9 +12,17 @@ Dort loggen Sie sich bitte mit Ihrem Benutzernamen und Passwort ein. Sie werden 
 
 ![Profil](profile.png "Profil")
 
+Über den Reiter "Units" gelangen Sie zu Ihren Units.  
+
+![Units](./profile_units_new_unit.png)
+
+Schon angelegte units können Sie über den kleinen edit Butten rechts unter dem Bild editieren:
+
+![Unit editieren](./profile_units_edit.png "Unit editieren")
+
 Mit einem Klick auf "Neue Verhandlung" wird eine neue Verhandlung angelegt. Auf der folgenden Seite müssen einige Informationen über die neue Verhandlung eingegeben werden:
 
-![Neue Verhandlung](new_unit.png "Neue Verhandlung")
+![Neue Verhandlung](./new_unit.png "Neue Verhandlung")
 
 Das "Rotationsbild" muss als "tar.gz"-Archiv hochgeladen werden, in dem auf unterster Ebene (kein Unterordner) die alphabetisch (nach Dateinamen) sortierten Bilder liegen.  
 Dieses Archiv kann mit dem folgenden Thumbnail-Generator einfach erzeugt werden: [oik-thumbnailer](https://github.com/opaetzel/oik-thumbnailer/releases/tag/v0.9)  
@@ -49,5 +57,20 @@ Das generelle Text-Markup (also die jeweilige Größe der Überschriften und fet
 richtig greift.
 
 ### Bilder
-Bilder werden nicht über die Markdown-Syntax eingetragen, sondern müssen einzeln hochgeladen bzw. selektiert werden. Ein Klick auf das Bild-Symbol öffnet einen Dialog, mit dem Bilder hochgeladen oder ausgewählt 
-werden können. Damit in einer Zelle das Bild später auch angezeigt wird, muss die "Bild anzeigen" Checkbox aktiviert sein. Im Moment werden die Bilder in der Editier-Vorschau noch nicht angezeigt, dieses Feature wird aber bald folgen. 
+Bilder werden über die Markdown-Syntax eingetragen, allerdings per interner ID referenziert. Für die Bilder gibt es einen Helfer-Dialog, über den Bilder hochgeladen und ausgewählt werden können:
+
+Zunächst das Bild-Icon über dem Textfeld in das das Bild eingefügt werden soll anklicken. 
+
+![Icon-Click](./images_open_dialog.png)
+
+Es öffnet sich der Bild-Dialog:
+
+![Bild-Dialog](./images_dialog_nothing_selected.png)
+
+Wenn ein schon vorher hochgeladenes Bild ausgewählt werden soll, einfach das Bild anklicken und unten die Auswahl bestätigen:
+
+![Bild-ausgewählt](./image_dialog_image_selected.png)
+
+Für ein neues Bild auf den Button "Neues Bild" klicken, dann ein Bild auswählen und es hochladen:
+
+![Bild-hochladen](./image_dialog_new_image.png)
