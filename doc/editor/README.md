@@ -71,6 +71,6 @@ Wenn ein schon vorher hochgeladenes Bild ausgewählt werden soll, einfach das Bi
 
 ![Bild-ausgewählt](./image_dialog_image_selected.png)
 
-Für ein neues Bild auf den Button "Neues Bild" klicken, dann ein Bild auswählen und es hochladen:
+Für ein neues Bild auf den Button "Neues Bild" klicken, dann nach einem Klick auf "Datei auswählen" ein Bild von der Festplatte auswählen und es hochladen:
 
 ![Bild-hochladen](./image_dialog_new_image.png)
