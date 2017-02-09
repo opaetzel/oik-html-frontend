@@ -1,4 +1,4 @@
-#Admin Dokumentation
+#Site-Admin Dokumentation
 
 Das Admin-Interface kann über das Menü erreicht werden. Dazu müssen Sie eingeloggt sein:
 
