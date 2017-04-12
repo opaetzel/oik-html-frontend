@@ -58,6 +58,7 @@ Router.map(function() {
   });
   this.route('error-images');
   this.route('date-determination');
+  this.route('impressum');
 });
 
 export default Router;
