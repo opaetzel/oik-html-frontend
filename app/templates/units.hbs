@@ -40,19 +40,21 @@
             <h3>Folgende Objekte stehen für eine Untersuchung zur Verfügung:</h3>
         </div>
     </div>
-    <div class="row pad margin-row">
-        {{#each model as |unit index|}}  
-            {{#if unit.published}}
-                <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
-                    {{#link-to "page" unit.id unit.pages.firstObject.id}}
-                        {{auth-image imageSrc='/api/get-image/${id}' imageId=unit.front_image styleClasses="full-width-image"}}
-                        <br>
-                        <b>{{unit.title}}</b>
-                    {{/link-to}}
-                    <!--</a>-->
-                </div>
-            {{/if}}
-        {{/each}}
+    <div class="row">
+        <div class=" pad margin-row equal">
+            {{#each model as |unit index|}}  
+                {{#if unit.published}}
+                    <div class="col-md-3 text-center unit-preview {{if (isEven index) "grey-strong" "grey-light"}}">
+                        {{#link-to "page" unit.id unit.pages.firstObject.id}}
+                            <img src="/api/get-image/{{unit.front_image}}" class="full-width-image">
+                            <br>
+                            <b>{{unit.title}}</b>
+                        {{/link-to}}
+                        <!--</a>-->
+                    </div>
+                {{/if}}
+            {{/each}}
+        </div>
     </div>
 </div>
 {{outlet}}

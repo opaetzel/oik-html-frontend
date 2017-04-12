@@ -12,7 +12,9 @@ function loadLargeIm(el) {
     var url = "/api/get-image/" + imId + "?size=full";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url);
-    xhr.setRequestHeader("Authorization", "Bearer " + token);
+    if(token != "undefined") {
+        xhr.setRequestHeader("Authorization", "Bearer " + token);
+    }
     xhr.setRequestHeader("Accept", "*/*");
     xhr.responseType = "blob";
     xhr.onload = function(e) {

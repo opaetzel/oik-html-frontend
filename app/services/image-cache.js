@@ -17,7 +17,9 @@ export default Ember.Service.extend({
                 const token = this.get('session.data.authenticated.token');
                 let xhr = new XMLHttpRequest();
                 xhr.open("GET", url);
-                xhr.setRequestHeader("Authorization", "Bearer " + token);
+                if(token) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                }
                 xhr.setRequestHeader("Accept", "*/*");
                 xhr.responseType = "blob";
                 xhr.onreadystatechange = (e) => {
